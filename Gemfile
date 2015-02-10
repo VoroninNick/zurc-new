@@ -105,3 +105,11 @@ gem 'email_validator'
 gem 'admino'
 
 gem 'ckeditor'
+
+
+
+# rails_admin
+gem 'rails_admin'
+gem 'rails_admin-i18n'
+gem 'rails_admin_globalize_field'#, github: 'VoroninNick/rails_admin_globalize_field', branch: 'allow-current-locale'
+gem 'rails_admin_nestable'
