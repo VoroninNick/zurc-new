@@ -19,3 +19,4 @@
 /public/
 /.idea/
 /config/initializers/passwords.rb
+/Guardfile
