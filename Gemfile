@@ -57,8 +57,10 @@ group :development do
   gem 'sass-rails-source-maps'#, github: 'vhyza/sass-rails-source-maps', branch: 'sass-rails-5.0.0.beta1'
 end
 
+gem 'protected_attributes'
+
 gem 'russian'
-gem 'ukrainian'
+gem 'ukrainian', github: 'VoroninNick/ukrainian', branch: 'master'
 
 gem 'http_accept_language'
 
@@ -111,5 +113,5 @@ gem 'ckeditor'
 # rails_admin
 gem 'rails_admin'
 gem 'rails_admin-i18n'
-gem 'rails_admin_globalize_field'#, github: 'VoroninNick/rails_admin_globalize_field', branch: 'allow-current-locale'
+gem 'rails_admin_globalize_field', github: 'VoroninNick/rails_admin_globalize_field', branch: 'allow-current-locale'
 gem 'rails_admin_nestable'

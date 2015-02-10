@@ -1,4 +1,15 @@
 Rails.application.routes.draw do
+
+  get 'contact', to: 'contact#index', as: :contact
+
+  get "news/list", to: 'news#list', as: :news_list
+  get "news/:id", to: 'news#view', as: :news_view
+  get "publications", to: 'publication#list', as: 'publication_list'
+  get "publications/:id", to: 'publication#view', as: :publication_view
+  #get "contact", to:'contact', as: 'contact'
+  get "about", to: 'page#about', as: 'about'
+  get "what-we-do", to: 'page#what_we_do', as: 'what_we_do'
+
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   mount Ckeditor::Engine => '/ckeditor'
   devise_for :users

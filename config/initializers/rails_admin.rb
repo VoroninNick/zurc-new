@@ -31,4 +31,48 @@ RailsAdmin.config do |config|
     # history_index
     # history_show
   end
+
+  config.included_models = []
+
+  [Article, ArticleCategory].each do |model_class|
+    if model_class.respond_to?(:translates?) && model_class.translates?
+      config.included_models += [model_class, model_class::Translation]
+    end
+  end
+
+  config.model Article do
+    edit do
+      field :published
+      field :article_category
+      field :translations, :globalize_tabs
+      field :release_date
+    end
+  end
+
+  config.model Article::Translation do
+    edit do
+      field :locale, :hidden
+      field :name
+      field :slug
+      field :description
+      field :intro
+      field :content
+      field :author
+    end
+  end
+
+  config.model ArticleCategory do
+    edit do
+      field :translations, :globalize_tabs
+      field :articles
+    end
+  end
+
+  config.model ArticleCategory::Translation do
+    edit do
+      field :locale, :hidden
+      field :name
+      field :slug
+    end
+  end
 end
