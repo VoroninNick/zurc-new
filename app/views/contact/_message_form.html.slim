@@ -1,0 +1,50 @@
+#contact-message-section.page-section
+  - I18n.with_options scope: "activerecord.attributes.message" do |tm|
+    .row
+      .columns.large-12.page-section-title
+        = t("views.page-sections.contact.message_form")
+
+
+      = simple_form_for @message, url: send("message_path") do |f|
+        /- if params[:action].to_sym != :index && flash[:notice]
+          .notice.error.columns.large-12
+            = flash[:notice]
+        - f.with_options label: false do |l|
+          .columns.large-6
+            .field-wrap
+              = l.input_field :name
+              = f.label :name, class: "input-label string"
+                = tm.t :name
+
+
+            .field-wrap
+              = l.input_field :phone
+
+              /label.input-label.phone for="message_phone" class="#{"error" if @message.errors.keys.map(&:to_sym).include?(:phone)}"
+              = f.label :phone, class: "input-label phone #{"error" if params[:action].to_sym != :index && @message.errors[:phone].any?}" do
+                - if @message.errors[:phone].any?
+                  - @message.errors[:phone].each do |error_message|
+                    span
+                      = error_message
+                - else
+                  = tm.t :phone
+
+
+            .field-wrap
+              = l.input_field :email
+              label.input-label.email for="message_email"
+                = tm.t :email
+          .columns.large-6
+            .field-wrap
+              = l.input_field :message_text, as: :text
+              /label.input-label.text for="message_message_text"
+                = tm.t :message_text
+              = f.label :phone, class: "input-label phone #{"error" if params[:action].to_sym != :index && @message.errors[:message_text].any?}" do
+                - if @message.errors[:message_text].any?
+                  - @message.errors[:message_text].each do |error_message|
+                    span
+                      = error_message
+                - else
+                  = tm.t :phone
+
+            = f.button :submit

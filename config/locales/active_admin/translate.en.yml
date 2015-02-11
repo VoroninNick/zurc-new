@@ -1,0 +1,7 @@
+en:
+  active_admin:
+    translate:
+      languages: "Language: english"
+      ru: "Russian - Русский"
+      uk: "Ukrainian - Українська"
+      en: "English"

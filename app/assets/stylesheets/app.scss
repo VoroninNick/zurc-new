@@ -1,0 +1,31 @@
+@import 'vars';
+@import "functions";
+@import "basic";
+
+
+
+@import "foundation_and_overrides";
+
+
+@import url(http://fonts.googleapis.com/css?family=Roboto:900,400,700,400italic,300italic,500,100italic,500italic,300,700italic,100,900italic&subset=cyrillic-ext,latin-ext,latin,cyrillic);
+
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&subset=latin,cyrillic-ext,cyrillic);
+
+@import "functions";
+
+@import 'shadow-effects';
+
+
+@import 'layout';
+@import "articles";
+@import 'pages/home';
+@import "pages/_contact";
+
+@import 'pages/what-we-do';
+
+@import "partials/home_gallery";
+
+.devise-view{
+  max-width: 500px;
+  margin: 0 auto;
+}

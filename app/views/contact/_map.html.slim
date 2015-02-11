@@ -1,0 +1,7 @@
+.contact-map-section.page-section.inner-indent-for-backround
+  .row
+    .columns.large-12.page-section-title
+      = t("views.page-sections.contact.map")
+    .columns.large-12
+      #contact-map-wrapper.map-wrapper data-zoom="16" data-markers="#{@map_markers.to_json}"
+        #contact-map-container.map-container

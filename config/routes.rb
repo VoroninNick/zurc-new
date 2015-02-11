@@ -1,14 +1,18 @@
 Rails.application.routes.draw do
 
-  get 'contact', to: 'contact#index', as: :contact
+  scope "(/:locale)" do
+    match '/message', to: 'contact#message', via: [:get, :post], as: :message
+    root to: 'page#index'
+    get 'contact', to: 'contact#index', as: :contact
 
-  get "news/list", to: 'news#list', as: :news_list
-  get "news/:id", to: 'news#view', as: :news_view
-  get "publications", to: 'publication#list', as: 'publication_list'
-  get "publications/:id", to: 'publication#view', as: :publication_view
-  #get "contact", to:'contact', as: 'contact'
-  get "about", to: 'page#about', as: 'about'
-  get "what-we-do", to: 'page#what_we_do', as: 'what_we_do'
+    get "news/list", to: 'news#list', as: :news_list
+    get "news/:id", to: 'news#view', as: :news_view
+    get "publications", to: 'publications#index', as: :publications
+    get "publications/:id", to: 'publications#show', as: :show_publication
+    #get "contact", to:'contact', as: 'contact'
+    get "about", to: 'page#about', as: 'about'
+    get "what-we-do", to: 'page#what_we_do', as: 'what_we_do'
+  end
 
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   mount Ckeditor::Engine => '/ckeditor'

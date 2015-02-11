@@ -1,0 +1,40 @@
+$page-section-title-color: $orange-color;
+$page-section-title-font-size: 1.4rem;
+$page-section-title-font-weight: 700;
+$page-section-title-line-height: 4rem;
+$page-section-title-text-transform: uppercase;
+
+@mixin page_section_title{
+  color: $page-section-title-color;
+  font-size: $page-section-title-font-size;
+  text-transform: $page-section-title-text-transform;
+  font-weight: $page-section-title-font-weight;
+  line-height: $page-section-title-line-height;
+}
+
+
+
+.page-title{
+  color: $orange-color;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+.page-section{
+  padding-top: #{$vertical-indent-between-sections / 2};
+  padding-bottom: #{$vertical-indent-between-sections / 2};
+
+  &.inner-indent-for-backround{
+    padding-top: #{$vertical-indent-between-sections - 1rem};
+    padding-bottom: #{$vertical-indent-between-sections};
+
+    & + .page-section {
+      padding-top: #{$vertical-indent-between-sections};
+    }
+  }
+}
+
+.page-section-title{
+  @include page_section_title;
+}

@@ -1,0 +1,193 @@
+@import "refineslide/refineslide",
+		"refineslide/refineslide-theme-dark",
+		"owl_carousel/owl-carousel",
+		"owl_carousel/owl-theme";
+
+#slider{
+	@include grid-row;
+	width:100%;
+	max-width: none;
+	margin: 0;
+
+
+	.orbit-caption{
+		background-color:transparent;
+		max-width: 850px;
+		width:100%;
+
+
+
+
+		
+	}
+
+	#refineslide-images{
+		margin: 0;
+	}
+
+  .slide-bg{
+    background: no-repeat center center;
+    background-size: cover;
+    img{
+      opacity: 0;
+    }
+  }
+
+  .rs-caption{
+    background: none;
+    max-width: 850px;
+    border: none;
+    position: absolute;
+    right: 0;
+    top: 65%;
+    left: auto;
+    bottom: auto;
+    @include transform(translateY(-65%));
+  }
+
+  .home-slider-slide-caption-title, .home-slider-slide-caption-description{
+    color: white;
+    display: block;
+    text-align: left;
+    text-transform: uppercase;
+  }
+
+  .home-slider-slide-caption-title{
+    font-size: 3rem;
+    font-weight: 700;
+  }
+
+  .home-slider-slide-caption-description{
+    font-size: 1.3rem;
+    font-weight: 700;
+  }
+}
+
+#home-about{
+
+	background-color: #f2f2f2;
+	padding-top:5em;
+	padding-bottom: 5em;
+
+	//h4{
+		//&::first-letter{
+		h4{
+			font-size: 1.1em;
+		}
+		span.decorative-letter{
+
+			position: static;
+			background-color: $orange-color;
+			font-size: 3em;
+			line-height: 1em;
+			//height: em;
+			//width:2em;
+			text-align: center;
+			vertical-align: middle;
+			display: block;
+			float: left;
+			font-weight: 900;
+
+			color:white;
+			padding: 0.4em 0.5em;
+			margin-right: 0.4em;
+			margin-bottom: 0.5em;
+		}
+		//}
+	//}
+}
+
+#home-publications{
+	margin-bottom: 5em;
+	margin-top: 5em;
+	h4{
+		color: #8a8a8a;
+		font-size: 1.4em;
+		font-weight: 800;
+		height: 2.8em;
+
+		a{
+			font: inherit;
+			color:inherit;
+		}
+
+		& + .image-link{
+			margin-top: 0.5em;
+		}
+	}
+
+	p{
+		height: 8em;
+	}
+
+	.image-link{
+		& + p{
+			margin-top: 2em;
+		}
+	}
+
+	a.read-more{
+		float: right;
+		color: $orange-color;
+		&:before{
+			@include css-triangle(7px, $orange-color, left);
+			float: left;
+			//top:7px;
+			position: relative;
+		}
+	}
+}
+
+#home-images{
+    overflow: hidden;
+	background-image: url(/assets/darkgray-texture4.png);
+	padding-top:2em;
+	padding-bottom:2em;
+
+	#carousel1 {
+    	//width: 720px;
+    	height: 8em;
+	}
+}
+
+#home-about2{
+	margin-top:5em;
+	margin-bottom:5em;
+    .home-about2-column-title{
+		font-weight: 600;
+		font-size: 1.3em;
+		height: 2.8em;
+		line-height: 1.4em;
+		text-transform: uppercase;
+        color: $orange-color;
+        display: block;
+
+		//@media only screen and (max-width:1200px) {
+        height: 2.8em;
+        line-height: 1.4em;
+		//}
+	}
+
+	p{
+		position: relative;
+
+		span#left-separator{
+			background-color: #c2c2c2;
+			height: 70%;
+			top:15%;
+			left:-15px;
+			position: absolute;
+			width:1px;
+
+		}
+
+		span#right-separator{
+			background-color: #c2c2c2;
+			height: 70%;
+			top:15%;
+			right:-15px;
+			position: absolute;
+			width:1px;
+		}
+	}
+}

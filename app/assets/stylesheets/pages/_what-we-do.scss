@@ -1,0 +1,55 @@
+.item{
+	position: relative;
+	
+	.overlay-wrapper{
+		position: absolute;
+		width:0%;
+		opacity: 0.3;
+		top: 0;
+		left: 0;
+		height: 100%;
+		display: block;
+
+		@include single-transition(all, $speed:300ms, $ease:ease-out);
+
+		.overlay{
+			position: relative;
+			float: left;
+			background-color: red;
+			width:80%;
+			height: 100%;
+		
+			display: block;
+		}
+
+		.overlay-triangle{
+				//@include css-triangle(50px, blue, left);
+				//opacity: 0.6;
+				position: relative;
+				float: left;
+				//left:80%;
+				//width: 20%;
+				//top: -100%;
+			}
+
+	}
+
+	a:hover{
+		.overlay-wrapper{
+			width:80%;
+			opacity: 0.6;
+
+
+			.overlay{
+				
+			}
+
+			.overlay-triangle{
+					@include css-triangle(175px, red, left);
+					//opacity: 0.6;
+					//position: relative;
+					border-right-width: 0;
+				}
+		}
+	}
+}

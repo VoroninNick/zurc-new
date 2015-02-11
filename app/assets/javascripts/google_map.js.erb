@@ -1,0 +1,108 @@
+var map;
+var HOME_MAPTYPE_ID = 'home_style';
+var marker;
+
+function init() {
+
+    var homeStyleProperties = [
+        {
+            featureType: 'all',
+            stylers: [
+                { "saturation": -100 },
+                { "lightness": 0 },
+                { "gamma": 1.18 }
+            ]
+        }
+    ];
+
+    var styledMapOptions = {
+        //name: 'Custom Style'
+        name: 'home style'
+    };
+
+    var customMapType = new google.maps.StyledMapType(homeStyleProperties, styledMapOptions);
+
+    var $map_wrapper = $('.map-wrapper')
+    var data_markers_str = $map_wrapper.attr('data-markers')
+    var zoom = + $map_wrapper.attr('data-zoom')
+
+    if (data_markers_str) {
+        var markers = []
+        var data_markers = $.parseJSON(data_markers_str)
+        var first_marker = data_markers[0]
+
+
+        var mapCenter = new google.maps.LatLng(first_marker.lat,first_marker.lng );
+        map = new google.maps.Map($('.map-container').get(0), {
+            scrollwheel: true,
+            zoom: zoom,
+            center: mapCenter,
+            //mapTypeId: google.maps.MapTypeId.ROADMAP
+            mapTypeId: HOME_MAPTYPE_ID
+        });
+
+        map.mapTypes.set(HOME_MAPTYPE_ID, customMapType);
+
+
+        //var div = document.createElement('DIV');
+        //div.innerHTML = '<div class="my-other-marker">I am flat marker!</div>';
+
+        console.log('hello')
+
+
+
+
+
+
+
+        for(var i=0; i<data_markers.length;i++) {
+
+            var m = data_markers[i]
+
+            var $div = jQuery('<div class="marker"><div class="marker-tooltip"></div>"></div>');
+            var $marker_tooltip = $div.find('.marker-tooltip')
+            $marker_tooltip.append('')
+
+            $div.find('a').on('click', function (event) {
+                //event.preventDefault()
+                //alert('hello')
+            })
+
+            var div = $div.get(0)
+
+            marker = new RichMarker({
+                map: map,
+                position: new google.maps.LatLng(m.lat, m.lng),
+                draggable: false,
+                flat: true,
+                anchor: RichMarkerPosition.MIDDLE,
+                content: div
+            });
+
+            google.maps.event.addListener(marker, 'position_changed', function () {
+                log('Marker position: ' + marker.getPosition());
+            });
+
+        }
+    }
+
+    console.log('map initialized successfully')
+}
+
+$document.on('ready page:load', function() {
+    /**
+     * Called on the intiial page load.
+     */
+
+
+
+
+
+
+
+
+
+    // Register an event listener to fire when the page finishes loading.
+    //google.maps.event.addDomListener(window, 'load', init);
+    init()
+});

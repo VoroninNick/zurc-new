@@ -1,0 +1,9 @@
+//= require active_admin/base
+//= require activeadmin_settings
+//= require jquery-fileupload
+//= require jquery-fileupload/vendor/tmpl
+//= require chosen-jquery
+//= require active_admin/chosen
+//= require active_admin/sortable
+//= require active_admin/sortable_forms
+//= require active_admin/vs_active_admin

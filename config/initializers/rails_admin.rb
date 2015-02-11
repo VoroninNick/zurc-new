@@ -3,16 +3,16 @@ RailsAdmin.config do |config|
   ### Popular gems integration
 
   ## == Devise ==
-  # config.authenticate_with do
-  #   warden.authenticate! scope: :user
-  # end
-  # config.current_user_method(&:current_user)
+  config.authenticate_with do
+    warden.authenticate! scope: :user
+  end
+  config.current_user_method(&:current_user)
 
   ## == Cancan ==
   # config.authorize_with :cancan
 
   ## == PaperTrail ==
-  # config.audit_with :paper_trail, 'User', 'PaperTrail::Version' # PaperTrail >= 3.0.0
+  config.audit_with :paper_trail, 'User', 'PaperTrail::Version' # PaperTrail >= 3.0.0
 
   ### More at https://github.com/sferik/rails_admin/wiki/Base-configuration
 
@@ -28,8 +28,10 @@ RailsAdmin.config do |config|
     show_in_app
 
     ## With an audit adapter, you can add:
-    # history_index
-    # history_show
+    history_index
+    history_show
+
+    nestable
   end
 
   config.included_models = []
@@ -43,13 +45,19 @@ RailsAdmin.config do |config|
   config.model Article do
     edit do
       field :published
+      field :featured
       field :article_category
-      field :translations, :globalize_tabs
+      field :image
       field :release_date
+      #field :translations, :globalize_tabs
+
+
     end
   end
 
   config.model Article::Translation do
+    visible false
+
     edit do
       field :locale, :hidden
       field :name
@@ -62,6 +70,10 @@ RailsAdmin.config do |config|
   end
 
   config.model ArticleCategory do
+
+    nestable_tree({
+      position_field: :position
+    })
     edit do
       field :translations, :globalize_tabs
       field :articles
@@ -69,6 +81,7 @@ RailsAdmin.config do |config|
   end
 
   config.model ArticleCategory::Translation do
+    visible false
     edit do
       field :locale, :hidden
       field :name

@@ -1,0 +1,11 @@
+uk:
+#  date:
+#    formats:
+#      long: "%Y-%m-%d %I:%M"
+#  time:
+#    formats:
+#      long: "%^b %d, %Y"
+
+
+  gallery:
+    name: "Ім'я"

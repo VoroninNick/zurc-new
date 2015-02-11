@@ -1,0 +1,51 @@
+#contact-page-content
+  #contact-indo-section.page-section
+    #contact-info-row.row
+      #contact-info-phones-column.large-4.columns.contact-info-column.right
+        .contact-info-col-icon
+          img.contact-info-col-icon-img src="#{asset_path('phone.png')}"
+        .contact-info-col-content
+          .contact-info-col-header
+            = "Телефони"
+          .contact-info-col-text
+            p
+              span.phone
+                = raw "38 <span class='brace'>(</span>032<span class='brace'>)</span> 297<span class='separator'>-</span>66<span class='separator'>-</span>24"
+
+              span.phone
+                = raw "38 <span class='brace'>(</span>032<span class='brace'>)</span> 297<span class='separator'>-</span>68<span class='separator'>-</span>13"
+
+
+      #contact-info-address-column.large-4.columns.contact-info-column.left
+        .contact-info-col-icon
+          img.contact-info-col-icon-img src="#{asset_path('home.png')}"
+        .contact-info-col-content
+          .contact-info-col-header
+            = "Адреса"
+          .contact-info-col-text
+            p#address-p
+              span#street
+                = "вул. Лисенка 21 (1-ий поверх)"
+              span.city
+                = "м. Львів, Україна"
+            p#contact-info-email
+              .email
+                a href="mailto:office@zurc.org"
+                  = "office@zurc.org"
+      #contact-info-working-hours-column.columns.large-4.contact-info-column
+        .contact-info-col-icon
+          img.contact-info-col-icon-img src="#{asset_path('clock.png')}"
+        .contact-info-col-content
+          .contact-info-col-header
+            = "Робочі години"
+          .contact-info-col-text
+            p
+              span#time-range
+                = raw "10:00 &mdash; 18:00"
+              span#days
+                = "у робочі дні, окрім вихідних та свят"
+            p#tip
+              = "Вихідні: субота, неділя та офіційні державні свята"
+  = render partial: "contact/map"
+
+  = render partial: "contact/message_form"

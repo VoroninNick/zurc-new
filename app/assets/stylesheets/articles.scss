@@ -1,0 +1,249 @@
+.publications-list-page{
+  .featured-publication{
+    .featured-publication-title-and-date{
+      background-color: $blue-color;
+      padding: 0 1rem;
+      height: 3.25rem;
+    }
+  }
+}
+
+.featured-publication-date, .featured-publication-title{
+  overflow: hidden;
+  display: block;
+}
+
+.featured-publication-title{
+  color: white;
+  line-height: 2rem;
+  height: 2rem;
+}
+
+.featured-publication-date{
+  line-height: 1.25rem;
+  height: 1.25rem;
+
+}
+
+.list-item{
+  margin: 2.5rem 0 2.5rem 0;
+  float: none;
+  display: inline-block;
+  &:last-child{
+    float: none !important;
+  }
+}
+
+.list-item-title-a{
+  font-weight: 600;
+}
+
+.list-item-date{
+  font-weight: 100;
+  font-size: 0.8rem;
+  margin: 0 0 0.7rem 0;
+}
+
+.list-item-short-description{
+  overflow: hidden;
+  max-height: 7.5rem;
+  //margin: 0 0 0 30%;
+
+  .has-attachments &{
+    max-height: 6rem;
+  }
+}
+
+.list-item-thumb{
+  width: 30%;
+  float: left;
+  margin: 0 2rem 0 0;
+}
+
+.attachment-icons{
+  margin: 2rem 0 0 0;
+}
+
+.attachment-icons-ul{
+  display: inline-block;
+  margin: 0 0 0 -0.5rem;
+}
+
+.attachment-icon-a-img{
+  width: 40px;
+  height: 40px;
+
+}
+
+.attachment-icon-li{
+  display: inline-block;
+  margin: 0 0.5rem 0 0.5rem;
+}
+
+
+// ==========================================
+// ------------------------------------------
+// article item
+// ------------------------------------------
+// ==========================================
+
+.article-details{
+  margin: 0 0 2.5rem 0;
+}
+
+.article-date-label, .article-author-label{
+  font-weight: 100;
+  margin-right: 3px;
+}
+
+.article-intro{
+  max-height: 6rem;
+  overflow: hidden;
+  font-style: italic;
+}
+
+.article-content{
+
+  margin: 0 0 7rem 0;
+  h3{
+    color: $orange-color;
+    font-weight: 700;
+    font-size: 1.3rem;
+    margin: 2.5rem 0 1rem 0;
+  }
+
+  ul{
+    li{
+      &:before{
+        content: "\2014";
+      }
+    }
+  }
+
+  ol{
+    counter-reset: my-badass-counter;
+
+    li{
+
+      &:before{
+        content: counter(my-badass-counter);
+        counter-increment: my-badass-counter;
+
+
+
+      }
+    }
+  }
+
+  ul, ol{
+    position: relative;
+    list-style: none;
+    padding: 0 0 0 2.5rem;
+
+    li{
+      margin: 0 0 14px 0;
+
+      &:before{
+        display: block;
+        position: absolute;
+        left: 0;
+        text-align: center;
+        width: 2.5rem;
+        color: $orange-color;
+        font-weight: 600;
+      }
+    }
+  }
+
+  p, ul, ol{
+    margin: 0 0 1.75rem 0;
+  }
+
+  p img + span {
+    font-size: 0.8rem;
+    font-weight: 300;
+  }
+
+  .quote{
+    //font-size: 1.2rem;
+    //font-weight: 300;
+    //color: #fccf52;
+    margin: 2.25rem 0 2rem 0;
+    position: relative;
+    font-style: italic;
+    font-weight: 300;
+
+    &:before, &:after{
+      position: absolute;
+      display: block;
+      font-weight: 900;
+      color: $orange-color;
+      font-family: Roboto;
+      opacity: 0.6;
+    }
+
+    &:before{
+      content: "\AB";
+      font-size: 10rem;
+      top: 0;
+      left: 0;
+      line-height: 1rem;
+
+    }
+
+    &:after{
+      content: "\BB";
+      right: 0;
+      bottom: 0;
+      font-size: 4rem;
+      line-height: 100%;
+
+    }
+
+    .quote-text{
+      position: relative;
+      display: block;
+      padding: 0 30px 1rem 75px;
+      z-index: 1;
+
+      //color: white;
+      //font-style: italic;
+      //font-size: 1.3rem;
+    }
+    .quote-author{
+      display: block;
+      text-align: right;
+      padding: 0 3rem 0 0;
+    }
+  }
+}
+
+#scroll-to-top{
+  display: block;
+  border-bottom: 1px $gray-color solid;
+  height: 10px;
+  text-align: center;
+  &:before{
+    content: "";
+
+    @include css-triangle(10px, $gray-color, bottom);
+    display: inline-block;
+    position: relative;
+    top: -11px;
+  }
+
+  &, &:before{
+    @include transition-duration(0.5s);
+    @include transition-property(border-bottom-color);
+  }
+
+  &:hover{
+    &, &:before {
+      border-bottom-color: $orange-color;
+    }
+  }
+}
+
+.pagination{
+  display: none;
+}

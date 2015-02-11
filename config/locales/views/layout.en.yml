@@ -1,0 +1,6 @@
+en:
+  views:
+    page-sections:
+      contact:
+        message_form: "Send message"
+        map: "Main branch"

@@ -1,0 +1,30 @@
+.publications-list-page
+  - if @publication_ads.count > 0
+    .featured-publications-section.page-section.inner-indent-for-background
+      .featured-publications-row.row
+        - @publication_ads.each_with_index do |ad, index|
+          .featured-publication class="columns #{index == 0 ? "featured-large large-8" : "featured-small large-4" }"
+            - if ad.image_url.present?
+              img.featured-publication-img src="#{ad.image_url}"
+            - if ad.title.present? || ad.release_date.present?
+              .featured-publication-title-and-date
+                - if ad.title.present?
+                  .featured-publication-title
+                    = ad.title
+                - if ad.release_date.present?
+                  .featured-publication-date
+                    = ad.release_date.strftime("%d.%m.%Y")
+
+
+  - if @articles && @articles.respond_to?(:count) && @articles.count > 0
+    .row
+      .page-title.columns.large-12
+        = "Останні публікації"
+      .list.publications-list.infinity-scroll-list
+        - if @articles.count > 0
+          .list.publications-list-collection
+            - @articles.each do |article|
+              = render partial: "publications/list_item", locals: { article: article }
+        - else
+          = "Публікацій немає"
+      = paginate @articles

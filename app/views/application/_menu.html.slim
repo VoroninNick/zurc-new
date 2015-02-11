@@ -1,0 +1,106 @@
+#menu-wrapper
+  .row
+    #menu-column.columns.large-12
+      #menu
+        #menu-container
+          ul
+            li
+              a href="#"
+                span
+                  = "Новини"
+            li.has-dropdown
+              a href="#"
+                span
+                  = "Про нас"
+              .dropdown
+                .dropdown-inner
+                  ul
+                    li
+                      a href="#"
+                        span
+                          = "Наша команда"
+                    li
+                      a href="#"
+                        span
+                          = "Місія"
+                    li
+                      a href="#"
+                        span
+                          = "Географія"
+                    li
+                      a href="#"
+                        span
+                          = "Організаційна структура"
+                  ul
+                    li
+                      a href="#"
+                        span
+                          = "Історія"
+                    li
+                      a href="#"
+                        span
+                          = "Діючі проекти"
+                    li
+                      a href="#"
+                        span
+                          = "Реалізовані проекти"
+                    li
+                      a href="#"
+                        span
+                          = "Річні звіти"
+
+
+                  .divider
+
+            li.has-dropdown
+              a href="#"
+                span
+                  = "Що ми робимо"
+              .dropdown
+                .dropdown-inner
+                  ul
+                    li
+                      a href="#"
+                        span
+                          = "Наша команда"
+                    li
+                      a href="#"
+                        span
+                          = "Місія"
+                    li
+                      a href="#"
+                        span
+                          = "Географія"
+                    li
+                      a href="#"
+                        span
+                          = "Організаційна структура"
+                  ul
+                    li
+                      a href="#"
+                        span
+                          = "Історія"
+                    li
+                      a href="#"
+                        span
+                          = "Діючі проекти"
+                    li
+                      a href="#"
+                        span
+                          = "Реалізовані проекти"
+                    li
+                      a href="#"
+                        span
+                          = "Річні звіти"
+                  .divider
+
+
+            li
+              a href=send("publications_path", locale: I18n.locale)
+                span
+                  = "Публікації"
+            li
+              a href="#{send("contact_path")}"
+                span
+                  = "Контакти"
+

@@ -26,7 +26,8 @@ module Zurc
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
 
-    config.i18n.fallbacks = I18n::Locale::Fallbacks.new(uk: :en, en: :uk)
+    #config.i18n.fallbacks = I18n::Locale::Fallbacks.new(uk: :en, en: :uk)
+    config.i18n.fallbacks = true
     config.i18n.available_locales = [:uk, :en]
     config.i18n.default_locale = :uk
 

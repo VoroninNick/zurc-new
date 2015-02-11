@@ -55,12 +55,15 @@ group :development do
   #gem 'sass-rails-source-maps'
   gem 'guard-livereload', '~> 2.4', require: false
   gem 'sass-rails-source-maps'#, github: 'vhyza/sass-rails-source-maps', branch: 'sass-rails-5.0.0.beta1'
+
+  gem 'pry'
+  gem 'pry-rails'
 end
 
 gem 'protected_attributes'
 
 gem 'russian'
-gem 'ukrainian', github: 'VoroninNick/ukrainian', branch: 'master'
+gem 'ukrainian', github: 'VoroninNick/ukrainian', branch: 'master', group: :disable_for_scripts
 
 gem 'http_accept_language'
 
@@ -78,9 +81,9 @@ gem 'paperclip'
 
 gem 'paper_trail'
 
-gem 'globalize'
+gem 'globalize'#, '~> 5.0.0'
 gem 'globalize-accessors'
-gem 'globalize-versioning'
+gem 'globalize-versioning'#, github: 'VoroninNick/globalize-versioning', branch: "pasha"
 
 gem 'responders'
 gem 'has_scope'
@@ -113,5 +116,16 @@ gem 'ckeditor'
 # rails_admin
 gem 'rails_admin'
 gem 'rails_admin-i18n'
-gem 'rails_admin_globalize_field', github: 'VoroninNick/rails_admin_globalize_field', branch: 'allow-current-locale'
+#puts ARGV.include?('c') ? 'console' : 'not console'
+
+gem 'rails_admin_globalize_field'#, github: 'VoroninNick/rails_admin_globalize_field', branch: 'allow-current-locale', group: :disable_for_scripts
 gem 'rails_admin_nestable'
+
+gem 'fancybox2-rails'
+
+gem 'ancestry'
+
+# gems listed below prevent rails scripts
+# gem 'rails_admin_globalize_field', github: 'VoroninNick/rails_admin_globalize_field', branch: 'allow-current-locale'
+# gem 'ukrainian', github: 'VoroninNick/ukrainian', branch: 'master'
+gem 'bundler', '>= 1.8.0'

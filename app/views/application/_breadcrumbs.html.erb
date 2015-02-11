@@ -1,0 +1,16 @@
+<div id="breadcrumbs-wrapper">
+	<div class="row">
+		<ul class="breadcrumbs">
+          <% if @breadcrumbs %>
+			<% @breadcrumbs.each_with_index do |b, index| %>
+  				<li><% if b[:url] %>
+  						<%= link_to(b[:title], b[:url]) %>
+  					<% else %>
+  						<%= content_tag(:span, b[:title], class: "#{"current" if b[:current] == true  }") %>
+  					<% end %>
+  				</li>
+  			<% end %>
+          <% end %>
+		</ul>
+	</div>
+</div>

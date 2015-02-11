@@ -1,14 +1,4 @@
 GIT
-  remote: git://github.com/VoroninNick/rails_admin_globalize_field.git
-  revision: 5e986ccb18b1211789cabe6a075063778590950d
-  branch: allow-current-locale
-  specs:
-    rails_admin_globalize_field (0.3.1)
-      globalize (>= 4.0)
-      rails (>= 4.0)
-      rails_admin (>= 0.6.2)
-
-GIT
   remote: git://github.com/VoroninNick/ukrainian.git
   revision: 6926aef16ab9a5ff590c2f3ff22b5f9c74832deb
   branch: master
@@ -59,6 +49,8 @@ GEM
       activesupport
       coercible
       showcase (~> 0.2.5)
+    ancestry (2.1.0)
+      activerecord (>= 3.0.0)
     arel (6.0.0)
     bcrypt (3.1.10)
     better_errors (2.1.1)
@@ -114,18 +106,20 @@ GEM
     em-websocket (0.5.1)
       eventmachine (>= 0.12.9)
       http_parser.rb (~> 0.6.0)
-    email_validator (1.4.0)
+    email_validator (1.5.0)
       activemodel
     erubis (2.7.0)
     eventmachine (1.0.7)
     execjs (2.3.0)
-    factory_girl (4.4.0)
+    factory_girl (4.5.0)
       activesupport (>= 3.0.0)
-    factory_girl_rails (4.4.1)
-      factory_girl (~> 4.4.0)
+    factory_girl_rails (4.5.0)
+      factory_girl (~> 4.5.0)
       railties (>= 3.0.0)
     faker (1.4.3)
       i18n (~> 0.5)
+    fancybox2-rails (0.2.8)
+      railties (>= 3.1.0, < 5.0)
     ffi (1.9.6)
     font-awesome-rails (4.3.0.0)
       railties (>= 3.2, < 5.0)
@@ -192,7 +186,7 @@ GEM
     jquery-ui-rails (5.0.3)
       railties (>= 3.2.16)
     json (1.8.2)
-    kaminari (0.16.2)
+    kaminari (0.16.3)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
     listen (2.8.5)
@@ -236,6 +230,8 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
+    pry-rails (0.3.3)
+      pry (>= 0.9.10)
     rack (1.6.0)
     rack-contrib (1.2.0)
       rack (>= 0.9.1)
@@ -281,6 +277,10 @@ GEM
       safe_yaml (~> 1.0)
       sass-rails (>= 4.0, < 6)
     rails_admin-i18n (0.0.9)
+    rails_admin_globalize_field (0.3.2)
+      globalize (>= 4.0)
+      rails (>= 4.0)
+      rails_admin (>= 0.6.2)
     rails_admin_nestable (0.3.1)
       coffee-rails
       haml-rails
@@ -378,8 +378,10 @@ PLATFORMS
 
 DEPENDENCIES
   admino
+  ancestry
   better_errors
   binding_of_caller
+  bundler (>= 1.8.0)
   byebug
   carrierwave
   ckeditor
@@ -389,6 +391,7 @@ DEPENDENCIES
   email_validator
   factory_girl_rails
   faker
+  fancybox2-rails
   foundation-rails
   globalize
   globalize-accessors
@@ -406,11 +409,13 @@ DEPENDENCIES
   paper_trail
   paperclip
   protected_attributes
+  pry
+  pry-rails
   rails (= 4.2.0)
   rails-i18n
   rails_admin
   rails_admin-i18n
-  rails_admin_globalize_field!
+  rails_admin_globalize_field
   rails_admin_nestable
   responders
   russian

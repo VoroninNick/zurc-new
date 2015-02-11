@@ -1,0 +1,40 @@
+uk:
+  activerecord:
+    models:
+      article: "Статті"
+      activeadmin_settings/setting: "Налаштування"
+      admin_user: "Адміністратори"
+      vs/route: "Роути"
+      pages/home_page: "Головна"
+      message: "Повідомлення"
+      article_ad_new: "Статті(Реклама)"
+
+
+    attributes:
+      article:
+        name: "Ім'я"
+      article/translation:
+        name: "Ім'я"
+        short_description: "Короткий опис"
+        full_description: "Повний опис"
+        slug: "url статті(наприклад транслітерація)"
+      article_ad_new:
+
+      publication:
+        name: "Назва"
+        short_description: "Короткий опис"
+        full_description: "Повний опис"
+        author: "Автор"
+        avatar: "Аватар"
+      publication/translation:
+        name: "Назва"
+        short_description: "Короткий опис"
+        full_description: "Повний опис"
+        author: "Автор"
+        avatar: "Аватар"
+        intro: "Вступ"
+      message:
+        name: "Ваше ім'я"
+        email: "Електронна скринька"
+        phone: "Контактний телефон"
+        message_text: "Текст повідомлення"

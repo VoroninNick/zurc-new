@@ -1,0 +1,15 @@
+p#notice = notice
+
+p
+  strong Name:
+  = @project.name
+p
+  strong Slug:
+  = @project.slug
+p
+  strong Deadline date:
+  = @project.deadline_date
+
+= link_to 'Edit', edit_project_path(@project)
+'|
+= link_to 'Back', projects_path

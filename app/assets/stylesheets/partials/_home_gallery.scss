@@ -1,0 +1,99 @@
+.image_carousel{
+
+    .caroufredsel_wrapper{
+        width:100% !important;
+    }
+    #foo1{
+        li{
+            float: left;
+            list-style: none;    
+            //width: 100% / 6;
+            padding-left: 10px;
+            padding-right: 10px;       
+        }
+    }
+}
+
+#flexiselDemo1, #flexiselDemo2, #flexiselDemo3 {
+display:none;
+}
+
+.nbs-flexisel-container {
+    position:relative;
+    max-width:100%;
+}
+.nbs-flexisel-ul {
+    position:relative;
+    width:9999px;
+    margin:0px;
+    padding:0px;
+    list-style-type:none;
+    text-align:center;
+}
+
+.nbs-flexisel-inner {
+    overflow:hidden;
+    float:left;
+    width:100%;
+    background:transparent;
+    //border:1px solid #ccc;
+    border-radius:5px;
+    -moz-border-radius:5px;
+    -webkit-border-radius:5px;
+}
+
+.nbs-flexisel-item {
+    float:left;
+    margin:0px;
+    padding:0px;
+    cursor:pointer;
+    position:relative;
+    line-height:0px;
+    //padding-left: 15px;
+    //padding-right: 15px;
+}
+
+.nbs-flexisel-item a{
+    width: auto;
+    position: relative;
+}
+
+.nbs-flexisel-item img {
+    width: 100%;
+    cursor: pointer;
+    position: relative;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    max-width:150px;
+    max-height:100px;
+    //max-width: 
+}
+
+/*** Navigation ***/
+
+.nbs-flexisel-nav-left,
+.nbs-flexisel-nav-right {
+    width: 22px;
+    height: 22px;
+    position: absolute;
+    cursor: pointer;
+    z-index: 100;
+    opacity: 0.5;
+
+
+
+}
+
+.nbs-flexisel-nav-left {
+    left: 10px;
+    //background-color: $orange-color;
+    @include css-triangle(22px, $orange-color, right);
+    width:22px;
+    height: 22px;
+}
+
+.nbs-flexisel-nav-right {
+    right: 5px;
+    //background-color: $orange-color;
+    @include css-triangle(22px, $orange-color, left);
+}

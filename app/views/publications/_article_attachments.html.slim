@@ -1,0 +1,7 @@
+- if attachments.count > 0
+  .attachment-icons
+    ul.attachment-icons-ul
+      - attachments.limit(6).each do |attachment|
+        li.attachment-icon-li
+          a.attachment-icon-a href=attachment.url
+            img.attachment-icon-a-img src=attachment.icon_url

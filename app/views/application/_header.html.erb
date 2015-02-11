@@ -1,0 +1,49 @@
+<div id="header">
+  <div class="row">
+    <div id="logo" class="large-2 left medium-3 small-3 columns">
+      <h1><% if current_page?(:root) %><%= image_tag('logos/ZURC-logo.png', id: "logo-img"  ) %><% else %><%= link_to(image_tag('logos/ZURC-logo.png'), root_path) %><% end %></h1>
+    </div>
+
+    <div class="large-4 medium-4 hide-for-medium-down columns" id="site-caption">
+      <h1>ЗАХІДНОУКРАЇНСЬКИЙ<br/>РЕСУРСНИЙ ЦЕНТР</h1>
+      <h2>Інновації через розвиток</h2>
+    </div>
+
+    <div id="header-contacts" class="large-4 small-6 columns">
+      <ul>
+        <li class="phone"><span class="image-container"><%= image_tag('orange_phone.png', alt: 'phone:') %></span>+38 <color>(</color>032<color>)</color> 297<color>-</color>66<color>-</color>24</li>
+        <li class="mail"><%= link_to( image_tag('orange_mail.png', alt: 'email:'), 'mailto:office@zurc.org', class: 'image-container' ) %><%= link_to('office@zurc.org', 'mailto:office@zurc.org') %></li>
+      </ul>
+    </div>
+
+    <div id="language-bar" class="large-2 hide-for-medium-down columns">
+      <% locale_labels = { uk: "UA", en: "ENG" } %>
+      <ul class="right">
+        <% I18n.available_locales.each do |locale| %>
+            <li class="language" id="<%= locale %>">
+              <% if I18n.locale.to_sym == locale.to_sym  %>
+                  <%= content_tag(:span, class: 'image-wrapper') { image_tag("flags/#{locale}.png") } + content_tag(:span, locale_labels[locale.to_sym], class: "language-label")  %>
+              <% else %>
+                  <%= link_to( image_tag("flags/#{locale}.png"), @locale_links[locale.to_sym], class: 'image-wrapper' ) %>
+                  <%= link_to(locale_labels[locale.to_sym], @locale_links[locale.to_sym], class: 'language-label') %>
+              <% end %>
+            </li>
+        <% end %>
+      </ul>
+    </div>
+    <div id="mobile-button-column" class="small-3 columns right show-for-medium-down">
+      <div class="position-relative">
+        <div id="mobile-button">
+          <div id="mobile-button-inner">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+  
+<!-- End Header and Nav -->
+
+  
