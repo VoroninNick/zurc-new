@@ -47,9 +47,10 @@ RailsAdmin.config do |config|
       field :published
       field :featured
       field :article_category
+      field :translations, :globalize_tabs
       field :image
       field :release_date
-      #field :translations, :globalize_tabs
+     
 
 
     end
@@ -75,6 +76,7 @@ RailsAdmin.config do |config|
       position_field: :position
     })
     edit do
+      field :image
       field :translations, :globalize_tabs
       field :articles
     end

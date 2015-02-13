@@ -54,7 +54,7 @@ group :development do
   #gem 'coffee-rails-source-maps'
   #gem 'sass-rails-source-maps'
   gem 'guard-livereload', '~> 2.4', require: false
-  gem 'sass-rails-source-maps'#, github: 'vhyza/sass-rails-source-maps', branch: 'sass-rails-5.0.0.beta1'
+  #gem 'sass-rails-source-maps', github: 'vhyza/sass-rails-source-maps', branch: 'sass-rails-5.0.0.beta1'
 
   gem 'pry'
   gem 'pry-rails'
@@ -81,9 +81,9 @@ gem 'paperclip'
 
 gem 'paper_trail'
 
-gem 'globalize'#, '~> 5.0.0'
+gem 'globalize', '~> 5.0.0'
 gem 'globalize-accessors'
-gem 'globalize-versioning'#, github: 'VoroninNick/globalize-versioning', branch: "pasha"
+gem 'globalize-versioning', github: 'VoroninNick/globalize-versioning', branch: "pasha"
 
 gem 'responders'
 gem 'has_scope'

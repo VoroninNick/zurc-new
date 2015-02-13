@@ -1,22 +1,29 @@
 Rails.application.routes.draw do
 
-  scope "(/:locale)" do
+  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
+  mount Ckeditor::Engine => '/ckeditor'
+  devise_for :users
+
+  scope "(:locale)" do
     match '/message', to: 'contact#message', via: [:get, :post], as: :message
     root to: 'page#index'
     get 'contact', to: 'contact#index', as: :contact
 
     get "news/list", to: 'news#list', as: :news_list
     get "news/:id", to: 'news#view', as: :news_view
-    get "publications", to: 'publications#index', as: :publications
-    get "publications/:id", to: 'publications#show', as: :show_publication
+    get "publications", to: 'publications#index', as: :publications, defaults: { article_category: :publications }
+    get "publications/:id", to: 'publications#show', as: :show_publication, defaults: { article_category: :publications }
+    get "news", to: 'publications#news_index', as: :news, defaults: { article_category: :news }
+    get "news/:id", to: 'publications#show_news', as: :show_news, defaults: { article_category: :news }
+
     #get "contact", to:'contact', as: 'contact'
-    get "about", to: 'page#about', as: 'about'
+    get "about", to: 'publications#about_index', as: :about, defaults: { article_category: :about }
+    get "about/:id", to: 'publications#show_about', as: :show_about, defaults: { article_category: :about }
+
     get "what-we-do", to: 'page#what_we_do', as: 'what_we_do'
   end
 
-  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
-  mount Ckeditor::Engine => '/ckeditor'
-  devise_for :users
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

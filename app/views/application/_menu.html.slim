@@ -5,49 +5,21 @@
         #menu-container
           ul
             li
-              a href="#"
+              a href=news_path
                 span
                   = "Новини"
             li.has-dropdown
-              a href="#"
+              a href=about_path
                 span
                   = "Про нас"
               .dropdown
                 .dropdown-inner
                   ul
-                    li
-                      a href="#"
-                        span
-                          = "Наша команда"
-                    li
-                      a href="#"
-                        span
-                          = "Місія"
-                    li
-                      a href="#"
-                        span
-                          = "Географія"
-                    li
-                      a href="#"
-                        span
-                          = "Організаційна структура"
-                  ul
-                    li
-                      a href="#"
-                        span
-                          = "Історія"
-                    li
-                      a href="#"
-                        span
-                          = "Діючі проекти"
-                    li
-                      a href="#"
-                        span
-                          = "Реалізовані проекти"
-                    li
-                      a href="#"
-                        span
-                          = "Річні звіти"
+                    - Article.published.about_us.order_by_date_desc.each do |article|
+                      li
+                        a href=article.to_param
+                          span
+                            = article.name
 
 
                   .divider

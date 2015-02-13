@@ -1,0 +1,4 @@
+ul.about-menu
+  - @articles.each do |article|
+	li
+	  = link_to_unless (params[:controller] == 'publications' && params[:action] == 'show_about' && @article && @article.id == article.id ), article.name, article.to_param  

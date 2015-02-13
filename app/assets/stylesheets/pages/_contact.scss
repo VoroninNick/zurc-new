@@ -200,13 +200,15 @@
 }
 
 
+
 #contact-map-container{
   height: 400px;
 
   .marker{
     width: 60px;
     height: 75px;
-    background: url(<%= asset_path("logos/ZURC-logo.png") %>) no-repeat center center;
+    background: url("/assets/logos/ZURC-logo.png") no-repeat center center;
+    //background: url(<%= asset_path("logos/ZURC-logo.png") %>) no-repeat center center;
     background-size: cover;
   }
 }

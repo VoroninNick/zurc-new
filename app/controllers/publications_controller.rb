@@ -1,18 +1,13 @@
 class PublicationsController < InnerPageController
-  def index
-
+  def index(articles = nil, featured_articles = nil, breadcrumbs_title = "Публікації")
+    params_category = params[:article_category]
     respond_to do |format|
 
-      @articles = Article.published.publications.unfeatured.page(params[:page]).per(100)
-      @featured_articles = Article.published.publications.featured
+      @articles = articles || Article.published.send(params_category).unfeatured.order_by_date_desc.page(params[:page]).per(100)
+      @featured_articles = featured_articles == false ? nil : featured_articles || Article.published.publications.featured 
 
       format.html do
-
-
-        @breadcrumbs.push({title: "Публікації", url: false, current: true})
-
-
-
+        @breadcrumbs.push({title: breadcrumbs_title, url: false, current: true})
       end
 
       format.json do
@@ -33,8 +28,6 @@ class PublicationsController < InnerPageController
     # end
   end
 
-
-
   def show
     @params_id = params[:id]
     @article = Article.with_translations.published.publications.by_url(@params_id).first
@@ -50,4 +43,27 @@ class PublicationsController < InnerPageController
       #@related_articles = @article.related_publications
     end
   end
+
+  def news_index
+    articles = Article.published.news.order_by_date_desc.page(params[:page]).per(100)
+    index(articles, false, "Новини")
+    respond_to do |format|
+      format.html { render "index" }
+    end
+  end  
+
+  def show_news
+  end
+
+  def about_index
+    @articles = Article.published.about_us.order_by_date_desc
+
+    respond_to do |format|
+      format.html do 
+        @breadcrumbs.push({title: "Про нас", url: false, current: true})
+      end
+    end
+  end
+
+  
 end

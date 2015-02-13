@@ -27,8 +27,8 @@ class Article < ActiveRecord::Base
   #scope :publications_exclude_ads, ->(ads = ArticleAd.ads) { publications.select {|p| used = false; ads.map {|ad| used = true if ad.article_id == p.id   }; !used  } }
   #scope :publications_exclude_ads, ->(ads = ArticleAd.ads || [] ) { ads = ArticleAd.ads || [] if ads.nil?; publications.where.not(id: ads.map(&:article_id) )  }
   scope :about_us, proc { where(article_category_id: 2) }
-  scope :what_we_do, proc { where(article_category_id: 1) }
-  scope :news, proc { where(article_category_id: 3) }
+  scope :what_we_do, proc { where(article_category_id: 3) }
+  scope :news, proc { where(article_category_id: 1) }
   scope :published, proc { where(published: 't') }
   scope :unpublished, proc { where.not(published: 't') }
   scope :order_by_date_desc, -> { order('release_date desc') }
@@ -82,7 +82,9 @@ class Article < ActiveRecord::Base
   end
 
   def to_param
-    routes_module.send("show_publication_path", id: self.translations_by_locale[I18n.locale].slug)
+    routes_module.send("show_publication_path", id: self.translations_by_locale[I18n.locale].slug) if self.publication?
+    routes_module.send("show_news_path", id: self.translations_by_locale[I18n.locale].slug) if self.news?
+    routes_module.send("show_about_path", id: self.translations_by_locale[I18n.locale].slug) if self.about_us?
   end
 
 

@@ -24,4 +24,8 @@ class ArticleCategory < ActiveRecord::Base
     end
   end
 
+  # images
+  attr_accessible :image
+  mount_uploader :image, ArticleCategoryImageUploader
+
 end

@@ -1,5 +1,5 @@
 .list-item.publication-item.columns.large-6 class="#{"has-attachments" if article.respond_to?(:attachments) && article.attachments.count > 0}"
-  - if article.translations_by_locale[:uk].name
+  - if article.translations_by_locale[I18n.locale].name
     .list-item-title
       a.list-item-title-a href=article.to_param
         = article.name

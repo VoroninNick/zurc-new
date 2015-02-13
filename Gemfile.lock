@@ -1,4 +1,13 @@
 GIT
+  remote: git://github.com/VoroninNick/globalize-versioning.git
+  revision: d4261a1c5748ced209f922a9ca208e6fcfc7c962
+  branch: pasha
+  specs:
+    globalize-versioning (0.1.0.alpha.1)
+      globalize (>= 3.0.4, <= 5)
+      paper_trail (~> 3.0.0)
+
+GIT
   remote: git://github.com/VoroninNick/ukrainian.git
   revision: 6926aef16ab9a5ff590c2f3ff22b5f9c74832deb
   branch: master
@@ -129,14 +138,11 @@ GEM
       sass (>= 3.3.0, < 3.5)
     globalid (0.3.2)
       activesupport (>= 4.1.0)
-    globalize (4.0.3)
-      activemodel (>= 4.0.0, < 5)
-      activerecord (>= 4.0.0, < 5)
+    globalize (5.0.0)
+      activemodel (>= 4.2.0, < 4.3)
+      activerecord (>= 4.2.0, < 4.3)
     globalize-accessors (0.1.5)
       globalize (>= 3)
-    globalize-versioning (0.1.0.alpha.1)
-      globalize (>= 3, < 5)
-      paper_trail (~> 3.0.0)
     guard (2.12.1)
       formatador (>= 0.2.4)
       listen (~> 2.7)
@@ -313,10 +319,6 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (~> 1.1)
-    sass-rails-source-maps (0.0.4)
-      rails
-      sass (>= 3.3.0.rc.3)
-      sprockets (>= 2.3.0)
     sdoc (0.4.1)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
@@ -393,9 +395,9 @@ DEPENDENCIES
   faker
   fancybox2-rails
   foundation-rails
-  globalize
+  globalize (~> 5.0.0)
   globalize-accessors
-  globalize-versioning
+  globalize-versioning!
   guard-livereload (~> 2.4)
   has_scope
   http_accept_language
@@ -420,7 +422,6 @@ DEPENDENCIES
   responders
   russian
   sass-rails (~> 5.0)
-  sass-rails-source-maps
   sdoc (~> 0.4.0)
   showcase
   simple_form

@@ -1,19 +1,39 @@
 .publications-list-page
-  - if @featured_articles.length > 0
+  - if @featured_articles && @featured_articles.length > 0
     .featured-publications-section.page-section.inner-indent-for-backround
       .featured-publications-row.row
-        - @featured_articles.each_with_index do |article, index|
-          .featured-publication class="columns #{index == 0 ? "featured-large large-8" : "featured-small large-4" }"
-            - if article.ad_image_url.present?
-              img.featured-publication-img src="#{article.ad_image_url}"
-            - if article.name.present? || article.release_date.present?
-              .featured-publication-title-and-date
-                - if article.name.present?
-                  .featured-publication-title
-                    = article.name
-                - if !article.release_date.present?
-                  .featured-publication-date
-                    = article.release_date.strftime("%d.%m.%Y")
+        .columns.large-8   
+          .featured-publication class="#{ "featured-large" }"
+            .column-inner
+              - [@featured_articles.first].each do |article|
+                = link_to article.to_param do
+                  - if article.ad_image_url.present?
+                    img.featured-publication-img src="#{article.ad_image_url}"
+                  - if article.name.present? || article.release_date.present?
+                    .featured-publication-title-and-date
+                      - if article.name.present?
+                        .featured-publication-title
+                          = article.name
+                      - if article.release_date.present?
+                        .featured-publication-date
+                          = article.release_date.strftime("%d.%m.%Y")
+        - if @featured_articles.length > 1
+          .columns.large-4
+            - @featured_articles[1, @featured_articles.length - 1].each do |article|
+              .featured-publication class="#{ "featured-small" }"
+                .column-inner
+                  = link_to article.to_param do
+                    - if article.ad_image_url.present?
+                      img.featured-publication-img src="#{article.ad_image_url}"
+                    - if article.name.present? || article.release_date.present?
+                      .featured-publication-title-and-date
+                        - if article.name.present?
+                          .featured-publication-title
+                            = article.name
+                        - if article.release_date.present?
+                          .featured-publication-date
+                            = article.release_date.strftime("%d.%m.%Y")
+
 
 
   - if @articles && @articles.respond_to?(:count) && @articles.count > 0
