@@ -68,7 +68,7 @@ class PublicationsController < InnerPageController
   def show_about
     @articles = about_articles
     @params_id = params[:id]
-    @article = Article.with_translations.published.publications.by_url(@params_id).first
+    @article = Article.with_translations.published.about_us.by_url(@params_id).first
     if @article
       @breadcrumbs.push({title: "Про нас", url: send("publications_path"), current: false})
       @breadcrumbs.push({title: @article.name, url: false, current: true})
