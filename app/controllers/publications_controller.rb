@@ -75,7 +75,9 @@ class PublicationsController < InnerPageController
     @article = Article.with_translations.published.about_us.by_url(@params_id).first
     if @article
       @breadcrumbs.push({title: I18n.t("breadcrumbs.about-us"), url: send("publications_path"), current: false})
-      @breadcrumbs.push({title: @article.name, url: false, current: true})
+      if @article.get_name.present?
+        @breadcrumbs.push({title: @article.get_name, url: false, current: true})
+      end
     end
 
     render template: "publications/show_about"
