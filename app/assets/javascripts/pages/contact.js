@@ -16,7 +16,7 @@ $document.on('ready page:load', function(){
     //    }
     //
     //})
-    var $form = $('form')
+    var $form = $('form.simple_form.new_message')
 
     $form.validate({
         onsubmit: false,
