@@ -35,7 +35,9 @@ class PublicationsController < InnerPageController
 
     if @article
       @breadcrumbs.push({title: I18n.t("breadcrumbs.publications"), url: send("publications_path"), current: false})
-      @breadcrumbs.push({title: @article.name, url: false, current: true})
+      if @article.get_name.present?
+        @breadcrumbs.push({title: @article.get_name, url: false, current: true})
+      end
       all_publications = Article.published.publications
       current_index = nil
       all_publications.each_with_index {|item, index| if item.id == @article.id then; current_index = index; break; end; }
