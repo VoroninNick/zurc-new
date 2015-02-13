@@ -3,6 +3,7 @@ $page-section-title-font-size: 1.4rem;
 $page-section-title-font-weight: 700;
 $page-section-title-line-height: 4rem;
 $page-section-title-text-transform: uppercase;
+$gray-section-background-color: #ebebeb;
 
 @mixin page_section_title{
   color: $page-section-title-color;
@@ -29,9 +30,15 @@ $page-section-title-text-transform: uppercase;
     padding-top: #{$vertical-indent-between-sections - 1rem};
     padding-bottom: #{$vertical-indent-between-sections};
 
+    background-color: $gray-section-background-color;
+
     & + .page-section {
       padding-top: #{$vertical-indent-between-sections};
     }
+  }
+
+  &.post-background-section{
+    padding-top: #{$vertical-indent-between-sections};
   }
 }
 

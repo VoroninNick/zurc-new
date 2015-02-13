@@ -2,9 +2,9 @@
   .row
     .article-info
       .article-header.columns.large-8.right
-        - if @article.name.present?
+        - if  @article.get_name.present?
           .article-title.page-title
-            = "#{Globalize.with_locale(:uk) { @article.name } }-#{I18n.locale}"
+            = @article.get_name
         .article-details
           - if @article.release_date.present?
             .article-date
@@ -12,23 +12,23 @@
                 = "Дата публікації:"
               span.article-date-value
                 = @article.release_date.strftime("%d.%m.%Y")
-          - if !@article.author.present?
+          - if @article.get_author.present?
             .article-author
               span.article-author-label
                 = "Автор:"
               span.article-author-value
-                = @article.author
-        - if @article.intro.present?
+                = @article.get_author
+        - if @article.get_intro.present?
           .article-intro
-            = @article.intro
+            = @article.get_intro
       - if @article.image && @article.image.url.present?
         .article-image-and-attachments.columns.large-4.left
           .article-image
             img src="#{@article.image.url(:avatar)}"
-          = render partial: "article_attachments", locals: { attachments: @article.attachments }
+          = render partial: "article_attachments", locals: { attachments: @article.attachments } if @article && @article.respond_to?(:attachments) && @attachments.any?
       .clearfix
     .article-content.columns.large-8.right
-      = raw @article.content
+      = raw @article.get_content
     a#scroll-to-top.columns.large-8.right href="#body"
     .list.publications-list-collection.related-articles
       - @related_articles.each do |article|

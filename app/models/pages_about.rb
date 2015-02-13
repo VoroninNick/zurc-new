@@ -20,6 +20,18 @@ class PagesAbout < ActiveRecord::Base
     attr_accessible :content
   end
 
+  def get_attr(attr_name, locales_priority = [I18n.locale, another_locale])
+    super(attr_name, locales_priority)
+  end
+
+  def another_locale
+    I18n.available_locales.map(&:to_sym).select {|locale| locale != I18n.locale.to_sym  }.first
+  end
+
+  def get_content
+    get_attr(:content)
+  end
+
   # scopes
   scope :published, -> { where(published: 't').order('id desc').first }
 end

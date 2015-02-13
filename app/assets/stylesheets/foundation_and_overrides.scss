@@ -126,6 +126,7 @@ $row-width: rem-calc(1200);
 // We use these to control various global styles
 // $body-bg: $white;
 // $body-font-color: $jet;
+$body-font-color: #898989;
 $body-font-family: 'Open Sans', sans-serif;
 // $body-font-weight: $font-weight-normal;
 // $body-font-style: normal;
@@ -256,6 +257,7 @@ $body-font-family: 'Open Sans', sans-serif;
 // $anchor-text-decoration: none;
 // $anchor-text-decoration-hover: none;
 // $anchor-font-color: $primary-color;
+$anchor-font-color: $orange-color;
 // $anchor-font-color-hover: scale-color($primary-color, $lightness: -14%);
 
 // We use these to style the <hr> element

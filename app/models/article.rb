@@ -26,6 +26,38 @@ class Article < ActiveRecord::Base
     end
   end
 
+  def get_attr(attr_name, locales_priority = [I18n.locale, another_locale])
+    super(attr_name, locales_priority)
+  end
+
+  def another_locale
+    I18n.available_locales.map(&:to_sym).select {|locale| locale != I18n.locale.to_sym  }.first
+  end
+
+  def get_name
+    get_attr(:name)
+  end
+
+  def get_description
+    get_attr(:description)
+  end
+
+  def get_intro
+    get_attr(:intro)
+  end
+
+  def get_content
+    get_attr(:content)
+  end
+
+  def get_slug
+    get_attr(:slug)
+  end
+
+  def get_author
+    get_attr(:author)
+  end
+
   # def with_translation(locale = I18n.locale )
   #   self.class.translated_attribute_names.each do |attr_name|
   #     attr_value = self.translations_by_locale[locale].send(attr_name)
@@ -53,6 +85,8 @@ class Article < ActiveRecord::Base
 
   # images
   mount_uploader :image, ImageUploader
+
+
 
 
 

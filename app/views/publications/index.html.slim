@@ -9,11 +9,11 @@
                 = link_to article.to_param do
                   - if article.ad_image_url.present?
                     img.featured-publication-img src="#{article.ad_image_url}"
-                  - if article.name.present? || article.release_date.present?
+                  - if article.get_name.present? || article.release_date.present?
                     .featured-publication-title-and-date
                       - if article.name.present?
                         .featured-publication-title
-                          = article.name
+                          = article.get_name
                       - if article.release_date.present?
                         .featured-publication-date
                           = article.release_date.strftime("%d.%m.%Y")
@@ -25,11 +25,11 @@
                   = link_to article.to_param do
                     - if article.ad_image_url.present?
                       img.featured-publication-img src="#{article.ad_image_url}"
-                    - if article.name.present? || article.release_date.present?
+                    - if article.get_name.present? || article.release_date.present?
                       .featured-publication-title-and-date
-                        - if article.name.present?
+                        - if article.get_name.present?
                           .featured-publication-title
-                            = article.name
+                            = article.get_name
                         - if article.release_date.present?
                           .featured-publication-date
                             = article.release_date.strftime("%d.%m.%Y")
@@ -37,15 +37,16 @@
 
 
   - if @articles && @articles.respond_to?(:count) && @articles.count > 0
-    .row
-      .page-title.columns.large-12
-        = "Останні публікації"
-      .list.publications-list.infinity-scroll-list
-        - if @articles.count > 0
-          .list.publications-list-collection
-            - @articles.each do |article|
-              - Globalize.with_locale(I18n.locale) do
-                = render partial: "publications/list_item", locals: { article: article }
-        - else
-          = "Публікацій немає"
-      = paginate @articles
+    .page-section.post-background-section.publications-list-section
+      .row
+        .page-title.columns.large-12
+          = "Останні публікації"
+        .list.publications-list.infinity-scroll-list
+          - if @articles.count > 0
+            .list.publications-list-collection
+              - @articles.each do |article|
+                - Globalize.with_locale(I18n.locale) do
+                  = render partial: "publications/list_item", locals: { article: article }
+          - else
+            = "Публікацій немає"
+        = paginate @articles

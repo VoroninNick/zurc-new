@@ -66,6 +66,8 @@ class ApplicationController < ActionController::Base
 
   end
 
+  helper_method :another_locale
+
   def another_locale
     I18n.available_locales.map(&:to_sym).select {|locale| locale != I18n.locale.to_sym  }.first
   end
