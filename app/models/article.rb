@@ -6,10 +6,14 @@ class Article < ActiveRecord::Base
   belongs_to :article_category, class: ArticleCategory
   attr_accessible :article_category, :article_category_id
 
+
+
   # translations
   translates :name, :description, :intro, :content, :slug, :author#, versioning: :paper_trail#, fallbacks_for_empty_translations: true
   accepts_nested_attributes_for :translations
   attr_accessible :translations_attributes, :translations
+
+  globalize_accessors
 
   class Translation
     attr_accessible :locale
@@ -21,6 +25,17 @@ class Article < ActiveRecord::Base
       self.slug = self.slug.parameterize
     end
   end
+
+  # def with_translation(locale = I18n.locale )
+  #   self.class.translated_attribute_names.each do |attr_name|
+  #     attr_value = self.translations_by_locale[locale].send(attr_name)
+  #     #self.send("#{attr_name}=", attr_value)
+  #     method_source = "def #{attr_name};#{return "\"#{attr_value}\"" if attr_value.is_a?(String); "#{ attr_value }" };end;"
+  #     self.class.class_eval(method_source)
+  #   end
+  #
+  #   return self
+  # end
 
   # scopes
   scope :publications, proc { where(article_category_id: 4 ) }
@@ -38,6 +53,8 @@ class Article < ActiveRecord::Base
 
   # images
   mount_uploader :image, ImageUploader
+
+
 
   def publication?
     Article.publications.where(id: self.id).any?

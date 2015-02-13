@@ -2,10 +2,11 @@
   - if @articles.any?
     .columns.large-3
       = render "about_menu", locals: { articles: @articles }
-  - if @article && @article.content.present?
-    - if @article.name.present?
-      .about-article-name.page-title
-        = @article.name
-    .about-article-content
-      .about-article
-        = raw @article.content
+  - if @article && (content = @article.send("content_#{I18n.locale}")) && content.present?
+    .columns.large-9.about-article-title-and-content
+      - if ( name = @article.send("name_#{I18n.locale}")) && name.present?
+        .about-article-name.page-title
+          = name
+      .about-article-content
+        .about-article
+          = raw content

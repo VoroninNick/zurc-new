@@ -33,7 +33,7 @@ class ApplicationController < ActionController::Base
 
   def set_locale
 
-    if params[:controller].scan(/\Arails_admin/).count == 0
+    if params[:controller].scan(/\Arails_admin/).empty?
       params_locale = params[:locale]
       locale = nil
       if params_locale && I18n.available_locales.include?(params_locale.to_sym)
@@ -43,7 +43,8 @@ class ApplicationController < ActionController::Base
       end
 
       if locale.to_sym != I18n.locale.to_sym
-        redirect_to locale: locale
+        I18n.locale = locale
+        #redirect_to locale: locale
       end
     end
   end
