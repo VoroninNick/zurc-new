@@ -66,7 +66,9 @@ class ApplicationController < ActionController::Base
 
   end
 
-
+  def another_locale
+    I18n.available_locales.map(&:to_sym).select {|locale| locale != I18n.locale.to_sym  }.first
+  end
 
   def check_resource_locale(resource_class, *args )
 

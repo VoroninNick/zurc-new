@@ -56,11 +56,12 @@ class PublicationsController < InnerPageController
   end
 
   def about_index
+
     @articles = about_articles
 
     respond_to do |format|
       format.html do
-        @about_content = ((page = PagesAbout.published); page ? page.content : "" )
+        @about_content = ((page = PagesAbout.published); page ? ( content = page.send("content_#{I18n.locale}"); content.present? ? content : page.send("content_#{another_locale}")  ) : "" )
         @breadcrumbs.push({title: "Про нас", url: false, current: true})
       end
     end

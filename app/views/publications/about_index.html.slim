@@ -10,8 +10,8 @@
       - if @about_content && @about_content.present?
         .about-index-article-content
           = raw @about_content
-
-      - @articles.each do |article|
-        .about-article
-          = link_to article.to_param do
-            = image_tag(article.image.about_article_banner.url)
+      - if 1 == 2
+        - @articles.each do |article|
+          .about-article
+            = link_to article.to_param do
+              = image_tag(article.image.about_article_banner.url)
