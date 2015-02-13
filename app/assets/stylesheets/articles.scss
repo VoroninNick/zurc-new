@@ -27,8 +27,10 @@
       }
     }
 
-    
 
+    &.featured-small:last-child {
+      margin-top: 15px;
+    }
     
   }
 
