@@ -67,7 +67,7 @@ unless RakeSettings.self_skip_initializers?
         field :slug
         field :description
         field :intro
-        field :content
+        field :content, :ck_editor
         field :author
       end
     end
