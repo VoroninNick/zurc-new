@@ -38,13 +38,15 @@ unless RakeSettings.self_skip_initializers?
 
     config.included_models = []
 
-    [Article, ArticleCategory].each do |model_class|
+    [Article, ArticleCategory, PagesAbout].each do |model_class|
+      config.included_models += [model_class]
       if model_class.respond_to?(:translates?) && model_class.translates?
-        config.included_models += [model_class, model_class::Translation]
+        config.included_models += [model_class::Translation]
       end
     end
 
     config.model Article do
+      navigation_label "Статті"
       edit do
         field :published
         field :featured
@@ -73,6 +75,7 @@ unless RakeSettings.self_skip_initializers?
     end
 
     config.model ArticleCategory do
+      navigation_label "Статті"
 
       nestable_tree({
         position_field: :position
@@ -90,6 +93,23 @@ unless RakeSettings.self_skip_initializers?
         field :locale, :hidden
         field :name
         field :slug
+      end
+    end
+
+    config.model PagesAbout do
+      navigation_label "Сторінки"
+      edit do
+        field :published
+        field :translations, :globalize_tabs
+      end
+    end
+
+    config.model PagesAbout::Translation do
+      visible false
+
+      edit do
+        field :locale, :hidden
+        field :content, :ck_editor
       end
     end
   end

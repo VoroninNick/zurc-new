@@ -3,8 +3,14 @@
     .columns.large-3
       = render "about_menu", locals: { articles: @articles }
 
+
+
   .about-articles-list
     .columns.large-9
+      - if @about_content && @about_content.present?
+        .about-index-article-content
+          = raw @about_content
+
       - @articles.each do |article|
         .about-article
           = link_to article.to_param do

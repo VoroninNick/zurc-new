@@ -59,7 +59,8 @@ class PublicationsController < InnerPageController
     @articles = about_articles
 
     respond_to do |format|
-      format.html do 
+      format.html do
+        @about_content = ((page = PagesAbout.published); page ? page.content : "" )
         @breadcrumbs.push({title: "Про нас", url: false, current: true})
       end
     end
