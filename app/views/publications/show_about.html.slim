@@ -4,7 +4,7 @@
       = render "about_menu", locals: { articles: @articles }
   - if @article && @article.content.present?
     - if @article.name.present?
-      .about-article-name
+      .about-article-name.page-title
         = @article.name
     .about-article-content
       .about-article

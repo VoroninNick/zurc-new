@@ -2,8 +2,10 @@
   - if @articles.any?
     .columns.large-3
       = render "about_menu", locals: { articles: @articles }
+
   .about-articles-list
-  	- @articles.each do |article|
-  	  .about-article
-  	  	= link_to article.to_param do 
-  	  	  = image_tag(article.image.about_article_banner.url)
+    .columns.large-9
+      - @articles.each do |article|
+        .about-article
+          = link_to article.to_param do
+            = image_tag(article.image.about_article_banner.url)
