@@ -40,23 +40,23 @@ class Article < ActiveRecord::Base
   mount_uploader :image, ImageUploader
 
   def publication?
-    Article.publications.where(id: self.id).count > 0
+    Article.publications.where(id: self.id).any?
   end
 
   def about_us?
-    Article.about_us.where(id: self.id).count > 0
+    Article.about_us.where(id: self.id).any?
   end
 
   def what_we_do?
-    Article.what_we_do.where(id: self.id).count > 0
+    Article.what_we_do.where(id: self.id).any?
   end
 
   def news?
-    Article.news.where(id: self.id).count > 0
+    Article.news.where(id: self.id).any?
   end
 
   def ad_image_url
-    if (featured = Article.published.publications.featured) && (featured.where(id: self.id).length > 0)
+    if (featured = Article.published.publications.featured) && featured.where(id: self.id).any?
       method = nil
       if featured.first.id == self.id
         method = :featured_article_large
@@ -82,9 +82,9 @@ class Article < ActiveRecord::Base
   end
 
   def to_param
-    routes_module.send("show_publication_path", id: self.translations_by_locale[I18n.locale].slug) if self.publication?
-    routes_module.send("show_news_path", id: self.translations_by_locale[I18n.locale].slug) if self.news?
-    routes_module.send("show_about_path", id: self.translations_by_locale[I18n.locale].slug) if self.about_us?
+    return routes_module.send("show_publication_path", id: self.translations_by_locale[I18n.locale].slug) if self.publication?
+    return routes_module.send("show_news_path", id: self.translations_by_locale[I18n.locale].slug) if self.news?
+    return routes_module.send("show_about_path", id: self.translations_by_locale[I18n.locale].slug) if self.about_us?
   end
 
 
