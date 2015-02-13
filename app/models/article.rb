@@ -86,6 +86,4 @@ class Article < ActiveRecord::Base
     return routes_module.send("show_news_path", id: self.translations_by_locale[I18n.locale].slug) if self.news?
     return routes_module.send("show_about_path", id: self.translations_by_locale[I18n.locale].slug) if self.about_us?
   end
-
-
 end

@@ -1,0 +1,11 @@
+.row
+  - if @articles.any?
+    .columns.large-3
+      = render "about_menu", locals: { articles: @articles }
+  - if @article && @article.content.present?
+    - if @article.name.present?
+      .about-article-name
+        = @article.name
+    .about-article-content
+      .about-article
+        = raw @article.content

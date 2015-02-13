@@ -56,13 +56,30 @@ class PublicationsController < InnerPageController
   end
 
   def about_index
-    @articles = Article.published.about_us.order_by_date_desc
+    @articles = about_articles
 
     respond_to do |format|
       format.html do 
         @breadcrumbs.push({title: "Про нас", url: false, current: true})
       end
     end
+  end
+
+  def show_about
+    @articles = about_articles
+    @params_id = params[:id]
+    @article = Article.with_translations.published.publications.by_url(@params_id).first
+    if @article
+      @breadcrumbs.push({title: "Про нас", url: send("publications_path"), current: false})
+      @breadcrumbs.push({title: @article.name, url: false, current: true})
+    end
+
+    render template: "publications/show_about"
+  end
+
+  private
+  def about_articles
+    Article.published.about_us.order_by_date_desc
   end
 
   
