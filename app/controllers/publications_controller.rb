@@ -1,5 +1,5 @@
 class PublicationsController < InnerPageController
-  def index(articles = nil, featured_articles = nil, breadcrumbs_title = "Публікації")
+  def index(articles = nil, featured_articles = nil, breadcrumbs_title = I18n.t("breadcrumbs.publications"))
     params_category = params[:article_category]
     respond_to do |format|
 
@@ -34,7 +34,7 @@ class PublicationsController < InnerPageController
     #render inline: @article.inspect
 
     if @article
-      @breadcrumbs.push({title: "Публікації", url: send("publications_path"), current: false})
+      @breadcrumbs.push({title: I18n.t("breadcrumbs.publications"), url: send("publications_path"), current: false})
       @breadcrumbs.push({title: @article.name, url: false, current: true})
       all_publications = Article.published.publications
       current_index = nil
@@ -46,7 +46,7 @@ class PublicationsController < InnerPageController
 
   def news_index
     articles = Article.published.news.order_by_date_desc.page(params[:page]).per(100)
-    index(articles, false, "Новини")
+    index(articles, false, I18n.t("breadcrumbs.news"))
     respond_to do |format|
       format.html { render "index" }
     end
@@ -62,7 +62,7 @@ class PublicationsController < InnerPageController
     respond_to do |format|
       format.html do
         @about_content = ((page = PagesAbout.published); page ? page.get_content : "" )
-        @breadcrumbs.push({title: "Про нас", url: false, current: true})
+        @breadcrumbs.push({title: I18n.t("breadcrumbs.about-us"), url: false, current: true})
       end
     end
   end
@@ -72,7 +72,7 @@ class PublicationsController < InnerPageController
     @params_id = params[:id]
     @article = Article.with_translations.published.about_us.by_url(@params_id).first
     if @article
-      @breadcrumbs.push({title: "Про нас", url: send("publications_path"), current: false})
+      @breadcrumbs.push({title: I18n.t("breadcrumbs.about-us"), url: send("publications_path"), current: false})
       @breadcrumbs.push({title: @article.name, url: false, current: true})
     end
 

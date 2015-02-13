@@ -20,4 +20,10 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+  breadcrumbs:
+    publications: "Publications"
+    news: "News"
+    about-us: "About us"
+    what-we-do: "What we do"
+    contact: "Contact us"
   hello: "Hello world"

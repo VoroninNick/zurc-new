@@ -6,6 +6,11 @@ uk:
 #    formats:
 #      long: "%^b %d, %Y"
 
-
+  breadcrumbs:
+    publications: "Публікації"
+    news: "Новини"
+    what-we-do: "Що ми робимо"
+    contact: "Контакти"
+    about-us: "Про нас"
   gallery:
     name: "Ім'я"
