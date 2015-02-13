@@ -82,8 +82,8 @@ class Article < ActiveRecord::Base
   end
 
   def to_param
-    return routes_module.send("show_publication_path", id: self.translations_by_locale[I18n.locale].slug) if self.publication?
-    return routes_module.send("show_news_path", id: self.translations_by_locale[I18n.locale].slug) if self.news?
-    return routes_module.send("show_about_path", id: self.translations_by_locale[I18n.locale].slug) if self.about_us?
+    return routes_module.send("show_publication_path", id: self.translations_by_locale[I18n.locale].slug, locale: I18n.locale) if self.publication?
+    return routes_module.send("show_news_path", id: self.translations_by_locale[I18n.locale].slug, locale: I18n.locale) if self.news?
+    return routes_module.send("show_about_path", id: self.translations_by_locale[I18n.locale].slug, locale: I18n.locale) if self.about_us?
   end
 end
