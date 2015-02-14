@@ -162,8 +162,8 @@
 }
 
 #home-about2{
-	margin-top:5em;
-	margin-bottom:5em;
+	margin-top:3em;
+	margin-bottom:2em;
     .home-about2-column-title{
 		font-weight: 600;
 		font-size: 1.3em;
@@ -174,8 +174,10 @@
         display: block;
 
 		//@media only screen and (max-width:1200px) {
-        height: 2.8em;
+        //height: 2.8em;
+        height: auto;
         line-height: 1.4em;
+        margin-bottom: 1rem;
 		//}
 	}
 

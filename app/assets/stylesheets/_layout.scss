@@ -521,20 +521,22 @@ body:before {
 
 #data-footer{
 	background-image: url(/assets/darkgray-texture4.png);
-	padding-top:3em;
+	padding-top:2em;
     font-weight: 300;
 
 	color: #b3b3b3;
 
 	a{
-		color: inherit;
+	  color: inherit;
 	}
 
   .data-footer-column-title{
-		font-size: 1.3em;
-		font-weight: 600;
-        color: $orange-color;
-	}
+    font-size: 1.3em;
+    font-weight: 600;
+    color: $orange-color;
+    margin-bottom: 1rem;
+    display: inline-block;
+  }
 
   ul{
     margin-left: 0;
@@ -543,7 +545,7 @@ body:before {
 
 
 	#data-footer-menu{
-
+        padding-left: 5rem;
 		ul{
 			li{
 				list-style: none;
