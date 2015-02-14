@@ -24,12 +24,35 @@ function init() {
 
     var $map_wrapper = $('.map-wrapper')
     var data_markers_str = $map_wrapper.attr('data-markers')
+    var data_markers_format = $map_wrapper.attr('data-markers-format') || 'latlng'
     var zoom = + $map_wrapper.attr('data-zoom')
+
+    var standard_method = true
 
     if (data_markers_str) {
         var markers = []
         var data_markers = $.parseJSON(data_markers_str)
-        var first_marker = data_markers[0]
+        if(data_markers_format == 'latlng'){
+            for(var i = 0; i < data_markers.length; i++) {
+                var data_marker = data_markers[i]
+                var m = {}
+                m['lat'] = data_marker[0]
+                m['lng'] = data_marker[1]
+                m['title'] = data_marker[2]
+                m['description'] = data_marker[3]
+                markers.push(m)
+            }
+        }
+        else{
+            markers = data_markers
+        }
+
+
+
+
+
+        var first_marker = markers[0]
+
 
 
         var mapCenter = new google.maps.LatLng(first_marker.lat,first_marker.lng );
@@ -55,34 +78,62 @@ function init() {
 
 
 
-        for(var i=0; i<data_markers.length;i++) {
+        for(var i=0; i<markers.length;i++) {
 
-            var m = data_markers[i]
+            var m = markers[i]
 
-            var $div = jQuery('<div class="marker"><div class="marker-tooltip"></div>"></div>');
+            //var $div = jQuery('<div class="marker"><div class="marker-tooltip-wrapper"><div class="marker-tooltip"><h3>'+ m.title+'</h3><p>'+ m.description+'</p></div></div></div>');
+            var $div = jQuery('<div class="content"><h3>'+ m.title+'</h3><p>'+ m.description+'</p></div>');
             var $marker_tooltip = $div.find('.marker-tooltip')
             $marker_tooltip.append('')
 
             $div.find('a').on('click', function (event) {
-                //event.preventDefault()
+                event.preventDefault()
                 //alert('hello')
             })
 
             var div = $div.get(0)
 
-            marker = new RichMarker({
-                map: map,
-                position: new google.maps.LatLng(m.lat, m.lng),
-                draggable: false,
-                flat: true,
-                anchor: RichMarkerPosition.MIDDLE,
-                content: div
-            });
+            if(!standard_method) {
 
-            google.maps.event.addListener(marker, 'position_changed', function () {
-                log('Marker position: ' + marker.getPosition());
-            });
+                marker = new RichMarker({
+                    map: map,
+                    position: new google.maps.LatLng(m.lat, m.lng),
+                    draggable: false,
+                    flat: true,
+                    anchor: RichMarkerPosition.MIDDLE,
+                    content: div
+                });
 
+                google.maps.event.addListener(marker, 'position_changed', function () {
+                    log('Marker position: ' + marker.getPosition());
+                });
+            }
+            else{
+                //map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+                var image;
+                //image = 'http://zurc.org/wp-content/themes/zurc/img/logo_min.png';
+                image = "/assets/logos/ZURC-logo.png"
+                var lat_lng = new google.maps.LatLng(m.lat, m.lng);
+                var marker = new google.maps.Marker({
+                    position: lat_lng,
+                    map: map,
+                    icon: image
+                });
+
+//                var metka14 = '<div id="content_window">'+
+//                        '<h3>с. Торговиця</h3>'+
+//                        '<p>Городенківський р-н.</p>'+
+//                        '</div>';
+
+                var infowindow14 = new google.maps.InfoWindow({
+                    content: div
+                });
+
+                google.maps.event.addListener(marker, 'click', function() {
+                    infowindow14.open(map,marker);
+                });
+            }
         }
     }
 

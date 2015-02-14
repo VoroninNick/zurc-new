@@ -427,31 +427,31 @@ body:before {
 	padding-top: 3em;
 	padding-bottom: 3em;
 	background-color: $lightgray-color;
-	
+//
 	img, .BWfade{
 		max-height: 95px;
 	}
-
-	.irp{
-		display: block;
-		float: left;
-		img, .BWfade{
-			max-height: 40px;
-		}
-		margin-bottom: 15px;
-	}
-
-	.renessance{
-		display: block;
-		float: left;
-		position: relative;
-		
-		img, .BWfade{
-			max-height: 40px;
-			left: auto !important;
-		}
-	}
-
+//
+//	.irp{
+//		display: block;
+//		float: left;
+//		img, .BWfade{
+//			max-height: 40px;
+//		}
+//		margin-bottom: 15px;
+//	}
+//
+//	.renessance{
+//		display: block;
+//		float: left;
+//		position: relative;
+//
+//		img, .BWfade{
+//			max-height: 40px;
+//			left: auto !important;
+//		}
+//	}
+//
 	img{
 
 		//@include css_image_grayscale;
@@ -467,16 +467,57 @@ body:before {
 		//filter: grayscale(100%); /* Current draft standard */
 		//-webkit-filter: grayscale(100%); /* New WebKit */
 		//-moz-filter: grayscale(100%);
-		//-ms-filter: grayscale(100%); 
-		//-o-filter: grayscale(100%);		
+		//-ms-filter: grayscale(100%);
+		//-o-filter: grayscale(100%);
 
 		&:hover{
 			//@include disable_css_image_grayscale;
-			
+
 
 		}
 	}
+
+  .columns{
+    margin: 1rem 0;
+    text-align: center;
+    a{
+      display: inline-block;
+    }
+
+    &:nth-child(1){
+
+    }
+
+    &:nth-child(2){
+      a {
+        width: 225px;
+        border: 1px solid #515151;
+        padding: 10px;
+        text-decoration: none;
+        color: #515151;
+        text-align: center;
+        font-weight: 600;
+
+        &:hover{
+          color: $orange-color;
+          border-color: $orange-color;
+        }
+      }
+    }
+
+    &:nth-child(7){
+      text-align: left;
+
+      a{
+        &:first-child{
+          margin-bottom: 1rem;
+        }
+      }
+    }
+  }
 }
+
+
 
 #data-footer{
 	background-image: url(/assets/darkgray-texture4.png);

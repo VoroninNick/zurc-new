@@ -8,7 +8,7 @@ class ContactController < InnerPageController
   def initialize_contact_page
     @breadcrumbs.push({title: I18n.t("breadcrumbs.contact"), url: false, current: true})
 
-    @map_markers = [{lat: 49.843031, lng: 24.041205 }]
+    @map_markers = [[49.843031, 24.041205, "test-header", "test-description"] ]
   end
 
   def post_message

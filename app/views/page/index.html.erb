@@ -23,7 +23,7 @@
             <h4><%= link_to(article.get_name, article.to_param) %></h4>
             <%= link_to( image_tag( article.image.home_featured, alt: article.get_name ), article.to_param, class: 'image-link' ) %>
             <p><%= article.get_description %></p>
-            <a href="<% article.to_param %>" class="read-more"><%= t("read-more") %></a>
+            <a href="<%= article.to_param %>" class="read-more"><%= t("read-more") %></a>
           </div>
       <% end %>
     </div>

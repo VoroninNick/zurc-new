@@ -75,6 +75,7 @@
           font-weight: 600;
 			font-size: 1.1em;
             color: $orange-color;
+          width: 280px;
 		}
 		span.decorative-letter{
 
@@ -114,6 +115,10 @@
 		a{
 			font: inherit;
 			color:inherit;
+            line-height: 2.1rem;
+            height: 4.2rem;
+            display: inline-block;
+            overflow: hidden;
 		}
 
 		& + .image-link{

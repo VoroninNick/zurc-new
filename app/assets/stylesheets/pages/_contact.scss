@@ -204,13 +204,21 @@
 #contact-map-container{
   height: 400px;
 
-  .marker{
-    width: 60px;
-    height: 75px;
-    background: url("/assets/logos/ZURC-logo.png") no-repeat center center;
-    //background: url(<%= asset_path("logos/ZURC-logo.png") %>) no-repeat center center;
-    background-size: cover;
-  }
+//  .marker{
+//    width: 60px;
+//    height: 75px;
+//    background: url("/assets/logos/ZURC-logo.png") no-repeat center center;
+//    //background: url(<%= asset_path("logos/ZURC-logo.png") %>) no-repeat center center;
+//    background-size: cover;
+//  }
+}
+
+.marker-tooltip-wrapper{
+  position: absolute;
+  bottom: 6rem;
+  width: 10rem;
+  background: white;
+  border-radius: 5px;
 }
 
 input[type=submit]{
