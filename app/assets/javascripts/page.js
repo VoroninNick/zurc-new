@@ -63,6 +63,9 @@ $('#foo1 li a.fb').fancybox();
 // home_slider
 
 $('#refineslide-images').refineSlide({
+  autoPlay: true,
+  delay: 2000,
+  transitionDuration: 400,
   maxWidth: '100%',
   useArrows: true,
   transitionDuration: 800,
@@ -70,6 +73,8 @@ $('#refineslide-images').refineSlide({
   arrowTemplate: '<div class="rs-arrows"><a href="#" class="rs-prev"><span class="arrow"></span></a><a href="#" class="rs-next"><span class="arrow"></span></a></div>'
 
 });
+
+    console.log('hello: refine-slide')
 
   /*$('#refineslide-images').refineSlide({
                 transition : 'fade',

@@ -780,7 +780,7 @@ body:before {
 
 #menu-wrapper{
 	//box-shadow: green 5px 5px 5px inset;
-
+    background: url('/assets/menu-line2.jpg') center top no-repeat, url('/assets/menu-line.jpg') repeat-x center top;
 	&:before{
 		//@include shadow-effect1;
 		width: 100px;

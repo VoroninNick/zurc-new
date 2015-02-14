@@ -1,4 +1,13 @@
 <div id="slider">
+
+  <style>
+    <% slides.each_with_index do |slide, index| %>
+        #slide-<%= index %>{
+            background-image: url(<%= "#{ slide.image.home_slide.url }" %> ) !important;
+        }
+    <% end %>
+  </style>
+
   <div style="position: absolute;width:100%;z-index: 100;">
     <%# render partial: 'partials/menu' %>
     <%= render "menu" %>
@@ -14,8 +23,9 @@
       <!--</div>-->
     <!--</li>-->
 
-    <% slides.each do |slide| %>
-      <li style="background-image: url(<%= "#{ slide.image.home_slide.url }" %> )" class="slide-bg group">
+    <% slides.each_with_index do |slide, index| %>
+
+      <li style="" id="slide-<%= index %>" class="slide-bg group">
         <a href="#">
           <img src="<%= "#{ slide.image.home_slide.url }" %>" alt="<%= slide.get_image_alt %>" />
         </a>

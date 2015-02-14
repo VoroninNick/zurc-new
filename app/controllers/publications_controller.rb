@@ -106,6 +106,15 @@ class PublicationsController < InnerPageController
     render template: "publications/show_about"
   end
 
+  def what_we_do_index
+    @article_categories = ArticleCategory.published.about_us_category.children.not_empty_categories
+    respond_to do |format|
+      format.html do
+        @breadcrumbs.push({title: I18n.t("breadcrumbs.what-we-do"), url: false, current: true})
+      end
+    end
+  end
+
   private
   def about_articles
     Article.published.about_us.order_by_date_desc

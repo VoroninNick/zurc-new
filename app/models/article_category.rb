@@ -28,4 +28,12 @@ class ArticleCategory < ActiveRecord::Base
   attr_accessible :image
   mount_uploader :image, ArticleCategoryImageUploader
 
+  scope :about_us_category, proc { where(id: 3).first }
+  scope :not_empty_categories, proc { select {|c| c.articles.any?  } }
+  scope :published, proc { where(published: 't') }
+
+  # def not_empty_categories
+  #   children.select {|category|   }
+  # end
+
 end

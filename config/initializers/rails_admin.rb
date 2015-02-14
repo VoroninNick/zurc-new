@@ -79,6 +79,7 @@ unless RakeSettings.self_skip_initializers?
         position_field: :position
       })
       edit do
+        field :published
         field :image
         field :translations, :globalize_tabs
         field :articles
