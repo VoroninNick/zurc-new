@@ -13,8 +13,9 @@ class HomeFirstAbout < ActiveRecord::Base
     attr_accessible :name, :description
   end
 
-  def get_attr(attr_name, locales_priority = [I18n.locale, another_locale])
-    super(attr_name, locales_priority)
+  def get_attr(attr_name, options = {} )
+    options[:locales_priority] = [I18n.locale, another_locale] unless options.keys.include?(:locales_priority)
+    super(attr_name, options)
   end
 
   def another_locale

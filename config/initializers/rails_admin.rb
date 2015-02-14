@@ -38,7 +38,7 @@ unless RakeSettings.self_skip_initializers?
 
     config.included_models = []
 
-    [Article, ArticleCategory, PagesAbout, HomeSlide, HomeGalleryImage, HomeFirstAbout, HomeSecondAbout, User].each do |model_class|
+    [Article, ArticleCategory, PagesAbout, HomeSlide, HomeGalleryImage, HomeFirstAbout, HomeSecondAbout, User, Attachment].each do |model_class|
       config.included_models += [model_class]
       if model_class.respond_to?(:translates?) && model_class.translates?
         config.included_models += [model_class::Translation]
@@ -53,10 +53,8 @@ unless RakeSettings.self_skip_initializers?
         field :article_category
         field :translations, :globalize_tabs
         field :image
+        field :attachments
         field :release_date
-
-
-
       end
     end
 
@@ -197,6 +195,28 @@ unless RakeSettings.self_skip_initializers?
       edit do
         field :locale, :hidden
         field :image_alt
+      end
+    end
+
+    # end home page
+
+    config.model Attachment do
+      nestable_list true
+
+      edit do
+        field :published
+        field :position
+        field :translations, :globalize_tabs
+      end
+    end
+
+    config.model Attachment::Translation do
+      visible false
+
+      edit do
+        field :locale, :hidden
+        field :name
+        field :data
       end
     end
   end

@@ -31,26 +31,27 @@
 
                   .divider
 
-            li.has-dropdown
-              a href="#"
+            li class=("has-dropdown" if main_menu_what_we_do_items.any?)
+              a href="#{what_we_do_path}"
                 span
                   = t("main-menu.what-we-do")
-              .dropdown
-                .dropdown-inner
-                  - main_menu_what_we_do_items.each do |node|
-                    - if node.is_a?(Array)
-                      ul
-                        - node.each do |menu_item|
-                          li
-                            a href=menu_item[:link]
-                              span
-                                = menu_item[:name]
-                    - else
-                      li
-                        a href=node[:link]
-                          span
-                            = node[:name]
-                  .divider
+              - if main_menu_what_we_do_items.any?
+                .dropdown
+                  .dropdown-inner
+                    - main_menu_what_we_do_items.each do |node|
+                      - if node.is_a?(Array)
+                        ul
+                          - node.each do |menu_item|
+                            li
+                              a href=menu_item[:link]
+                                span
+                                  = menu_item[:name]
+                      - else
+                        li
+                          a href=node[:link]
+                            span
+                              = node[:name]
+                    .divider
 
 
             li

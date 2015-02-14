@@ -118,7 +118,8 @@ gem 'rails_admin'
 gem 'rails_admin-i18n'
 #puts ARGV.include?('c') ? 'console' : 'not console'
 
-gem 'rails_admin_globalize_field'#, github: 'VoroninNick/rails_admin_globalize_field', branch: 'allow-current-locale', group: :disable_for_scripts
+gem 'rails_admin_globalize_field', github: "VoroninNick/rails_admin_globalize_field", ref: "5e986ccb18"
+#, github: 'VoroninNick/rails_admin_globalize_field', branch: 'allow-current-locale', group: :disable_for_scripts
 gem 'rails_admin_nestable'
 
 gem 'fancybox2-rails'

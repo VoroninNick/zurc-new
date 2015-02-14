@@ -6,6 +6,10 @@ class Article < ActiveRecord::Base
   belongs_to :article_category, class: ArticleCategory
   attr_accessible :article_category, :article_category_id
 
+  has_many :attachments, as: :attachable
+  accepts_nested_attributes_for :attachments, allow_destroy: true
+  attr_accessible :attachments, :attachments_attributes
+
 
 
   # translations
@@ -26,8 +30,9 @@ class Article < ActiveRecord::Base
     end
   end
 
-  def get_attr(attr_name, locales_priority = [I18n.locale, another_locale])
-    super(attr_name, locales_priority)
+  def get_attr(attr_name, options = {} )
+    options[:locales_priority] = [I18n.locale, another_locale] unless options.keys.include?(:locales_priority)
+    super(attr_name, options)
   end
 
   def another_locale
@@ -133,8 +138,9 @@ class Article < ActiveRecord::Base
   end
 
   def to_param
-    return routes_module.send("show_publication_path", id: self.translations_by_locale[I18n.locale].slug, locale: I18n.locale) if self.publication?
-    return routes_module.send("show_news_path", id: self.translations_by_locale[I18n.locale].slug, locale: I18n.locale) if self.news?
-    return routes_module.send("show_about_path", id: self.translations_by_locale[I18n.locale].slug, locale: I18n.locale) if self.about_us?
+    return routes_module.send("show_publication_path", id: self.get_slug, locale: I18n.locale) if self.publication?
+    return routes_module.send("show_news_path", id: self.get_slug, locale: I18n.locale) if self.news?
+    return routes_module.send("show_about_path", id: self.get_slug, locale: I18n.locale) if self.about_us?
+    return routes_module.send("show_what_we_do_path", id: self.get_slug, locale: I18n.locale) if self.what_we_do?
   end
 end
