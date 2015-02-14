@@ -72,14 +72,17 @@
 	//h4{
 		//&::first-letter{
 		h4{
+          font-weight: 600;
 			font-size: 1.1em;
+            color: $orange-color;
 		}
 		span.decorative-letter{
 
 			position: static;
 			background-color: $orange-color;
 			font-size: 3em;
-			line-height: 1em;
+			//line-height: 1em;
+            line-height: 37px;
 			//height: em;
 			//width:2em;
 			text-align: center;
@@ -87,6 +90,9 @@
 			display: block;
 			float: left;
 			font-weight: 900;
+            height: 80px;
+            margin: 0 10px 5px 0;
+
 
 			color:white;
 			padding: 0.4em 0.5em;
