@@ -37,7 +37,7 @@
 
 
   - if @articles && @articles.respond_to?(:count) && @articles.count > 0
-    .page-section.post-background-section.publications-list-section
+    .page-section.post-background-section.publications-list-section class=( "no-padding-top" if !(@featured_articles && @featured_articles.any?) )
       .row
         .page-title.columns.large-12
           = "Останні публікації"

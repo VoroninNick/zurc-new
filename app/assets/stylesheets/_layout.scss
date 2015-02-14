@@ -40,7 +40,7 @@ $breadcrumbs-wrapper-height: rem-calc(70);
 		margin-top: 20px;
 		
 		h1{
-			
+			text-transform: uppercase;
 			margin-bottom: 0;
 
 			color: $blue-color;
@@ -52,6 +52,7 @@ $breadcrumbs-wrapper-height: rem-calc(70);
 			font-size: 1.3em;
 			font-weight: 400;
 			margin-top: 0;
+            color: $orange-color;
 		}
 	}
 
@@ -680,7 +681,7 @@ body:before {
 
 #breadcrumbs-wrapper{
 	background-color: $extra-lightgray-color;
-    margin: 1.5rem 0 rem-calc(64) 0;
+    margin: 1.5rem 0 rem-calc(32) 0;
     height: $breadcrumbs-wrapper-height;
     line-height: $breadcrumbs-wrapper-height;
 

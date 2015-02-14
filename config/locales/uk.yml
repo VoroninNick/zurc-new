@@ -12,5 +12,31 @@ uk:
     what-we-do: "Що ми робимо"
     contact: "Контакти"
     about-us: "Про нас"
+  main-menu:
+    news: "Новини"
+    about: "Про нас"
+    what-we-do: "Що ми робимо"
+    publications: "Публікації"
+    contact: "Контакти"
+  footer-menu:
+    news: "Новини"
+    about: "Про нас"
+    what-we-do: "Що робимо"
+    publications: "Публікації"
+    contact: "Контакти"
+  header:
+    innovations: "Інновації через розвиток"
+    wurc: "ЗАХІДНОУКРАЇНСЬКИЙ<br/>РЕСУРСНИЙ ЦЕНТР"
+  footer:
+    developed-by: "Розроблено в <a href='%{link}'>студії М. Вороніна</a><br/>в 2014 році."
+    copyright: "&copy; Західноукраїнський ресурсний центр &laquo;ЗУРЦ&raquo;. 2002-%{year}<br/>Всі права застережено."
+    address: "вул. Лисенка, 21 (1ий поверх)<br>м. Львів, Україна, 79000"
+    headers:
+      about: "Про нас"
+      menu: "Меню"
+      contact: "Контакти"
+    facebook-link: "https://www.facebook.com/pages/West-Ukrainian-Resource-Center/175786942494999?ref=hl"
+    about-description: "WURC cooperates with local economic development experts, consultants and has partners in Germany, Poland, Canada, Sweden and other countries. Our valuable acquisition believe that in the region with our support revived the tradition of the Ukrainian community, initiative and entrepreneurship. A strong community means a strong democracy and sustainable socio-economic development. Our plans for the future is the introduction of innovative energy saving techniques, intensification of international partnerships to improve services. We are committed to successful examples of local development have proliferated in the region and become a mass practice."
+  read-more: "Читати далі"
   gallery:
     name: "Ім'я"

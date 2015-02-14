@@ -112,5 +112,92 @@ unless RakeSettings.self_skip_initializers?
         field :content, :ck_editor
       end
     end
+
+    # home page elements
+    config.model HomeSlide do
+      navigation_label "Головна сторінка"
+
+      nestable_list true
+
+      edit do
+        field :published
+        field :image
+        field :translations, :globalize_tabs
+      end
+    end
+
+    config.model HomeSlide::Translation do
+      visible false
+
+      edit do
+        field :locale, :hidden
+        field :name
+        field :image_alt
+        field :description
+      end
+    end
+
+    config.model HomeFirstAbout do
+      navigation_label "Головна сторінка"
+
+      nestable_list true
+
+      edit do
+        field :published
+        field :translations, :globalize_tabs
+      end
+    end
+
+    config.model HomeFirstAbout::Translation do
+      visible false
+
+      edit do
+        field :locale, :hidden
+        field :name
+        field :description
+      end
+    end
+
+    config.model HomeSecondAbout do
+      navigation_label "Головна сторінка"
+
+      nestable_list true
+
+      edit do
+        field :published
+        field :translations, :globalize_tabs
+      end
+    end
+
+    config.model HomeSecondAbout::Translation do
+      visible false
+
+      edit do
+        field :locale, :hidden
+        field :name
+        field :description
+      end
+    end
+
+    config.model HomeGalleryImage do
+      navigation_label "Головна сторінка"
+
+      nestable_list true
+
+      edit do
+        field :published
+        field :image
+        field :translations, :globalize_tabs
+      end
+    end
+
+    config.model HomeGalleryImage::Translation do
+      visible false
+
+      edit do
+        field :locale, :hidden
+        field :image_alt
+      end
+    end
   end
 end

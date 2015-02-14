@@ -3,16 +3,33 @@
     <%# render partial: 'partials/menu' %>
     <%= render "menu" %>
   </div>
-    <ul id="refineslide-images" class="rs-slider">
-     <li style="background-image: url(/assets/banners/1.jpg)" class="slide-bg group">
-     <a href="#">
-     <img src="/assets/banners/1.jpg" alt="" />
-     </a>
-     <div class="rs-caption">
-     <span class="home-slider-slide-caption-title">Дослідження</span>
-     <span class="home-slider-slide-caption-description">Ініціативна група розробляє приорітети розвитку села</span>
-     </div>
-     </li>
+  <ul id="refineslide-images" class="rs-slider">
+    <!--<li style="background-image: url(/assets/banners/1.jpg)" class="slide-bg group">-->
+      <!--<a href="#">-->
+        <!--<img src="/assets/banners/1.jpg" alt="" />-->
+      <!--</a>-->
+      <!--<div class="rs-caption">-->
+        <!--<span class="home-slider-slide-caption-title">Дослідження</span>-->
+        <!--<span class="home-slider-slide-caption-description">Ініціативна група розробляє приорітети розвитку села</span>-->
+      <!--</div>-->
+    <!--</li>-->
 
+    <% slides.each do |slide| %>
+      <li style="background-image: url(<%= "#{ slide.image.home_slide.url }" %> )" class="slide-bg group">
+        <a href="#">
+          <img src="<%= "#{ slide.image.home_slide.url }" %>" alt="<%= slide.get_image_alt %>" />
+        </a>
+        <% if slide.get_name.present? || slide.get_description.present? %>
+            <div class="rs-caption">
+              <% if slide.get_name.present? %>
+                <span class="home-slider-slide-caption-title"><%= slide.get_name %></span>
+              <% end %>
+              <% if slide.get_description.present? %>
+                <span class="home-slider-slide-caption-description"><%= slide.get_description %></span>
+              <% end %>
+            </div>
+        <% end %>
+      </li>
+    <% end %>
     </ul>
 </div>

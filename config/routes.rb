@@ -20,7 +20,7 @@ Rails.application.routes.draw do
     get "about", to: 'publications#about_index', as: :about, defaults: { article_category: :about }
     get "about/:id", to: 'publications#show_about', as: :show_about, defaults: { article_category: :about }
 
-    get "what-we-do", to: 'page#what_we_do', as: 'what_we_do'
+    get "what-we-do", to: 'page#what_we_do', as: :what_we_do
   end
 
   

@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-class ImageUploader < CarrierWave::Uploader::Base
+class HomeGalleryImageUploader < CarrierWave::Uploader::Base
 
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
@@ -32,44 +32,23 @@ class ImageUploader < CarrierWave::Uploader::Base
   # end
 
   # Create different versions of your uploaded files:
-  version :thumb do
-    process :resize_to_fit => [50, 50]
+  # version :thumb do
+  #   process :resize_to_fit => [50, 50]
+  # end
+
+  version :home_gallery_small do
+    process resize_to_fill: [175, 100]
   end
 
-  version :site_thumb do
-    process :resize_to_fill => [180,180]
+  version :home_gallery_large do
+    process resize_to_fit: [700, 400]
   end
-
-  version :avatar do
-    process :resize_to_fit => [400,300]
-  end
-
-  #with_options(if: proc { a = model.assetable; (a.is_a?(Article) && a.publication?) || ( a.is_a?(ArticleAd) && a.article.publication? )  })  do |publication_image|
-  version :featured_article_large do
-    process :resize_to_fill => [800, 400]
-  end
-
-  version :featured_article_small do
-    process :resize_to_fill => [360, 180]
-  end
-
-  version :home_featured do
-    process :resize_to_fill => [370, 200]
-  end
-
-  #end
-
-  version :about_article_banner do
-    process resize_to_fill: [800, 350]
-  end
-
-
 
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:
-  def extension_white_list
-    %w(jpg jpeg gif png svg)
-  end
+  # def extension_white_list
+  #   %w(jpg jpeg gif png)
+  # end
 
   # Override the filename of the uploaded files:
   # Avoid using model.id or version_name here, see uploader/store.rb for details.

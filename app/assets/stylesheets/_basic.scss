@@ -40,6 +40,10 @@ $gray-section-background-color: #ebebeb;
   &.post-background-section{
     padding-top: #{$vertical-indent-between-sections};
   }
+
+  &.no-padding-top{
+    padding-top: 0;
+  }
 }
 
 .page-section-title{

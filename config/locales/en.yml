@@ -26,4 +26,31 @@ en:
     about-us: "About us"
     what-we-do: "What we do"
     contact: "Contact us"
-  hello: "Hello world"
+  main-menu:
+    news: "News"
+    about: "About us"
+    what-we-do: "What we do"
+    publications: "Publications"
+    contact: "Contact us"
+  footer-menu:
+    news: "News"
+    about: "About us"
+    what-we-do: "What we do"
+    publications: "Publications"
+    contact: "Contact us"
+  header:
+    innovations: "Innovations via development"
+    wurc: "West-Ukraine<br/>resource center"
+  footer:
+    developed-by: "Handcrafted in <a href='%{link}'>VoroninStudio</a><br/>in 2014"
+    copyright: "&copy; West-Ukraine resource center &laquo;WURC&raquo;. 2002-%{year}<br/>All rights reserved."
+    address: "st. Lysenko, 21 (1st floor) <br> m. Lviv, Ukraine, 79000"
+    headers:
+      about: "About us"
+      menu: "Menu"
+      contact: "Contact"
+    facebook-link: "https://www.facebook.com/pages/West-Ukrainian-Resource-Center/175786942494999?ref=hl"
+    about-description: ""
+
+  read-more: "Read more"
+

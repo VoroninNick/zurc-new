@@ -7,19 +7,26 @@
             li
               a href=news_path
                 span
-                  = "Новини"
+                  = t("main-menu.news")
             li.has-dropdown
               a href=about_path
                 span
-                  = "Про нас"
+                  = t("main-menu.about")
               .dropdown
                 .dropdown-inner
-                  ul
-                    - Article.published.about_us.order_by_date_desc.each do |article|
+                  - main_menu_about_items.each do |node|
+                    - if node.is_a?(Array)
+                      ul
+                        - node.each do |menu_item|
+                          li
+                            a href=menu_item[:link]
+                              span
+                                = menu_item[:name]
+                    - else
                       li
-                        a href=article.to_param
+                        a href=node[:link]
                           span
-                            = article.name
+                            = node[:name]
 
 
                   .divider
@@ -27,52 +34,31 @@
             li.has-dropdown
               a href="#"
                 span
-                  = "Що ми робимо"
+                  = t("main-menu.what-we-do")
               .dropdown
                 .dropdown-inner
-                  ul
-                    li
-                      a href="#"
-                        span
-                          = "Наша команда"
-                    li
-                      a href="#"
-                        span
-                          = "Місія"
-                    li
-                      a href="#"
-                        span
-                          = "Географія"
-                    li
-                      a href="#"
-                        span
-                          = "Організаційна структура"
-                  ul
-                    li
-                      a href="#"
-                        span
-                          = "Історія"
-                    li
-                      a href="#"
-                        span
-                          = "Діючі проекти"
-                    li
-                      a href="#"
-                        span
-                          = "Реалізовані проекти"
-                    li
-                      a href="#"
-                        span
-                          = "Річні звіти"
+                  - main_menu_what_we_do_items.each do |node|
+                    - if node.is_a?(Array)
+                      ul
+                        - node.each do |menu_item|
+                          li
+                            a href=menu_item[:link]
+                              span
+                                = menu_item[:name]
+                    - else
+                      li
+                        a href=node[:link]
+                          span
+                            = node[:name]
                   .divider
 
 
             li
               a href=send("publications_path", locale: I18n.locale)
                 span
-                  = "Публікації"
+                  = t("main-menu.publications")
             li
               a href="#{send("contact_path")}"
                 span
-                  = "Контакти"
+                  = t("main-menu.contact")
 

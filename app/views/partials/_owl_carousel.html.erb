@@ -18,17 +18,21 @@
 
 			<div class="image_carousel">
 	   	 		<ul id="foo1">
-	        		<li><a href="http://placehold.it/525x300&text=[img1]" class="fb"><img src="http://placehold.it/175x100&text=[img1]" alt="basketball" /></a></li>
-	        		<li><a href="http://placehold.it/525x300&text=[img2]" class="fb"><img src="http://placehold.it/175x100&text=[img2]" alt="basketball" /></a></li>
-	        		<li><a href="http://placehold.it/525x300&text=[img3]" class="fb"><img src="http://placehold.it/175x100&text=[img3]" alt="basketball" /></a></li>
-	        		<li><a href="http://placehold.it/525x300&text=[img4]" class="fb"><img src="http://placehold.it/175x100&text=[img4]" alt="basketball" /></a></li>
-	        		<li><a href="http://placehold.it/525x300&text=[img5]" class="fb"><img src="http://placehold.it/175x100&text=[img5]" alt="basketball" /></a></li>
-	        		<li><a href="http://placehold.it/525x300&text=[img6]" class="fb"><img src="http://placehold.it/175x100&text=[img6]" alt="basketball" /></a></li>
-	        		<li><a href="http://placehold.it/525x300&text=[img7]" class="fb"><img src="http://placehold.it/175x100&text=[img7]" alt="basketball" /></a></li>
-	        		<li><a href="http://placehold.it/525x300&text=[img8]" class="fb"><img src="http://placehold.it/175x100&text=[img8]" alt="basketball" /></a></li>
-	        		<li><a href="http://placehold.it/525x300&text=[img9]" class="fb"><img src="http://placehold.it/175x100&text=[img9]" alt="basketball" /></a></li>
-	        		<li><a href="http://placehold.it/525x300&text=[img10]" class="fb"><img src="http://placehold.it/175x100&text=[img10]" alt="basketball" /></a></li>
-	        		<li><a href="http://placehold.it/525x300&text=[img11]" class="fb"><img src="http://placehold.it/175x100&text=[img11]" alt="basketball" /></a></li>
+	        		<!--<li><a href="http://placehold.it/525x300&text=[img1]" class="fb"><img src="http://placehold.it/175x100&text=[img1]" alt="basketball" /></a></li>-->
+	        		<!--<li><a href="http://placehold.it/525x300&text=[img2]" class="fb"><img src="http://placehold.it/175x100&text=[img2]" alt="basketball" /></a></li>-->
+	        		<!--<li><a href="http://placehold.it/525x300&text=[img3]" class="fb"><img src="http://placehold.it/175x100&text=[img3]" alt="basketball" /></a></li>-->
+	        		<!--<li><a href="http://placehold.it/525x300&text=[img4]" class="fb"><img src="http://placehold.it/175x100&text=[img4]" alt="basketball" /></a></li>-->
+	        		<!--<li><a href="http://placehold.it/525x300&text=[img5]" class="fb"><img src="http://placehold.it/175x100&text=[img5]" alt="basketball" /></a></li>-->
+	        		<!--<li><a href="http://placehold.it/525x300&text=[img6]" class="fb"><img src="http://placehold.it/175x100&text=[img6]" alt="basketball" /></a></li>-->
+	        		<!--<li><a href="http://placehold.it/525x300&text=[img7]" class="fb"><img src="http://placehold.it/175x100&text=[img7]" alt="basketball" /></a></li>-->
+	        		<!--<li><a href="http://placehold.it/525x300&text=[img8]" class="fb"><img src="http://placehold.it/175x100&text=[img8]" alt="basketball" /></a></li>-->
+	        		<!--<li><a href="http://placehold.it/525x300&text=[img9]" class="fb"><img src="http://placehold.it/175x100&text=[img9]" alt="basketball" /></a></li>-->
+	        		<!--<li><a href="http://placehold.it/525x300&text=[img10]" class="fb"><img src="http://placehold.it/175x100&text=[img10]" alt="basketball" /></a></li>-->
+	        		<!--<li><a href="http://placehold.it/525x300&text=[img11]" class="fb"><img src="http://placehold.it/175x100&text=[img11]" alt="basketball" /></a></li>-->
+
+                  <% gallery_items.each do |item| %>
+                      <li><a href="<%= item.image.home_gallery_large.url %>" class="fb"><img src="<%= item.image.home_gallery_small.url %>" alt="<% item.get_image_alt %>" /></a></li>
+                  <% end %>
 	    		</ul>
 	    		<div class="clearfix"></div>
 			</div>

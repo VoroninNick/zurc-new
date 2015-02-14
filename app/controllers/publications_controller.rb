@@ -55,6 +55,29 @@ class PublicationsController < InnerPageController
   end  
 
   def show_news
+    @params_id = params[:id]
+    @article = Article.with_translations.published.news.by_url(@params_id).first
+
+    if @article
+
+
+      all_publications = Article.published.publications
+      current_index = nil
+      all_publications.each_with_index {|item, index| if item.id == @article.id then; current_index = index; break; end; }
+      @related_articles = all_publications[(current_index-1)..(current_index+1)].select{|p| p.id != @article.id }
+      #@related_articles = @article.related_publications
+
+      respond_to do |format|
+        format.html do
+          @breadcrumbs.push({title: I18n.t("breadcrumbs.publications"), url: send("publications_path"), current: false})
+          render template: "publications/show"
+
+          if @article.get_name.present?
+            @breadcrumbs.push({title: @article.get_name, url: false, current: true})
+          end
+        end
+      end
+    end
   end
 
   def about_index
