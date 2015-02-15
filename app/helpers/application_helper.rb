@@ -1,4 +1,6 @@
 module ApplicationHelper
+
+
   def main_menu_about_items
     about_articles = Article.published.about_us.order_by_date_desc
     menu_items = []
@@ -10,10 +12,11 @@ module ApplicationHelper
   end
 
   def main_menu_what_we_do_items
-    waht_we_do_articles = Article.published.what_we_do.order_by_date_desc
+    #waht_we_do_articles = Article.published.what_we_do.order_by_date_desc
+    what_we_do_child_nodes = ArticleCategory.available_what_we_do_categories
     menu_items = []
-    waht_we_do_articles.each do |item|
-      menu_items.push({name: item.get_name, link: item.to_param})
+    what_we_do_child_nodes.each do |item|
+      menu_items.push({name: item.get_name, link: item.smart_to_param})
     end
 
     separate_menu_items(menu_items)

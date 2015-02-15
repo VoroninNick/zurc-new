@@ -148,7 +148,7 @@ class PublicationsController < InnerPageController
 
 
   def available_what_we_do_categories
-    ArticleCategory.published.what_we_do_category.child_categories_with_articles(find_in_descendants: true).select{|c| c.published == true }
+    ArticleCategory.available_what_we_do_categories
   end
 
   private

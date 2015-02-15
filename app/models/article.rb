@@ -147,4 +147,6 @@ class Article < ActiveRecord::Base
   def smart_to_param
     routes_module.smart_article_path locale: I18n.locale, url: (article_category.path.map(&:get_slug).select{|slug| slug.present? } << self.get_slug ).join("/")
   end
+
+
 end
