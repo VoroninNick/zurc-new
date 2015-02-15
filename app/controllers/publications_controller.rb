@@ -70,11 +70,13 @@ class PublicationsController < InnerPageController
       respond_to do |format|
         format.html do
           @breadcrumbs.push({title: I18n.t("breadcrumbs.publications"), url: send("publications_path"), current: false})
-          render template: "publications/show"
+
 
           if @article.get_name.present?
             @breadcrumbs.push({title: @article.get_name, url: false, current: true})
           end
+
+          render template: "publications/show"
         end
       end
     end
