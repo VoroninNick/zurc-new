@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   devise_for :users
 
   scope "(:locale)", locale: /#{I18n.available_locales.join("|")}/ do
-
+    match "/:model_name/:id/multiple_upload", to: 'rails_admin/main#multiple_upload', as: :ra_multiple_upload, via: [:get, :post]
     #
     match '/message', to: 'contact#message', via: [:get, :post], as: :message
     root to: 'page#index'

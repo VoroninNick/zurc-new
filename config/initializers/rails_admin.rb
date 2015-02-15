@@ -1,4 +1,7 @@
 require Rails.root.join "config/initializers/rake_settings"
+
+require Rails.root.join("lib/rails_admin/multiple_upload.rb")
+
 unless RakeSettings.self_skip_initializers?
   RailsAdmin.config do |config|
 
@@ -34,11 +37,13 @@ unless RakeSettings.self_skip_initializers?
       history_show
 
       nestable
+
+      multiple_upload
     end
 
     config.included_models = []
 
-    [Article, ArticleCategory, PagesAbout, HomeSlide, HomeGalleryImage, HomeFirstAbout, HomeSecondAbout, User, Attachment].each do |model_class|
+    [Article, ArticleCategory, PagesAbout, HomeSlide, HomeGalleryImage, HomeFirstAbout, HomeSecondAbout, User, Attachment, GalleryImage, GalleryAlbum, Tag, Tagging].each do |model_class|
       config.included_models += [model_class]
       if model_class.respond_to?(:translates?) && model_class.translates?
         config.included_models += [model_class::Translation]
@@ -51,10 +56,12 @@ unless RakeSettings.self_skip_initializers?
         field :published
         field :featured
         field :article_category
+        field :tags
         field :translations, :globalize_tabs
         field :image
         field :attachments
         field :release_date
+
       end
     end
 
@@ -220,5 +227,77 @@ unless RakeSettings.self_skip_initializers?
         field :data
       end
     end
+
+    config.model Tag do
+      #nestable_list true
+
+      edit do
+        field :translations, :globalize_tabs
+        #field :taggables
+      end
+    end
+
+    config.model Tag::Translation do
+      visible false
+
+      edit do
+        field :locale, :hidden
+        field :name
+        field :slug
+      end
+    end
+
+    config.model Tagging do
+      #nestable_list true
+      visible false
+      edit do
+        field :translations, :globalize_tabs
+      end
+    end
+
+    config.model GalleryImage do
+      navigation_label "Галерея"
+      nestable_list true
+
+      edit do
+        field :tags
+        field :published
+        field :translations, :globalize_tabs
+      end
+    end
+
+    config.model GalleryImage::Translation do
+      visible false
+
+      edit do
+        field :locale, :hidden
+        field :name
+        field :data
+        field :alt
+      end
+    end
+
+    config.model GalleryAlbum do
+      navigation_label "Галерея"
+      nestable_list true
+
+      edit do
+        field :tags
+        field :published
+        field :translations, :globalize_tabs
+      end
+    end
+
+    config.model GalleryAlbum::Translation do
+      visible false
+
+      edit do
+        field :locale, :hidden
+        field :name
+        field :image
+        field :alt
+      end
+    end
+
   end
 end

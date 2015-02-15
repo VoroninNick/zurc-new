@@ -10,6 +10,13 @@ class Article < ActiveRecord::Base
   accepts_nested_attributes_for :attachments, allow_destroy: true
   attr_accessible :attachments, :attachments_attributes
 
+  # tags
+
+  has_many :taggings, as: :taggable
+  has_many :tags, through: :taggings
+
+  attr_accessible :taggings, :tagging_ids, :tags, :tag_ids
+
 
 
   # translations

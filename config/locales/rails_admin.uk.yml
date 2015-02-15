@@ -98,6 +98,10 @@ uk:
         menu: "Сортування"
         breadcrumb: "сортування"
         success: "Ви успішно відсортували"
+      multiple_upload:
+        title: "МультиАплоад для %{model_label_plural}"
+        menu: "МультиАплоад"
+        breadcrumb: "МультиАплоад"
 
     form:
       cancel: "Відміна"
