@@ -125,7 +125,7 @@ class PublicationsController < InnerPageController
 
       respond_to do |format|
         format.html do
-          @breadcrumbs.push({title: I18n.t("breadcrumbs.what-we-do"), url: send("publications_path"), current: false})
+          @breadcrumbs.push({title: I18n.t("breadcrumbs.what-we-do"), url: send("what_we_do_path"), current: false})
           if @article_category.get_name.present?
             @breadcrumbs.push({title: @article_category.get_name, url: false, current: true})
           end
