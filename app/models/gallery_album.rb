@@ -46,8 +46,10 @@ class GalleryAlbum < ActiveRecord::Base
 
   attr_accessible :taggings, :tagging_ids, :tags, :tag_ids
 
-  has_many :images, class: GalleryImage, foreign_key: :album_id
-  attr_accessible :images, :image_ids
+  if check_tables(:gallery_images)
+    has_many :images, class: GalleryImage, foreign_key: :album_id
+    attr_accessible :images, :image_ids
+  end
 
   accepts_nested_attributes_for :images
   attr_accessible :images_attributes

@@ -38,10 +38,15 @@ class Tag < ActiveRecord::Base
   end
 
   # associations
-  has_many :taggings, class: Tagging
-  has_many :articles, through: :taggings, source_type: Article, source: :taggable
-  has_many :gallery_images, through: :taggings, source_type: GalleryImage, source: :taggable
-  has_many :gallery_albums, through: :taggings, source_type: GalleryAlbum, source: :taggable
+
+  #tables = ActiveRecord::Base.connection.tables; [:articles, :gallery_images].select {|t| t.to_s.in?(tables) }
+
+ if check_tables(:gallery_images, :gallery_albums)
+    has_many :taggings, class: Tagging
+    has_many :articles, through: :taggings, source_type: Article, source: :taggable
+    has_many :gallery_images, through: :taggings, source_type: GalleryImage, source: :taggable
+    has_many :gallery_albums, through: :taggings, source_type: GalleryAlbum, source: :taggable
+ end
 
   def all_taggables
     articles + gallery_images + gallery_albums

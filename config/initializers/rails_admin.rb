@@ -42,11 +42,12 @@ unless RakeSettings.self_skip_initializers?
     end
 
     config.included_models = []
-
-    [Article, ArticleCategory, PagesAbout, HomeSlide, HomeGalleryImage, HomeFirstAbout, HomeSecondAbout, User, Attachment, GalleryImage, GalleryAlbum, Tag, Tagging].each do |model_class|
-      config.included_models += [model_class]
-      if model_class.respond_to?(:translates?) && model_class.translates?
-        config.included_models += [model_class::Translation]
+    if ActiveRecord::Base.check_tables(:gallery_images, :tags, :taggings, :gallery_albums)
+      [Article, ArticleCategory, PagesAbout, HomeSlide, HomeGalleryImage, HomeFirstAbout, HomeSecondAbout, User, Attachment, GalleryImage, GalleryAlbum, Tag, Tagging].each do |model_class|
+        config.included_models += [model_class]
+        if model_class.respond_to?(:translates?) && model_class.translates?
+          config.included_models += [model_class::Translation]
+        end
       end
     end
 

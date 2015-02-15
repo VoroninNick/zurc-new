@@ -39,4 +39,8 @@ class ActiveRecord::Base
   def another_locale
     I18n.available_locales.map(&:to_sym).select {|locale| locale != I18n.locale.to_sym  }.first
   end
+
+  def self.check_tables(*table_names)
+    tables = ActiveRecord::Base.connection.tables; table_names.select {|t| !t.to_s.in?(tables) }.empty?
+  end
 end

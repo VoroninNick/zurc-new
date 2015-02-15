@@ -47,6 +47,8 @@ class GalleryImage < ActiveRecord::Base
 
   attr_accessible :taggings, :tagging_ids, :tags, :tag_ids
 
-  belongs_to :album, class: GalleryAlbum
+  if check_tables(:gallery_albums)
+    belongs_to :album, class: GalleryAlbum
+  end
   attr_accessible :album, :album_id
 end
