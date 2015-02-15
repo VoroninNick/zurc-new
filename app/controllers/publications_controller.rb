@@ -61,7 +61,7 @@ class PublicationsController < InnerPageController
     if @article
 
 
-      all_publications = Article.published.publications
+      all_publications = Article.published.news
       current_index = nil
       all_publications.each_with_index {|item, index| if item.id == @article.id then; current_index = index; break; end; }
       @related_articles = all_publications[(current_index-1)..(current_index+1)].select{|p| p.id != @article.id }

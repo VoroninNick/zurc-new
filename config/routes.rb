@@ -12,7 +12,7 @@ Rails.application.routes.draw do
     get 'contact', to: 'contact#index', as: :contact
 
     get "news/list", to: 'news#list', as: :news_list
-    get "news/:id", to: 'news#view', as: :news_view
+    get "news/:id", to: 'publications#show_news', as: :news_view
     get "publications", to: 'publications#index', as: :publications, defaults: { article_category: :publications }
     get "publications/:id", to: 'publications#show', as: :show_publication, defaults: { article_category: :publications }
     get "news", to: 'publications#news_index', as: :news, defaults: { article_category: :news }
