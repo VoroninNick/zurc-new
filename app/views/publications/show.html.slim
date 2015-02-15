@@ -25,7 +25,7 @@
         .article-image-and-attachments.columns.large-4.left
           .article-image
             img src="#{@article.image.url(:avatar)}"
-          = render partial: "article_attachments", locals: { attachments: @article.attachments } if @article && @article.respond_to?(:attachments) && @attachments.any?
+          = render partial: "article_attachments", locals: { attachments: @article.attachments } if @article && @article.respond_to?(:attachments) && @article.attachments.any?
       .clearfix
     .article-content.columns.large-8.right
       = raw @article.get_content

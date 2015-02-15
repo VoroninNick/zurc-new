@@ -107,12 +107,46 @@ class PublicationsController < InnerPageController
   end
 
   def what_we_do_index
-    @article_categories = ArticleCategory.published.about_us_category.children.not_empty_categories
+    @article_categories = available_what_we_do_categories
     respond_to do |format|
       format.html do
         @breadcrumbs.push({title: I18n.t("breadcrumbs.what-we-do"), url: false, current: true})
       end
     end
+  end
+
+  def show_what_we_do_category
+    @article_category = available_what_we_do_categories.select {|c| c.find_slug_in_translations(slug: params[:id]) }.first
+    if @article_category
+      @article_subcategories = @article_category.child_categories_with_articles.select{|c| c.published == true }
+      #@articles = @article_category.articles
+
+      respond_to do |format|
+        format.html do
+          @breadcrumbs.push({title: I18n.t("breadcrumbs.what-we-do"), url: send("publications_path"), current: false})
+          if @article_category.get_name.present?
+            @breadcrumbs.push({title: @article_category.get_name, url: false, current: true})
+          end
+
+          @locale_links[another_locale.to_sym] = @article_category.smart_to_param( locales_priority: [another_locale.to_sym, I18n.locale.to_sym])
+
+        end
+      end
+    end
+  end
+
+  def show_what_we_do_subcategory
+
+  end
+  #
+  # def smart_article
+  #
+  # end
+
+
+
+  def available_what_we_do_categories
+    ArticleCategory.published.what_we_do_category.child_categories_with_articles(find_in_descendants: true).select{|c| c.published == true }
   end
 
   private

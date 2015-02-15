@@ -40,6 +40,10 @@ class ArticleCategoryImageUploader < CarrierWave::Uploader::Base
     process resize_to_fill: [800, 350]
   end
 
+  version :what_we_do_full_width_image do
+    process resize_to_fill: [1200, 400]
+  end
+
   
 
   # Add a white list of extensions which are allowed to be uploaded.

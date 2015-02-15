@@ -14,12 +14,20 @@ $gray-section-background-color: #ebebeb;
 }
 
 
-
-.page-title{
+.page-title, .visual-h1, .visual-h2{
   color: $orange-color;
-  text-transform: uppercase;
   font-weight: 700;
+}
+
+
+
+.page-title, .visual-h1{
+  text-transform: uppercase;
   font-size: 1.5rem;
+}
+
+.visual-h2{
+  font-size: 1.3rem;
 }
 
 .page-section{

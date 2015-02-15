@@ -1,0 +1,33 @@
+.what-we-do-category-page
+  - if @article_subcategories.any?
+    .row
+      .columns.large-12
+        ul#article-subcategories-menu
+          - @article_subcategories.each do |article_subcategory|
+            li
+              a href=article_subcategory.smart_to_param
+                = article_subcategory.get_name
+
+    .row
+      #article-subcategories
+        - @article_subcategories.each do |article_subcategory|
+          .article-subcategory
+            .article-subcategory-name.visual-h1.columns.large-12
+              a href=article_subcategory.smart_to_param
+                = article_subcategory.get_name
+            .article-subcategory-articles
+              - article_subcategory.articles.each do |article|
+                - article_image_position = cycle('left', 'right')
+                .article-subcategory-article class="#{article_image_position}-image"
+                  .article-row.row
+                    - if article_image_position == 'left'
+                      .columns.large-4
+                        .article-image
+                          = link_to( image_tag(article.image.avatar.url), article.smart_to_param)
+                      .columns.large-8
+                        .article-name-and-content
+                          .article-subcategory-article-name.visual-h2
+                            a href=article.smart_to_param
+                              = article.get_name
+                          .article-content
+                            = raw article.get_content

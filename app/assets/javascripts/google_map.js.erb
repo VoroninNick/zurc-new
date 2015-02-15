@@ -73,7 +73,9 @@ function init() {
         console.log('hello')
 
 
+        if(standard_method){
 
+        }
 
 
 
@@ -126,12 +128,12 @@ function init() {
 //                        '<p>Городенківський р-н.</p>'+
 //                        '</div>';
 
-                var infowindow14 = new google.maps.InfoWindow({
+                var infowindow = new google.maps.InfoWindow({
                     content: div
                 });
 
                 google.maps.event.addListener(marker, 'click', function() {
-                    infowindow14.open(map,marker);
+                    infowindow.open(map,marker);
                 });
             }
         }

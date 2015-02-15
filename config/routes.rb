@@ -4,7 +4,9 @@ Rails.application.routes.draw do
   mount Ckeditor::Engine => '/ckeditor'
   devise_for :users
 
-  scope "(:locale)" do
+  scope "(:locale)", locale: /#{I18n.available_locales.join("|")}/ do
+
+    #
     match '/message', to: 'contact#message', via: [:get, :post], as: :message
     root to: 'page#index'
     get 'contact', to: 'contact#index', as: :contact
@@ -21,7 +23,9 @@ Rails.application.routes.draw do
     get "about/:id", to: 'publications#show_about', as: :show_about, defaults: { article_category: :about }
 
     get "what-we-do", to: 'publications#what_we_do_index', as: :what_we_do
-    get "what-we-do/:id", to: 'publications#show_what_we_do', as: :show_what_we_do
+    get "what-we-do/:id", to: 'publications#show_what_we_do_category', as: :show_what_we_do_category
+    get "what-we-do/:category_id/:sub_category_id", to: "publications#show_what_we_do_subcategory", as: :show_what_we_do_subcategory
+    get "/what-we-do/*url", to: "publications#smart_article", as: :smart_article
   end
 
   

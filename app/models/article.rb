@@ -143,4 +143,8 @@ class Article < ActiveRecord::Base
     return routes_module.send("show_about_path", id: self.get_slug, locale: I18n.locale) if self.about_us?
     return routes_module.send("show_what_we_do_path", id: self.get_slug, locale: I18n.locale) if self.what_we_do?
   end
+
+  def smart_to_param
+    routes_module.smart_article_path locale: I18n.locale, url: (article_category.path.map(&:get_slug).select{|slug| slug.present? } << self.get_slug ).join("/")
+  end
 end
