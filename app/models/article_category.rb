@@ -113,6 +113,27 @@ class ArticleCategory < ActiveRecord::Base
     ArticleCategory.roots.published.select{|root_category| root_category.child_categories_with_articles(find_in_descendants: true).select{|c| c.published == true }.any? }
   end
 
+  def available?(options = {})
+    return false unless self.published?
+    return true if self.articles.published.any?
+    options[:find_in_descendants] = true unless options.keys.include?(:find_in_descendants)
+    return false if options[:find_in_descendants] == false
+    self.descendants.each do |c|
+      return true if c.articles.published.any?
+    end
+
+    return false
+  end
+
+  def self.available_roots
+    self.roots.select{|c| c.available? }
+  end
+
+  def available_articles?(options = {})
+    options[:find_in_descendants] = false unless options.keys.include?(:find_in_descendants)
+
+  end
+
   def self.available_what_we_do_categories
     ArticleCategory.published.what_we_do_category.child_categories_with_articles(find_in_descendants: true).select{|c| c.published == true }
   end

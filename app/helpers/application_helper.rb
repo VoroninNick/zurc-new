@@ -1,7 +1,35 @@
 module ApplicationHelper
 
   def main_menu_items
-    ArticleCategory.available_root_categories
+    menu_items = []
+    ArticleCategory.available_roots.each do |category|
+      sub_categories = category.children.select {|c| c.available? }
+      menu_item = {}
+      if sub_categories.any?
+        sub_items = []
+        sub_categories.each do |c|
+
+        end
+      end
+    end
+  end
+
+  def nested_menu_nodes(nodes = nil )
+    nodes = main_menu_items if nodes.nil?
+
+    content_tag(:ul) do
+      nodes.map do |node, sub_nodes|
+        if node.available?
+          content_tag(:li) do
+            if sub_nodes
+              return node.get_name +  nested_menu_nodes(sub_nodes)
+            else
+              return node.get_name
+            end
+          end
+        end
+      end.join.html_safe
+    end
   end
 
   def main_menu_about_items
