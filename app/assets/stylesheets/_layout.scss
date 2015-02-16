@@ -780,11 +780,18 @@ body:before {
 
 #menu-wrapper{
 	//box-shadow: green 5px 5px 5px inset;
-    background: url('/assets/menu-line2.jpg') center top no-repeat, url('/assets/menu-line.jpg') repeat-x center top;
+    //background: url('/assets/menu-line2.jpg') center top no-repeat, url('/assets/menu-line.jpg') repeat-x center top;
 	&:before{
 		//@include shadow-effect1;
-		width: 100px;
-		height: 5px;
+		//width: 100px;
+		//height: 5px;
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 7px;
+      display: block;
+      background: url("/assets/line_1.png") left top no-repeat, url("/assets/line_2.png") right top no-repeat;
+      opacity: 0.05;
 	}
 }
 

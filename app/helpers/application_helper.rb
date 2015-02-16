@@ -1,5 +1,8 @@
 module ApplicationHelper
 
+  def main_menu_items
+    ArticleCategory.available_root_categories
+  end
 
   def main_menu_about_items
     about_articles = Article.published.about_us.order_by_date_desc

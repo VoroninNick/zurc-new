@@ -109,6 +109,10 @@ class ArticleCategory < ActiveRecord::Base
     end
   end
 
+  def self.available_root_categories
+    ArticleCategory.roots.published.select{|root_category| root_category.child_categories_with_articles(find_in_descendants: true).select{|c| c.published == true }.any? }
+  end
+
   def self.available_what_we_do_categories
     ArticleCategory.published.what_we_do_category.child_categories_with_articles(find_in_descendants: true).select{|c| c.published == true }
   end

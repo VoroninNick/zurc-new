@@ -140,6 +140,10 @@ class PublicationsController < InnerPageController
   def show_what_we_do_subcategory
 
   end
+
+  def category
+
+  end
   #
   # def smart_article
   #
