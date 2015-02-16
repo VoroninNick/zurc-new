@@ -1,6 +1,15 @@
 class GalleryAlbum < ActiveRecord::Base
   attr_accessible :name, :image, :published, :position, :alt
 
+  # menu_items
+  has_many :menu_items, as: :linkable
+  attr_accessible :menu_items, :menu_item_ids
+
+  # page meta_data
+  has_one :page_metada, as: :page
+  attr_accessible :page_metada
+
+
   # translations
   translates :name, :alt, :image#, versioning: :paper_trail#, fallbacks_for_empty_translations: true
   accepts_nested_attributes_for :translations

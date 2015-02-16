@@ -21,6 +21,10 @@ class Article < ActiveRecord::Base
   has_many :menu_items, as: :linkable
   attr_accessible :menu_items, :menu_item_ids
 
+  # page meta_data
+  has_one :page_metada, as: :page
+  attr_accessible :page_metada
+
 
   # translations
   translates :name, :description, :intro, :content, :slug, :author#, versioning: :paper_trail#, fallbacks_for_empty_translations: true
