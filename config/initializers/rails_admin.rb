@@ -327,7 +327,15 @@ unless RakeSettings.self_skip_initializers?
 
     config.model ContactPage do
       edit do
+        field :translations, :globalize_tabs
         field :page_metadata
+      end
+    end
+
+    config.model ContactPage::Translation do
+      edit do
+        field :locale, :hidden
+        field :slug
       end
     end
 
