@@ -9,6 +9,9 @@ class GalleryAlbum < ActiveRecord::Base
   has_one :page_metadata, as: :page
   attr_accessible :page_metadata
 
+  accepts_nested_attributes_for :page_metadata
+  attr_accessible :page_metadata_attributes
+
 
   # translations
   translates :name, :alt, :image#, versioning: :paper_trail#, fallbacks_for_empty_translations: true
