@@ -41,7 +41,7 @@ class ArticleCategoryImageUploader < CarrierWave::Uploader::Base
   end
 
   version :what_we_do_full_width_image do
-    process resize_to_fill: [1200, 400]
+    process resize_to_fill: [1200, 396]
   end
 
   
