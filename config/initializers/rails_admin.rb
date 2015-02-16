@@ -43,7 +43,7 @@ unless RakeSettings.self_skip_initializers?
 
     config.included_models = []
     if ActiveRecord::Base.check_tables(:gallery_images, :tags, :taggings, :gallery_albums)
-      [Article, ArticleCategory, PagesAbout, HomeSlide, HomeGalleryImage, HomeFirstAbout, HomeSecondAbout, User, Attachment, GalleryImage, GalleryAlbum, Tag, Tagging].each do |model_class|
+      [Article, ArticleCategory, PagesAbout, HomeSlide, HomeGalleryImage, HomeFirstAbout, HomeSecondAbout, User, Attachment, GalleryImage, GalleryAlbum, Tag, Tagging, MenuItem].each do |model_class|
         config.included_models += [model_class]
         if model_class.respond_to?(:translates?) && model_class.translates?
           config.included_models += [model_class::Translation]
@@ -297,6 +297,28 @@ unless RakeSettings.self_skip_initializers?
         field :name
         field :image
         field :alt
+      end
+    end
+
+    config.model MenuItem do
+      nestable_tree({
+        position_field: :priority
+      })
+
+      edit do
+        field :linkable
+        field :link_source
+        field :name_source
+        field :translations, :globalize_tabs
+      end
+    end
+
+    config.model MenuItem::Translation do
+      visible false
+
+      edit do
+        field :name
+        field :link
       end
     end
 
