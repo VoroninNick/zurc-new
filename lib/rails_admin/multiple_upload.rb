@@ -8,8 +8,8 @@ module RailsAdmin
         end
 
         register_instance_option :link_icon do
-          #'icon-upload'
-          'icon-question-sign'
+          'icon-upload'
+          #'icon-question-sign'
         end
 
         register_instance_option :http_methods do
