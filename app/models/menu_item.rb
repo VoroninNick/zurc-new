@@ -5,6 +5,7 @@ class MenuItem < ActiveRecord::Base
   belongs_to :linkable, polymorphic: true
   attr_accessible :linkable
 
+  has_ancestry
 
 
   # translations
