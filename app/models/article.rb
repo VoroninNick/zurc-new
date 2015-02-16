@@ -17,6 +17,9 @@ class Article < ActiveRecord::Base
 
   attr_accessible :taggings, :tagging_ids, :tags, :tag_ids
 
+  # menu_items
+  has_many :menu_items, as: :linkable
+  attr_accessible :menu_items, :menu_item_ids
 
 
   # translations

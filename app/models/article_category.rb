@@ -8,6 +8,10 @@ class ArticleCategory < ActiveRecord::Base
 
   has_ancestry
 
+  # menu_items
+  has_many :menu_items, as: :linkable
+  attr_accessible :menu_items, :menu_item_ids
+
   # translations
   translates :name, :slug#, versioning: :paper_trail, fallbacks_for_empty_translations: true
   accepts_nested_attributes_for :translations
