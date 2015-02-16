@@ -43,7 +43,7 @@ unless RakeSettings.self_skip_initializers?
 
     config.included_models = []
     if ActiveRecord::Base.check_tables(:gallery_images, :tags, :taggings, :gallery_albums)
-      [Article, ArticleCategory, PagesAbout, ContactPage, HomeSlide, HomeGalleryImage, HomeFirstAbout, HomeSecondAbout, User, Attachment, GalleryImage, GalleryAlbum, Tag, Tagging, MenuItem, PageMetada].each do |model_class|
+      [Article, ArticleCategory, PagesAbout, ContactPage, HomeSlide, HomeGalleryImage, HomeFirstAbout, HomeSecondAbout, User, Attachment, GalleryImage, GalleryAlbum, Tag, Tagging, MenuItem, PageMetadata].each do |model_class|
         config.included_models += [model_class]
         if model_class.respond_to?(:translates?) && model_class.translates?
           config.included_models += [model_class::Translation]
@@ -62,7 +62,7 @@ unless RakeSettings.self_skip_initializers?
         field :image
         field :attachments
         field :release_date
-
+        field :page_metadata
       end
     end
 
@@ -90,6 +90,7 @@ unless RakeSettings.self_skip_initializers?
         field :published
         field :image
         field :translations, :globalize_tabs
+        field :page_metadata
         field :articles
       end
     end
@@ -286,6 +287,7 @@ unless RakeSettings.self_skip_initializers?
         field :tags
         field :published
         field :translations, :globalize_tabs
+        field :page_metadata
       end
     end
 
@@ -325,17 +327,17 @@ unless RakeSettings.self_skip_initializers?
 
     config.model ContactPage do
       edit do
-        field :meta_data
+        field :page_metadata
       end
     end
 
-    config.model PageMetada do
+    config.model PageMetadata do
       edit do
         field :translations, :globalize_tabs
       end
     end
 
-    config.model PageMetada::Translation do
+    config.model PageMetadata::Translation do
       edit do
         field :locale, :hidden
         field :head_title

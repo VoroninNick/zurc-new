@@ -10,13 +10,13 @@ class CreatePageMetadata < ActiveRecord::Migration
       t.timestamps null: false
     end
 
-    PageMetada.create_translation_table!(head_title: :string, meta_keywords: :text, meta_description: :text)
+    PageMetadata.create_translation_table!(head_title: :string, meta_keywords: :text, meta_description: :text)
 
 
   end
 
   def down
-    PageMetada.drop_translation_table!
+    PageMetadata.drop_translation_table!
 
     drop_table :page_metadata
   end

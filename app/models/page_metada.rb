@@ -1,4 +1,4 @@
-class PageMetada < ActiveRecord::Base
+class PageMetadata < ActiveRecord::Base
   self.table_name = :page_metadata
 
   # associations
