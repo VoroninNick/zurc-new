@@ -18,7 +18,7 @@ class ActiveRecord::Base
       if find_method == :globalize_accessors
         options[:locales_priority].select{|locale| locale.respond_to?(:to_sym) }.map(&:to_sym).each do |locale|
           next unless object.respond_to?(attr_name.to_sym)
-          attr_value = object.send("#{attr_name}_#{I18n.locale}");
+          attr_value = object.send("#{attr_name}_#{locale}");
           break if attr_value.present?
         end
       elsif find_method == :translations

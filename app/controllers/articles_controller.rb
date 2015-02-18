@@ -212,6 +212,9 @@ class ArticlesController < InnerPageController
       built_template_name = template_category.present? ? "#{template_category}_#{template_name}" : template_name
 
       @breadcrumbs = resource.smart_breadcrumbs
+      I18n.available_locales.select{|locale| locale.to_sym != I18n.locale.to_sym }.each do |locale|
+        @locale_links[locale.to_sym] = resource.smart_to_param(locales_priority: [another_locale, I18n.locale])
+      end
 
       init_publication if  @article.try{|a| a.article_category.root.send(:publications_category?)}
       init_publications if @category.try{|c| c.root.send(:publications_category?)}

@@ -126,7 +126,9 @@ class ArticleCategory < ActiveRecord::Base
   def smart_to_param(options = {})
     options[:locales_priority] = [I18n.locale, another_locale] if options[:locales_priority].blank?
     options[:locale] = options[:locales_priority].first if options[:locale].blank?
-    routes_module.smart_article_path locale: options[:locale], root_category: self.try {|c| c.root? ? c.get_slug : c.root.get_slug } , url: (self.path.select{|c| !c.root? }.map{|c| c.get_slug(locales_priority: options[:locales_priority] ) }.select{|slug| slug.present? } ).join("/")
+    routes_module.smart_article_path locale: options[:locale],
+                                     root_category: self.try {|c| c.root.get_slug(locales_priority: options[:locales_priority]) } ,
+                                     url: (self.path.select{|c| !c.root? }.map{|c| c.get_slug(locales_priority: options[:locales_priority] ) }.select{|slug| slug.present? } ).join("/")
   end
 
   def find_slug_in_translations(options = {} )

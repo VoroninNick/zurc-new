@@ -170,8 +170,12 @@ class Article < ActiveRecord::Base
     return routes_module.send("show_what_we_do_path", id: self.get_slug, locale: I18n.locale) if self.what_we_do?
   end
 
-  def smart_to_param
-    routes_module.smart_article_path locale: I18n.locale, root_category: article_category.try {|category| category.root? ? category.get_slug : category.root.get_slug } , url: (article_category.path.select{|c| !c.root? }.map(&:get_slug).select{|slug| slug.present? } << self.get_slug ).join("/")
+  def smart_to_param(options = {})
+    options[:locales_priority] = [I18n.locale, another_locale] if options[:locales_priority].blank?
+    options[:locale] = options[:locales_priority].first if options[:locale].blank?
+    routes_module.smart_article_path locale: options[:locale],
+                                     root_category: article_category.try {|category| category.root.get_slug } ,
+                                     url: (article_category.path.select{|c| !c.root? }.map{|c| c.get_slug(locales_priority: options[:locales_priority] ) }.select{|slug| slug.present? } << self.get_slug ).join("/")
   end
 
   def smart_breadcrumbs
