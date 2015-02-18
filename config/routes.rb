@@ -1,10 +1,11 @@
 Rails.application.routes.draw do
 
-  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
-  mount Ckeditor::Engine => '/ckeditor'
-  devise_for :users
+
 
   scope "(:locale)", locale: /#{I18n.available_locales.join("|")}/ do
+    mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
+    mount Ckeditor::Engine => '/ckeditor'
+    devise_for :users
 
     get "/:root_category/(*url)", to: "articles#smart_article", as: :smart_article, root_category: /#{ arr = ArticleCategory.roots.published.map(&:translations); translations = []; arr.each {|sub_arr| translations.concat sub_arr };   translations.map(&:slug).select{|s| s.present? }.uniq.join('|')}/
 

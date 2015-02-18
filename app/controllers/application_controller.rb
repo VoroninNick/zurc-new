@@ -3,8 +3,14 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
+  before_filter :set_admin_locale
+
   def set_admin_locale
-    I18n.locale = params[:locale] || I18n.default_locale
+    #I18n.locale = params[:locale] || I18n.default_locale
+    if params[:controller].to_s.scan(/\A(rails_admin|devise)/).any?
+      I18n.locale = params[:locale] || I18n.default_locale
+     # render inline: params.inspect
+    end
   end
 
   def render_not_found
@@ -37,7 +43,7 @@ class ApplicationController < ActionController::Base
 
   def set_locale
 
-    if params[:controller].scan(/\Arails_admin/).empty?
+    if params[:controller].scan(/\A(rails_admin|devise)/).empty?
       params_locale = params[:locale]
       locale = nil
       if params_locale && I18n.available_locales.include?(params_locale.to_sym)
@@ -135,7 +141,9 @@ class ApplicationController < ActionController::Base
   end
 
   def default_url_options(options={})
-    { :locale => I18n.locale }
+    return {}# if params[:controller].if
+    #{ :locale => I18n.locale }
+
   end
 
 end

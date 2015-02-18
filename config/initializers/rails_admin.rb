@@ -64,6 +64,16 @@ unless RakeSettings.self_skip_initializers?
         field :release_date
         field :page_metadata
       end
+
+      list do
+        field :published
+        field :get_name do
+          label "І'мя"
+        end
+        field :article_category
+        field :image
+        field :release_date
+      end
     end
 
     config.model Article::Translation do
