@@ -6,7 +6,7 @@
           .featured-publication class="#{ "featured-large" }"
             .column-inner
               - [@featured_articles.first].each do |article|
-                = link_to article.to_param do
+                = link_to article.smart_to_param do
                   - if article.ad_image_url.present?
                     img.featured-publication-img src="#{article.ad_image_url}"
                   - if article.get_name.present? || article.release_date.present?
@@ -22,7 +22,7 @@
             - @featured_articles[1, @featured_articles.length - 1].each do |article|
               .featured-publication class="#{ "featured-small" }"
                 .column-inner
-                  = link_to article.to_param do
+                  = link_to article.smart_to_param do
                     - if article.ad_image_url.present?
                       img.featured-publication-img src="#{article.ad_image_url}"
                     - if article.get_name.present? || article.release_date.present?

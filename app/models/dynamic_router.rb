@@ -78,7 +78,7 @@ class VoroninStudio::DynamicRouter
     #slugs = translations.map(&:slug).select{ |s| s.present? }
     #get "/:root_category/(*url)", to: "publications#category", as: :smart_publication, root_category: /#{slugs.join('|')}/
 
-    get "/:root_category/(*url)", to: "publications#category", as: :smart_publication, root_category: /#{ArticleCategory.roots.published.map(&:translations).map(&:slug).select{|s| s.present? }.join('|')}/
+    get "/:root_category/(*url)", to: "publications#category", as: :smart_article, root_category: /#{ArticleCategory.roots.published.map(&:translations).map(&:slug).select{|s| s.present? }.join('|')}/
   end
 
   def self.reload

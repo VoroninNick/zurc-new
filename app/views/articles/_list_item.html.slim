@@ -1,7 +1,7 @@
 .list-item.publication-item.columns.large-6 class="#{"has-attachments" if article.respond_to?(:attachments) && article.attachments.count > 0}"
   - if article.get_name
     .list-item-title
-      a.list-item-title-a href=article.to_param
+      a.list-item-title-a href=article.smart_to_param
         = article.get_name
   - if article.release_date
     .list-item-date

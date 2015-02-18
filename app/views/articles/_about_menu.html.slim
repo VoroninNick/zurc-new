@@ -1,4 +1,4 @@
 ul.about-menu
   - @articles.each do |article|
 	li class=( active = (params[:controller] == 'publications' && params[:action] == 'show_about' && @article && @article.id == article.id ); active ? 'active' : '' )
-	  = link_to_unless active, (article.get_name), article.to_param
+	  = link_to_unless active, (article.get_name), article.smart_to_param

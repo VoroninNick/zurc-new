@@ -104,12 +104,15 @@ class Article < ActiveRecord::Base
   scope :featured, -> { where(featured: 't').order_by_date_desc.limit(3) }
   scope :unfeatured, -> { where.not(id: featured.map(&:id)) }
   scope :by_url, -> (url) { where(slug: url ) }
+  scope :available, proc { published }
 
   # images
   mount_uploader :image, ImageUploader
 
 
-
+  # def self.publications
+  #   Article.all.select{|a| a.publication? }
+  # end
 
 
   def publication?
@@ -129,7 +132,7 @@ class Article < ActiveRecord::Base
   end
 
   def ad_image_url
-    if (featured = Article.published.publications.featured) && featured.where(id: self.id).any?
+    if (featured = Article.publications.featured) && featured.where(id: self.id).any?
       method = nil
       if featured.first.id == self.id
         method = :featured_article_large
@@ -150,19 +153,41 @@ class Article < ActiveRecord::Base
     end
   end
 
+
+  def available?
+    published?
+  end
+
   def routes_module
     Rails.application.routes.url_helpers
   end
 
   def to_param
-    return routes_module.send("show_publication_path", id: self.get_slug, locale: I18n.locale) if self.publication?
+    #return routes_module.send("show_publication_path", id: self.get_slug, locale: I18n.locale) if self.publication?
+    return routes_module.send("show_smart_article_path", id: self.get_slug, locale: I18n.locale) if self.publication?
     return routes_module.send("show_news_path", id: self.get_slug, locale: I18n.locale) if self.news?
     return routes_module.send("show_about_path", id: self.get_slug, locale: I18n.locale) if self.about_us?
     return routes_module.send("show_what_we_do_path", id: self.get_slug, locale: I18n.locale) if self.what_we_do?
   end
 
   def smart_to_param
-    routes_module.smart_article_path locale: I18n.locale, url: (article_category.path.map(&:get_slug).select{|slug| slug.present? } << self.get_slug ).join("/")
+    routes_module.smart_article_path locale: I18n.locale, root_category: article_category.try {|category| category.root? ? category.get_slug : category.root.get_slug } , url: (article_category.path.select{|c| !c.root? }.map(&:get_slug).select{|slug| slug.present? } << self.get_slug ).join("/")
+  end
+
+  def smart_breadcrumbs
+    breadcrumbs = []
+    path = self.article_category.path
+    path_length = path.length
+    path.each do |c|
+      crumb = {}
+      crumb[:title] = c.get_name
+      crumb[:url] = c.smart_to_param
+      breadcrumbs << crumb
+    end
+
+    breadcrumbs << {title: self.get_name}
+
+    breadcrumbs
   end
 
 

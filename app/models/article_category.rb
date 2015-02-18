@@ -58,10 +58,33 @@ class ArticleCategory < ActiveRecord::Base
   attr_accessible :image
   mount_uploader :image, ArticleCategoryImageUploader
 
+  scope :news_category, proc { where(id: 1).first }
   scope :about_us_category, proc { where(id: 2).first }
   scope :what_we_do_category, proc { where(id: 3).first }
+  scope :publications_category, proc { where(id: 4).first }
   scope :not_empty_categories, proc { select {|c| c.articles.any?  } }
   scope :published, proc { where(published: 't') }
+
+  def news_category?
+    c = ArticleCategory.news_category
+    c ? c.id == self.id : false
+  end
+
+  def about_us_category?
+    c = ArticleCategory.about_us_category
+    c ? c.id == self.id : false
+  end
+
+  def what_we_do_category?
+    c = ArticleCategory.what_we_do_category
+    c ? c.id == self.id : false
+  end
+
+  def publications_category?
+    c = ArticleCategory.publications_category
+    c ? c.id == self.id : false
+  end
+
 
   def what_we_do_child?
     ArticleCategory.what_we_do_category.id == self.parent_id
@@ -103,7 +126,7 @@ class ArticleCategory < ActiveRecord::Base
   def smart_to_param(options = {})
     options[:locales_priority] = [I18n.locale, another_locale] if options[:locales_priority].blank?
     options[:locale] = options[:locales_priority].first if options[:locale].blank?
-    routes_module.smart_article_path locale: options[:locale], url: (self.path.map{|c| c.get_slug(locales_priority: options[:locales_priority] ) }.select{|slug| slug.present? } ).join("/")
+    routes_module.smart_article_path locale: options[:locale], root_category: self.try {|c| c.root? ? c.get_slug : c.root.get_slug } , url: (self.path.select{|c| !c.root? }.map{|c| c.get_slug(locales_priority: options[:locales_priority] ) }.select{|slug| slug.present? } ).join("/")
   end
 
   def find_slug_in_translations(options = {} )
@@ -136,8 +159,16 @@ class ArticleCategory < ActiveRecord::Base
     return false
   end
 
+  def available_child_categories
+    self.children.select {|c| c.available? }
+  end
+
   def self.available_roots
     self.roots.select{|c| c.available? }
+  end
+
+  def available_articles
+    self.articles.select{|a| a.available?  }
   end
 
   def available_articles?(options = {})
@@ -147,6 +178,20 @@ class ArticleCategory < ActiveRecord::Base
 
   def self.available_what_we_do_categories
     ArticleCategory.published.what_we_do_category.child_categories_with_articles(find_in_descendants: true).select{|c| c.published == true }
+  end
+
+  def smart_breadcrumbs
+    breadcrumbs = []
+    path = self.path
+    path_length = path.length
+    path.each do |c|
+      crumb = {}
+      crumb[:title] = c.get_name
+      crumb[:url] = c.smart_to_param unless c.id == self.id
+      breadcrumbs << crumb
+    end
+
+    breadcrumbs
   end
 
 end

@@ -1,0 +1,52 @@
+.publications-list-page
+  - if @featured_articles && @featured_articles.length > 0
+    .featured-publications-section.page-section.inner-indent-for-backround
+      .featured-publications-row.row
+        .columns.large-8
+          .featured-publication class="#{ "featured-large" }"
+            .column-inner
+              - [@featured_articles.first].each do |article|
+                = link_to article.smart_to_param do
+                  - if article.ad_image_url.present?
+                    img.featured-publication-img src="#{article.ad_image_url}"
+                  - if article.get_name.present? || article.release_date.present?
+                    .featured-publication-title-and-date
+                      - if article.name.present?
+                        .featured-publication-title
+                          = article.get_name
+                      - if article.release_date.present?
+                        .featured-publication-date
+                          = article.release_date.strftime("%d.%m.%Y")
+        - if @featured_articles.length > 1
+          .columns.large-4
+            - @featured_articles[1, @featured_articles.length - 1].each do |article|
+              .featured-publication class="#{ "featured-small" }"
+                .column-inner
+                  = link_to article.smart_to_param do
+                    - if article.ad_image_url.present?
+                      img.featured-publication-img src="#{article.ad_image_url}"
+                    - if article.get_name.present? || article.release_date.present?
+                      .featured-publication-title-and-date
+                        - if article.get_name.present?
+                          .featured-publication-title
+                            = article.get_name
+                        - if article.release_date.present?
+                          .featured-publication-date
+                            = article.release_date.strftime("%d.%m.%Y")
+
+
+
+  - if @articles && @articles.respond_to?(:count) && @articles.count > 0
+    .page-section.post-background-section.publications-list-section class=( "no-padding-top" if !(@featured_articles && @featured_articles.any?) )
+      .row
+        .page-title.columns.large-12
+          = "Останні публікації"
+        .list.publications-list.infinity-scroll-list
+          - if @articles.count > 0
+            .list.publications-list-collection
+              - @articles.each do |article|
+                - Globalize.with_locale(I18n.locale) do
+                  = render partial: "list_item", locals: { article: article }
+          - else
+            = "Публікацій немає"
+        = paginate @articles

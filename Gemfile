@@ -125,6 +125,7 @@ gem 'rails_admin_nestable'
 gem 'fancybox2-rails'
 
 gem 'ancestry'
+gem 'rubytree'
 
 # gems listed below prevent rails scripts
 # gem 'rails_admin_globalize_field', github: 'VoroninNick/rails_admin_globalize_field', branch: 'allow-current-locale'

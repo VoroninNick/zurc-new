@@ -5,7 +5,7 @@ class PageMetadata < ActiveRecord::Base
   belongs_to :page, polymorphic: true
   attr_accessible :page
 
-  attr_accessible :head_title, :meta_keywords, :meta_description, :page_type, :page_id
+  attr_accessible :head_title, :meta_keywords, :meta_description, :page_type, :page_id, :template_name
 
   # translations
   translates :head_title, :meta_keywords, :meta_description#, versioning: :paper_trail#, fallbacks_for_empty_translations: true

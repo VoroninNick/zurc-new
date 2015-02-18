@@ -7,6 +7,10 @@ class ApplicationController < ActionController::Base
     I18n.locale = params[:locale] || I18n.default_locale
   end
 
+  def render_not_found
+    render inline: "<html><head><title>Not found</title></head><body><h1>404 not found</h1><h2>Page you requested could not be found</h2></body></html>"
+  end
+
   def default_url_options(options={})
     { :locale => I18n.locale }
   end

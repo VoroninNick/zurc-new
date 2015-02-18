@@ -112,3 +112,45 @@ $('#refineslide-images').refineSlide({
     
 });
 
+
+$document.on('ready', function() {
+    $body.on('click', '[data-target]', function (event) {
+        event.preventDefault()
+        var $this = $(this)
+        var data_target = $this.attr('data-target')
+        var $target = $('#body').find("[data-id=" + data_target + "]")
+        var top = $target.offset().top;
+        $('html, #body').animate(
+            {scrollTop: '' + top + 'px'},
+            300,
+            "swing",
+            function () {
+                //alert(animation complete! - your custom code here!);
+            }
+        )
+    })
+
+    var $what_we_do_category_page = $('.what-we-do-category-page')
+    $what_we_do_category_page.on('click', 'a.expander', function(event){
+        event.preventDefault()
+        var $expander = $(this)
+        var action = 'expand'
+        if($expander.hasClass('expanded')){
+            action = 'collapse'
+        }
+
+        var $article_container = $expander.closest('div.article-subcategory-article')
+
+        switch(action){
+            case 'collapse':
+                $expander.removeClass('expanded').addClass('collapsed');
+                $article_container.removeClass('expanded').addClass('collapsed');
+                break;
+            case 'expand':
+            default:
+                $expander.removeClass('collapsed').addClass('expanded');
+                $article_container.removeClass('collapsed').addClass('expanded');
+        }
+    })
+
+})

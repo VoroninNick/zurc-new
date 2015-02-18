@@ -2,6 +2,7 @@
 	<div class="row">
     <div class="columns large-12">
 		<ul class="breadcrumbs">
+          <%# @breadcrumbs.inspect %>
           <% if @breadcrumbs %>
 			<% @breadcrumbs.each_with_index do |b, index| %>
   				<li><% if b[:url] %>

@@ -6,9 +6,10 @@ Rails.application.routes.draw do
 
   scope "(:locale)", locale: /#{I18n.available_locales.join("|")}/ do
 
-    get "/:root_category/(*url)", to: "publications#category", as: :smart_publication, root_category: /#{ arr = ArticleCategory.roots.published.map(&:translations); translations = []; arr.each {|sub_arr| translations.concat sub_arr };   translations.map(&:slug).select{|s| s.present? }.uniq.join('|')}/
+    get "/:root_category/(*url)", to: "articles#smart_article", as: :smart_article, root_category: /#{ arr = ArticleCategory.roots.published.map(&:translations); translations = []; arr.each {|sub_arr| translations.concat sub_arr };   translations.map(&:slug).select{|s| s.present? }.uniq.join('|')}/
 
-    get "/*url", to: "contact#index", as: :contact, url: /#{ arr = ContactPage.all.map(&:translations); translations = []; arr.each {|sub_arr| translations.concat sub_arr };   translations.map(&:slug).select{|s| s.present? }.uniq.join('|')}/
+    contact_slugs = ( arr = ContactPage.all.map(&:translations); translations = []; arr.each {|sub_arr| translations.concat sub_arr };   translations.map(&:slug).select{|s| s.present? }.uniq.join('|'))
+    get "/*url", to: "contact#index", as: :contact, url: /#{contact_slugs}/ if contact_slugs.present?
 
     match "/:model_name/:id/multiple_upload", to: 'rails_admin/main#multiple_upload', as: :ra_multiple_upload, via: [:get, :post]
     #

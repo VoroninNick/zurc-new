@@ -303,15 +303,48 @@ unless RakeSettings.self_skip_initializers?
     end
 
     config.model MenuItem do
+
+      object_label_method do
+        :get_name
+      end
+
       nestable_tree({
         position_field: :priority
       })
 
       edit do
+        field :node_type, :enum do
+          enum do
+            [:menu, :dynamic_menu_items_group, :menu_item ]
+          end
+        end
         field :linkable
-        field :link_source
-        field :name_source
+        field :link_source, :enum do
+          enum do
+            ['custom', 'association']
+          end
+        end
+        field :name_source, :enum do
+          enum do
+            ['custom', 'association']
+          end
+        end
+
+        group :for_dynamic_menu_items_group do
+          field :items_source, :enum do
+            enum do
+              ['about_children', 'what_we_do_children']
+            end
+          end
+        end
+
         field :translations, :globalize_tabs
+      end
+
+      list do
+        field :get_name do
+          label "Ім'я"
+        end
       end
     end
 
@@ -329,6 +362,7 @@ unless RakeSettings.self_skip_initializers?
       edit do
         field :translations, :globalize_tabs
         field :page_metadata
+        field :template_name
       end
     end
 
@@ -342,6 +376,9 @@ unless RakeSettings.self_skip_initializers?
     config.model PageMetadata do
       edit do
         field :translations, :globalize_tabs
+        group :advanced do
+          field :template_name
+        end
       end
     end
 

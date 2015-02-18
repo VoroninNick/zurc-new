@@ -36,7 +36,7 @@ module ApplicationHelper
     about_articles = Article.published.about_us.order_by_date_desc
     menu_items = []
     about_articles.each do |item|
-      menu_items.push({name: item.get_name, link: item.to_param})
+      menu_items.push({name: item.get_name, link: item.smart_to_param})
     end
 
     separate_menu_items(menu_items)
@@ -72,5 +72,12 @@ module ApplicationHelper
     separated_menu_items[1] = menu_items_part_2 if menu_items_part_2.any?
 
     separated_menu_items
+  end
+
+  def render_main_menu
+
+    content_tag(:ul) do
+
+    end
   end
 end
