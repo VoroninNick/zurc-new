@@ -8,7 +8,7 @@
       = article.release_date.strftime("%d.%m.%Y")
   - if article.image && article.image.url.present?
     .list-item-thumb
-      a.list-item-thumb-a href="#"
+      a.list-item-thumb-a href=article.smart_to_param
         = image_tag article.image.url(:site_thumb)
   - if article.get_description.present?
     .list-item-short-description

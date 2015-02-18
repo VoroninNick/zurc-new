@@ -268,8 +268,8 @@ class ArticlesController < InnerPageController
 
   def init_about_us_item
     @articles = about_articles
-    @params_id = params[:id]
-    @article = Article.with_translations.published.about_us.by_url(@params_id).first
+    #@params_id = params[:id]
+    #@article = Article.with_translations.published.about_us.by_url(@params_id).first
   end
 
   def init_what_we_do_category
