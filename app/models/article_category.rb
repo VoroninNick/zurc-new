@@ -19,6 +19,11 @@ class ArticleCategory < ActiveRecord::Base
   accepts_nested_attributes_for :page_metadata
   attr_accessible :page_metadata_attributes
 
+  after_save :reload_routes
+  def reload_routes
+    Rails.application.class.routes_reloader.reload!
+  end
+
   # translations
   translates :name, :slug#, versioning: :paper_trail, fallbacks_for_empty_translations: true
   accepts_nested_attributes_for :translations

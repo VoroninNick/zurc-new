@@ -7,6 +7,11 @@ class PageMetadata < ActiveRecord::Base
 
   attr_accessible :head_title, :meta_keywords, :meta_description, :page_type, :page_id, :template_name
 
+  after_save :reload_routes
+  def reload_routes
+    Rails.application.class.routes_reloader.reload!
+  end
+
   # translations
   translates :head_title, :meta_keywords, :meta_description#, versioning: :paper_trail#, fallbacks_for_empty_translations: true
   accepts_nested_attributes_for :translations
@@ -17,6 +22,8 @@ class PageMetadata < ActiveRecord::Base
   class Translation
     attr_accessible :locale
     attr_accessible :head_title, :meta_keywords, :meta_description
+
+
   end
 
   def get_attr(attr_name, options = {} )

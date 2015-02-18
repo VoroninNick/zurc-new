@@ -12,6 +12,11 @@ class ContactPage < ActiveRecord::Base
 
   attr_accessible :slug
 
+  after_save :reload_routes
+  def reload_routes
+    Rails.application.class.routes_reloader.reload!
+  end
+
   # translations
   translates :slug#, versioning: :paper_trail#, fallbacks_for_empty_translations: true
   accepts_nested_attributes_for :translations
@@ -33,7 +38,19 @@ class ContactPage < ActiveRecord::Base
     I18n.available_locales.map(&:to_sym).select {|locale| locale != I18n.locale.to_sym  }.first
   end
 
-  def get_slug
-    get_attr(:slug)
+  def get_slug(options = {})
+    get_attr(:slug, options)
+  end
+
+  def routes_module
+    Rails.application.routes.url_helpers
+  end
+
+  def to_param(options = {})
+    options[:locales_priority] = [I18n.locale, another_locale] unless options.keys.include?(:locales_priority)
+    options[:locale] = options[:locales_priority].first if options[:locale].blank?
+
+    routes_module.contact_path locale: options[:locale],
+                               url: get_slug(options)
   end
 end

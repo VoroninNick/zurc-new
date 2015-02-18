@@ -362,7 +362,6 @@ unless RakeSettings.self_skip_initializers?
       edit do
         field :translations, :globalize_tabs
         field :page_metadata
-        field :template_name
       end
     end
 
@@ -378,6 +377,7 @@ unless RakeSettings.self_skip_initializers?
         field :translations, :globalize_tabs
         group :advanced do
           field :template_name
+
         end
       end
     end

@@ -60,7 +60,7 @@
                 span
                   = t("main-menu.publications")
             li
-              a href=ContactPage.first.try(:get_slug)
+              a href=ContactPage.first.try{|c| c.to_param}
                 span
                   = t("main-menu.contact")
 
