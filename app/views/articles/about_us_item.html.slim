@@ -1,7 +1,7 @@
 .row
   - if @articles.any?
     .columns.large-3
-      = render "about_menu", locals: { articles: @articles }
+      = render partial: "about_menu", locals: { articles: @articles }
   - if @article && (content = @article.get_content) && content.present?
     .columns.large-9.about-article-title-and-content
       - if ( name = @article.get_name) && name.present?
