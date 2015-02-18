@@ -56,28 +56,28 @@ class Article < ActiveRecord::Base
     I18n.available_locales.map(&:to_sym).select {|locale| locale != I18n.locale.to_sym  }.first
   end
 
-  def get_name
-    get_attr(:name)
+  def get_name(options = {})
+    get_attr(:name, options)
   end
 
-  def get_description
-    get_attr(:description)
+  def get_description options = {}
+    get_attr(:description, options)
   end
 
-  def get_intro
-    get_attr(:intro)
+  def get_intro options = {}
+    get_attr(:intro, options)
   end
 
-  def get_content
-    get_attr(:content)
+  def get_content options = {}
+    get_attr(:content, options)
   end
 
-  def get_slug
-    get_attr(:slug)
+  def get_slug(options = {})
+    get_attr(:slug, options)
   end
 
-  def get_author
-    get_attr(:author)
+  def get_author(options = {})
+    get_attr(:author, options)
   end
 
   # def with_translation(locale = I18n.locale )
@@ -174,8 +174,8 @@ class Article < ActiveRecord::Base
     options[:locales_priority] = [I18n.locale, another_locale] if options[:locales_priority].blank?
     options[:locale] = options[:locales_priority].first if options[:locale].blank?
     routes_module.smart_article_path locale: options[:locale],
-                                     root_category: article_category.try {|category| category.root.get_slug } ,
-                                     url: (article_category.path.select{|c| !c.root? }.map{|c| c.get_slug(locales_priority: options[:locales_priority] ) }.select{|slug| slug.present? } << self.get_slug ).join("/")
+                                     root_category: article_category.try {|category| category.root.get_slug(locales_priority: options[:locales_priority]) } ,
+                                     url: (article_category.path.select{|c| !c.root? }.map{|c| c.get_slug(locales_priority: options[:locales_priority] ) }.select{|slug| slug.present? } << self.get_slug(locales_priority: options[:locales_priority]) ).join("/")
   end
 
   def smart_breadcrumbs
