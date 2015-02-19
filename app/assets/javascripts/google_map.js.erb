@@ -26,6 +26,8 @@ function init() {
     var data_markers_str = $map_wrapper.attr('data-markers')
     var data_markers_format = $map_wrapper.attr('data-markers-format') || 'latlng'
     var zoom = + $map_wrapper.attr('data-zoom')
+    var data_icon_width = $map_wrapper.attr('data-icon-width') || null
+    var data_icon_height = $map_wrapper.attr('data-icon-height') || null
 
     var standard_method = true
 
@@ -117,10 +119,18 @@ function init() {
                 //image = 'http://zurc.org/wp-content/themes/zurc/img/logo_min.png';
                 image = "/assets/logos/ZURC-logo.png"
                 var lat_lng = new google.maps.LatLng(m.lat, m.lng);
+
+                var complex_icon = {
+                    url: image
+                }
+                if(data_icon_width && data_icon_height){
+                    complex_icon['size'] = new google.maps.Size(data_icon_width, data_icon_height)
+                }
+
                 var marker = new google.maps.Marker({
                     position: lat_lng,
                     map: map,
-                    icon: image
+                    icon: complex_icon
                 });
 
 //                var metka14 = '<div id="content_window">'+
