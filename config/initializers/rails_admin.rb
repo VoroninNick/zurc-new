@@ -186,6 +186,7 @@ unless RakeSettings.self_skip_initializers?
 
       edit do
         field :published
+        field :link
         field :translations, :globalize_tabs
       end
     end
@@ -195,7 +196,6 @@ unless RakeSettings.self_skip_initializers?
 
       edit do
         field :locale, :hidden
-        field :name
         field :description
       end
     end
