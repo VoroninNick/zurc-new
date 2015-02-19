@@ -387,7 +387,9 @@
 
 .what-we-do-article-categories-list{
   .what-we-do-article-category{
+    margin: 2rem 0;
     position: relative;
+    overflow: hidden;
 
     .what-we-do-article-category-name{
       font-size: 3rem;
@@ -397,18 +399,59 @@
       display: block;
       position: absolute;
       top: 50%;
+      z-index: 2;
+      left: 8%;
+      width: 60%;
+
+
+
       @include transform(translate3d(0, -50%, 0));
+      @include transition-property(all);
+      @include transition-duration(0.5s);
+      
+      @media only screen and (max-width: 1024px) {
+        font-size: 2rem;
+        line-height: 2.25rem;
+      }
+    }
+
+    .what-we-do-article-category-name-inner{
+      position: relative;
+      right: 0;
     }
 
     .layer{
+      left: -15%;
       width: 100%;
-      height: 300px;
+      height: 100%;
       position: absolute;
       top: 0;
-      z-index: 9;
+      z-index: 1;
       background: no-repeat top left;
-      background: none !important;
+      background-size: cover;
+      @include transition-duration(0.5s);
+      @include transition-property(left);
 
+    }
+
+    &:hover, .touch &{
+      .layer{
+        left: -65%;
+      }
+
+      .what-we-do-article-category-name{
+        left: 32%;
+        //left: auto;
+        //right: 8%;
+        //left: 80%;
+        //width: 84%;
+        //@include transform(translate3d(92%, -50%, 0));
+      }
+
+      .what-we-do-article-category-name-inner{
+        //text-align: right;
+        float: right;
+      }
     }
   }
 }
