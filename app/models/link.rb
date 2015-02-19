@@ -1,5 +1,5 @@
 class Link < ActiveRecord::Base
-  attr_accessible :linkable_id, :linkable_type, :content, :url, :blank_window, :no_follow, :alt, :title, :name_source, :link_source
+  attr_accessible :linkable_id, :linkable_type, :content, :url, :blank_window, :no_follow, :alt, :title, :content_source, :url_source
 
   belongs_to :linkable, polymorphic: true
   attr_accessible :linkable
@@ -39,7 +39,7 @@ class Link < ActiveRecord::Base
 
   def get_url(options = {})
     options[:locales_priority] = [I18n.locale, another_locale] unless options.keys.include?(:locales_priority)
-    return get_attr(:url, locales_priority: options[:locales_priority]) if self.link_source == "custom" && self.get_attr(:url, locales_priority: options[:locales_priority]).present?
+    return get_attr(:url, locales_priority: options[:locales_priority]) if self.url_source == "custom" && self.get_attr(:url, locales_priority: options[:locales_priority]).present?
     return linkable.to_param(locales_priority: options[:locales_priority]) if self.linkable && self.linkable.to_param(locales_priority: options[:locales_priority]).present?
     return nil
   end
@@ -47,7 +47,7 @@ class Link < ActiveRecord::Base
   # activerecord callbacks
   before_validation :init_fields
   def init_fields
-    self.url_source = "association" unless self.url_source.in?(['custom', 'association'])
-    self.content_source = "association" unless self.content_source.in?(['custom', 'association'])
+    self.url_source = "association" unless self.url_source.to_s.in?(['custom', 'association'])
+    self.content_source = "association" unless self.content_source.to_s.in?(['custom', 'association'])
   end
 end

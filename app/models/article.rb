@@ -166,12 +166,13 @@ class Article < ActiveRecord::Base
     Rails.application.routes.url_helpers
   end
 
-  def to_param
+  def to_param(options = {})
     #return routes_module.send("show_publication_path", id: self.get_slug, locale: I18n.locale) if self.publication?
-    return routes_module.send("show_smart_article_path", id: self.get_slug, locale: I18n.locale) if self.publication?
-    return routes_module.send("show_news_path", id: self.get_slug, locale: I18n.locale) if self.news?
-    return routes_module.send("show_about_path", id: self.get_slug, locale: I18n.locale) if self.about_us?
-    return routes_module.send("show_what_we_do_path", id: self.get_slug, locale: I18n.locale) if self.what_we_do?
+    # return routes_module.send("show_smart_article_path", id: self.get_slug, locale: I18n.locale) if self.publication?
+    # return routes_module.send("show_news_path", id: self.get_slug, locale: I18n.locale) if self.news?
+    # return routes_module.send("show_about_path", id: self.get_slug, locale: I18n.locale) if self.about_us?
+    # return routes_module.send("show_what_we_do_path", id: self.get_slug, locale: I18n.locale) if self.what_we_do?
+    smart_to_param(options)
   end
 
   def smart_to_param(options = {})

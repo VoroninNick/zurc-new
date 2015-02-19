@@ -107,8 +107,9 @@ class ArticleCategory < ActiveRecord::Base
     Rails.application.routes.url_helpers
   end
 
-  def to_param
-    return routes_module.show_what_we_do_category_path(id: self.get_slug, locale: I18n.locale) if what_we_do_child?
+  def to_param(options = {})
+    #return routes_module.show_what_we_do_category_path(id: self.get_slug, locale: I18n.locale) if what_we_do_child?
+    smart_to_param(options)
   end
 
   def find_articles(options = {})

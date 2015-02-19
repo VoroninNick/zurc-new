@@ -6,8 +6,11 @@
       <div id="home-about-row" class="row">
         <% @home_first_abouts.each do |item| %>
           <div class="large-3 columns">
-            <span class="decorative-letter"><%= item.get_name[0] %></span>
-            <h4><%= item.get_name[1, item.get_name.length] %></h4>
+            <span class="decorative-letter"><%=  (name = item.get_content) ? name[0] : nil %></span>
+
+            <%= content_tag ( url = item.get_url).present? ? :a : :span,  { href: (url.present? ? url : nil), class: :name } do %>
+                <%= ( link_content = item.get_content) ? link_content[1, link_content.length] : nil %>
+            <% end %>
             <p><%= item.get_description %></p>
           </div>
         <% end %>
@@ -34,9 +37,12 @@
 
 <% if @home_second_abouts.any? %>
     <div class="row" id="home-about2">
-      <% @home_first_abouts.each do |item| %>
+      <% @home_second_abouts.each do |item| %>
           <div class="large-3 columns">
-            <span class="home-about2-column-title"><%= item.get_name %></span>
+
+            <%= content_tag ( url = item.get_url).present? ? :a : :span, { href: (url.present? ? url : nil), class: "home-about2-column-title" } do  %>
+              <%= item.get_content %>
+            <% end %>
             <p class="home-about2-column-description">
               <%= item.get_description %>
             </p>
