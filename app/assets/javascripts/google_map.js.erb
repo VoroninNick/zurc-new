@@ -28,6 +28,14 @@ function init() {
     var zoom = + $map_wrapper.attr('data-zoom')
     var data_icon_width = $map_wrapper.attr('data-icon-width') || null
     var data_icon_height = $map_wrapper.attr('data-icon-height') || null
+    if(typeof data_icon_width === 'string'){
+        data_icon_width = + data_icon_width
+    }
+    if(typeof data_icon_height === 'string'){
+        data_icon_height = + data_icon_height
+    }
+
+    console.log('size: ' + data_icon_width + 'x' + data_icon_height)
 
     var standard_method = true
 
