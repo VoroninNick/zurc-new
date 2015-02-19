@@ -29,6 +29,14 @@ function init() {
     var data_icon_width = $map_wrapper.attr('data-icon-width') || null
     var data_icon_height = $map_wrapper.attr('data-icon-height') || null
     var data_icon_url = $map_wrapper.attr("data-icon-url") || null
+    var data_map_center = $map_wrapper.attr('data-center') || null
+    var data_map_center_lat = null
+    var data_map_center_lng = null
+    if(data_map_center){
+        var tmp = data_map_center.split(',')
+        data_map_center_lat = + tmp[0]
+        data_map_center_lng = + tmp[1]
+    }
     if(typeof data_icon_width === 'string'){
         data_icon_width = + data_icon_width
     }
@@ -64,9 +72,9 @@ function init() {
 
         var first_marker = markers[0]
 
+        var a = data_map_center_lat || first_marker.lat, b = data_map_center_lng || first_marker.lng
 
-
-        var mapCenter = new google.maps.LatLng(first_marker.lat,first_marker.lng );
+        var mapCenter = new google.maps.LatLng(a,b );
         map = new google.maps.Map($('.map-container').get(0), {
             scrollwheel: true,
             zoom: zoom,
