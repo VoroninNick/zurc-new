@@ -41,7 +41,7 @@ class MenuItem < ActiveRecord::Base
 
   def get_link
     return get_attr(:link) if self.link_source == "custom" && self.get_attr(:link).present?
-    return linkable.to_param if self.linkable && self.to_param.present?
+    return linkable.to_param if self.linkable && self.linkable.to_param.present?
     return nil
   end
 
