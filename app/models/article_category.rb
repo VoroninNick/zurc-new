@@ -9,8 +9,12 @@ class ArticleCategory < ActiveRecord::Base
   has_ancestry
 
   # menu_items
-  has_many :menu_items, as: :linkable
+  has_many :menu_items, as: :linkable, class: MenuItem
   attr_accessible :menu_items, :menu_item_ids
+
+  # linkable
+  has_many :links, as: :linkable, class: Link
+  attr_accessible :links, :link_ids
 
   # page meta_data
   has_one :page_metadata, as: :page

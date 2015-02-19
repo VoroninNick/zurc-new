@@ -12,6 +12,9 @@ class CreateLinks < ActiveRecord::Migration
       t.string :content_source
       t.string :url_source
 
+      t.integer :owner_id
+      t.string :owner_type
+
       t.timestamps null: false
     end
 

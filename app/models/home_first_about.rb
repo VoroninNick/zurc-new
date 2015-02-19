@@ -1,7 +1,7 @@
 class HomeFirstAbout < ActiveRecord::Base
   attr_accessible :published, :name, :description, :position
 
-  has_one :link, as: :linkable, class: Link
+  has_one :link, as: :owner, class: Link
   attr_accessible :link
   accepts_nested_attributes_for :link
   attr_accessible :link_attributes

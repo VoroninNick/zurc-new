@@ -378,6 +378,7 @@ unless RakeSettings.self_skip_initializers?
       end
 
       edit do
+        field :owner
         field :linkable
         field :url_source, :enum do
           enum do
@@ -394,6 +395,12 @@ unless RakeSettings.self_skip_initializers?
         field :no_follow
 
         field :translations, :globalize_tabs
+      end
+
+      nested do
+        field :owner do
+          hide
+        end
       end
 
       list do
