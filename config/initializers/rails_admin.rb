@@ -43,7 +43,7 @@ unless RakeSettings.self_skip_initializers?
 
     config.included_models = []
     if ActiveRecord::Base.check_tables(:gallery_images, :tags, :taggings, :gallery_albums)
-      [Article, ArticleCategory, PagesAbout, ContactPage, HomeSlide, HomeGalleryImage, HomeFirstAbout, HomeSecondAbout, User, Attachment, GalleryImage, GalleryAlbum, Tag, Tagging, MenuItem, PageMetadata].each do |model_class|
+      [Link, Article, ArticleCategory, PagesAbout, ContactPage, HomeSlide, HomeGalleryImage, HomeFirstAbout, HomeSecondAbout, User, Attachment, GalleryImage, GalleryAlbum, Tag, Tagging, MenuItem, PageMetadata].each do |model_class|
         config.included_models += [model_class]
         if model_class.respond_to?(:translates?) && model_class.translates?
           config.included_models += [model_class::Translation]
@@ -162,8 +162,11 @@ unless RakeSettings.self_skip_initializers?
 
       edit do
         field :published
+        field :link
         field :translations, :globalize_tabs
       end
+
+
     end
 
     config.model HomeFirstAbout::Translation do
@@ -171,7 +174,7 @@ unless RakeSettings.self_skip_initializers?
 
       edit do
         field :locale, :hidden
-        field :name
+        #field :name
         field :description
       end
     end
@@ -368,6 +371,50 @@ unless RakeSettings.self_skip_initializers?
       end
     end
 
+    config.model Link do
+      visible false
+      object_label_method do
+        :get_content
+      end
+
+      edit do
+        field :linkable
+        field :url_source, :enum do
+          enum do
+            ['custom', 'association']
+          end
+        end
+        field :content_source, :enum do
+          enum do
+            ['custom', 'association']
+          end
+        end
+
+        field :blank_window
+        field :no_follow
+
+        field :translations, :globalize_tabs
+      end
+
+      list do
+        field :get_content do
+          label "Ім'я"
+        end
+      end
+    end
+
+    config.model Link::Translation do
+      visible false
+
+      edit do
+        field :locale, :hidden
+        field :content
+        field :url
+        field :alt
+        field :title
+      end
+    end
+
     config.model ContactPage do
       edit do
         field :translations, :globalize_tabs
@@ -400,6 +447,8 @@ unless RakeSettings.self_skip_initializers?
         field :meta_description
       end
     end
+
+
 
   end
 end

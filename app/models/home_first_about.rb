@@ -1,6 +1,9 @@
 class HomeFirstAbout < ActiveRecord::Base
   attr_accessible :published, :name, :description, :position
 
+  has_one :link, as: :linkable, class: Link
+  attr_accessible :link
+
   # translations
   translates :name, :description#, versioning: :paper_trail#, fallbacks_for_empty_translations: true
   accepts_nested_attributes_for :translations
