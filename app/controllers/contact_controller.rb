@@ -1,4 +1,5 @@
 class ContactController < InnerPageController
+  #before_action :initialize_contact_page
   def index
     initialize_contact_page
 
@@ -6,6 +7,7 @@ class ContactController < InnerPageController
   end
 
   def initialize_contact_page
+    @contact_page = true
     @breadcrumbs.push({title: I18n.t("breadcrumbs.contact"), url: false, current: true})
     I18n.available_locales.select{|locale| locale.to_sym != I18n.locale.to_sym }.each do |locale|
       @locale_links[locale.to_sym] = ContactPage.first.to_param(locales_priority: [another_locale, I18n.locale])

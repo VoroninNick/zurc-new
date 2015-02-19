@@ -5,11 +5,11 @@
         /= nested_menu_nodes(ArticleCategory.roots.arrange)
         #menu-container
           ul
-            li
+            li class=( "active" if (@article.try{|a| a.article_category } || @category ).try{|c| c.root.news_category? } )
               a href=ArticleCategory.news_category.smart_to_param
                 span
                   = t("main-menu.news")
-            li.has-dropdown
+            li.has-dropdown class=( "active" if (@article.try{|a| a.article_category } || @category ).try{|c| c.root.about_us_category? } )
               a href=ArticleCategory.about_us_category.smart_to_param
                 span
                   = t("main-menu.about")
@@ -32,7 +32,7 @@
 
                   .divider
 
-            li class=("has-dropdown" if main_menu_what_we_do_items.any?)
+            li class=("has-dropdown" if main_menu_what_we_do_items.any?) class=( "active" if (@article.try{|a| a.article_category } || @category ).try{|c| c.root.what_we_do_category? } )
               a href=ArticleCategory.what_we_do_category.smart_to_param
                 span
                   = t("main-menu.what-we-do")
@@ -55,11 +55,11 @@
                     .divider
 
 
-            li
+            li class=( "active" if (@article.try{|a| a.article_category } || @category ).try{|c| c.root.publications_category? } )
               a href=ArticleCategory.publications_category.smart_to_param
                 span
                   = t("main-menu.publications")
-            li
+            li class=("active" if @contact_page )
               a href=ContactPage.first.try{|c| c.to_param}
                 span
                   = t("main-menu.contact")

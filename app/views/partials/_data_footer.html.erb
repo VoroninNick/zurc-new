@@ -10,11 +10,11 @@
 		<div id="data-footer-menu" class="large-3 medium-12 columns">
 			<span  class="data-footer-column-title"><%= t("footer.headers.menu") %></span>
 			<ul>
-				<li><%# link_to(t("footer-menu.news"), news_path) %></li>
-				<li><%# link_to(t("footer-menu.about"), about_path) %></li>
-				<li><%# link_to(t("footer-menu.what-we-do"), what_we_do_path) %></li>
-				<li><%# link_to(t("footer-menu.publications"), publications_path) %></li>
-				<li><%# link_to(t("footer-menu.contact"), contact_path) %></li>
+				<li><%= link_to(t("footer-menu.news"), ArticleCategory.news_category.smart_to_param) %></li>
+				<li><%= link_to(t("footer-menu.about"), ArticleCategory.about_us_category.smart_to_param) %></li>
+				<li><%= link_to(t("footer-menu.what-we-do"), ArticleCategory.what_we_do_category.smart_to_param) %></li>
+				<li><%= link_to(t("footer-menu.publications"), ArticleCategory.publications_category.smart_to_param) %></li>
+				<li><%= link_to(t("footer-menu.contact"), ContactPage.first.try{|c| c.to_param} ) %></li>
 			</ul>
 		</div>
 
