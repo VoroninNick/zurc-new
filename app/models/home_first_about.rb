@@ -27,12 +27,12 @@ class HomeFirstAbout < ActiveRecord::Base
     I18n.available_locales.map(&:to_sym).select {|locale| locale != I18n.locale.to_sym  }.first
   end
 
-  def get_name
-    get_attr(:name)
+  def get_name(options = {})
+    get_attr(:name, options)
   end
 
-  def get_description
-    get_attr(:description)
+  def get_description options = {}
+    get_attr(:description, options)
   end
 
   # scopes
