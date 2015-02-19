@@ -3,6 +3,8 @@ class HomeFirstAbout < ActiveRecord::Base
 
   has_one :link, as: :linkable, class: Link
   attr_accessible :link
+  accepts_nested_attributes_for :link
+  attr_accessible :link_attributes
 
   # translations
   translates :name, :description#, versioning: :paper_trail#, fallbacks_for_empty_translations: true
