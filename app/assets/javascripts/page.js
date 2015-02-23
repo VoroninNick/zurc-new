@@ -135,21 +135,27 @@ $document.on('ready', function() {
         event.preventDefault()
         var $expander = $(this)
         var action = 'expand'
-        if($expander.hasClass('expanded')){
+        var $article_container = $expander.closest('div.article-subcategory-article')
+        if($article_container.hasClass('expanded')){
             action = 'collapse'
         }
 
-        var $article_container = $expander.closest('div.article-subcategory-article')
+
+        console.log("action: ", action)
 
         switch(action){
             case 'collapse':
-                $expander.removeClass('expanded').addClass('collapsed');
-                $article_container.removeClass('expanded').addClass('collapsed');
+                //$expander.removeClass('expanded').addClass('collapsed');
+
+                var container_top = $article_container.offset().top
+                $("html, #body").animate({scrollTop: container_top + "px"})
+                setTimeout(function(){$article_container.removeClass('expanded').addClass('collapsed');}, 300)
                 break;
             case 'expand':
             default:
-                $expander.removeClass('collapsed').addClass('expanded');
+                //$expander.removeClass('collapsed').addClass('expanded');
                 $article_container.removeClass('collapsed').addClass('expanded');
+
         }
     })
 

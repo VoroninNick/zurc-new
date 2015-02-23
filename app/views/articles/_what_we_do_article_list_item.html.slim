@@ -10,6 +10,7 @@
           .article-subcategory-article-name.visual-h2
             a href=article.smart_to_param
               = article.get_name
+          = render partial: "article_attachments", locals: { attachments: article.attachments } if article && article.respond_to?(:attachments) && article.attachments.any?
           .article-content
             = raw article.get_content
           a.expander href="#"
@@ -27,6 +28,7 @@
           .article-subcategory-article-name.visual-h2
             a href=article.smart_to_param
               = article.get_name
+          = render partial: "article_attachments", locals: { attachments: article.attachments } if article && article.respond_to?(:attachments) && article.attachments.any?
           .article-content
             = raw article.get_content
           a.expander href="#"

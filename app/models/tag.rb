@@ -55,4 +55,16 @@ class Tag < ActiveRecord::Base
   attr_accessible :taggables, :taggings, :taggable_ids, :tagging_ids
 
 
+  scope :available, proc { joins(:taggings) }
+  scope :available_for, ->(records){ records.empty? ? available : available.where(taggings: { taggable_type: records.map{|a| a.class.to_s }, taggable_id: records.map(&:id) }).group("tags.id") }
+
+  # scope :with_translations, ->(*locales) do
+  #
+  #   locales.select! {|locale| locale.to_sym.in? I18n.available_locales.map(&:to_sym) }
+  #
+  #   if locales.any?
+  #   else
+  #     return joins(:tag_translations)
+  #   end
+  # end
 end

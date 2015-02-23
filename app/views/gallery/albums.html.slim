@@ -1,0 +1,25 @@
+.row
+  - if @articles.any?
+    .columns.large-3
+      = render "about_menu", locals: { articles: @articles }
+
+
+
+  .about-articles-list
+    .columns.large-9
+      = render "gallery_tags"
+        /= render "images"
+      - if @gallery_albums.try(:any?)
+        .gallery-albums
+          .gallery-items-row.row
+            - @gallery_albums.each_with_index do |album, index|
+              .gallery-item.album-item.columns.large-4.small-10.small-centered.medium-6 class=("end" if index == @gallery_albums.length - 1) class="#{album.tags.map{|t| "tag-#{t.id}" }.join(' ')}"
+                .gallery-item-inner
+                  .gallery-item-abs
+                    .gallery-item-image
+                      = link_to(image_tag(( album.get_image.file ? album.get_image : album.images.first.get_data).try{|uploader| uploader.gallery_image.url} ), album.smart_to_param )
+                    a.gallery-item-info href=album.get_slug
+                      .gallery-item-info-inner
+                        = content_tag(:span, album.get_name, class: 'gallery-item-name')
+                      /.album-images-count
+                        = t("gallery.album-images-count", count: album.images.count)

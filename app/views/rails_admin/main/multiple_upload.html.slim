@@ -2,3 +2,27 @@
   = f.input :album_id, :as => :hidden, :input_html => { :name => "album_id", :value => @object.id }
   = file_field_tag('album_images_file', multiple: true, name: "album[images_attributes][][file]")
   = f.submit :submit, value: 'Upload', name: 'Upload', :class => 'btn btn-primary'
+
+
+/= form_for rails_admin.multiple_upload_path(@abstract_model.to_param, id: @object.id), :html => { :multipart => true, :id => "fileupload"  } do |f|
+/  div class="row"
+/    /= f.hidden_field :gallery_token, value: @gallery.token
+/
+/    div class=" fileupload-buttonbar"
+/      div class="progressbar fileupload-progressbar nofade"
+/        div style="width:0%;"
+/      span class="btn btn-mini fileinput-button"
+/        i class="icon-plus"
+/        span
+/          = t('photos.add_files') + '...'
+/        = f.file_field :image, :multiple => true
+/
+/
+/
+/
+/  h2
+/    = "Pictures"
+/
+/  div class="row"
+/    ul class="thumbnails files"
+/

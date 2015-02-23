@@ -7,6 +7,7 @@
       - if ( name = @article.get_name) && name.present?
         .about-article-name.page-title
           = name
+      = render partial: "article_attachments", locals: { attachments: @article.attachments } if @article && @article.respond_to?(:attachments) && @article.attachments.any?
       .about-article-content
         .article-content.about-article
           = raw content

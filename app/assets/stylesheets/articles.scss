@@ -136,6 +136,14 @@
 
 .attachment-icons{
   margin: 2rem 0 0 0;
+
+  .article-subcategory-article &{
+    margin: 1rem 0 0 0;
+  }
+
+  .about-article-title-and-content &{
+    margin: 1rem 0 2rem 0;
+  }
 }
 
 .attachment-icons-ul{
@@ -520,7 +528,7 @@
 
 
     .article-content{
-      @include transition-duration(1s);
+      @include transition-duration(0.5s);
       @include transition-property(all);
       overflow: hidden;
     }
@@ -541,11 +549,7 @@
   float: right;
   color: $orange-color;
 
-  .expand, .collapse {
-    border-bottom: dashed 1px $orange-color;
-  }
-
-  &:before{
+  &:before {
     @include css-triangle(7px, $orange-color, top);
     @include transition-property(all);
     @include transition-duration(0.3s);
@@ -555,21 +559,31 @@
     top: 10px;
     left: -4px;
   }
+}
 
-  &.collapse, &:not(.expanded) {
+.article-subcategory-article {
+
+  .expand, .collapse {
+    border-bottom: dashed 1px $orange-color;
+  }
+
+  &.collapsed, &:not(.expanded) {
     .collapse {
       display: none;
     }
   }
 
-  &.expanded{
-    &:before{
-      @include transform(rotate(180deg) translateY(8px) );
+  &.expanded {
+
+    .expander {
+      &:before {
+        @include transform(rotate(180deg) translateY(8px));
+      }
     }
-    .expand{
+
+    .expand {
       display: none;
     }
   }
-
-
 }
+

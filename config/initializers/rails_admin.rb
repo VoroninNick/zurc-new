@@ -38,7 +38,9 @@ unless RakeSettings.self_skip_initializers?
 
       nestable
 
-      multiple_upload
+      multiple_upload do
+        only GalleryAlbum
+      end
     end
 
     config.included_models = []
@@ -77,6 +79,7 @@ unless RakeSettings.self_skip_initializers?
     end
 
     config.model Article::Translation do
+
       visible false
 
       edit do
@@ -92,6 +95,7 @@ unless RakeSettings.self_skip_initializers?
 
     config.model ArticleCategory do
       navigation_label "Статті"
+      weight -100
 
       nestable_tree({
         position_field: :position
@@ -133,6 +137,7 @@ unless RakeSettings.self_skip_initializers?
 
     # home page elements
     config.model HomeSlide do
+      weight -80
       navigation_label "Головна сторінка"
 
       nestable_list true
@@ -156,6 +161,7 @@ unless RakeSettings.self_skip_initializers?
     end
 
     config.model HomeFirstAbout do
+      weight -1
       navigation_label "Головна сторінка"
 
       nestable_list true
@@ -293,6 +299,7 @@ unless RakeSettings.self_skip_initializers?
     end
 
     config.model GalleryAlbum do
+      weight -90
       navigation_label "Галерея"
       nestable_list true
 
@@ -301,6 +308,7 @@ unless RakeSettings.self_skip_initializers?
         field :published
         field :translations, :globalize_tabs
         field :page_metadata
+        field :images
       end
     end
 
@@ -310,13 +318,14 @@ unless RakeSettings.self_skip_initializers?
       edit do
         field :locale, :hidden
         field :name
+        field :slug
         field :image
         field :alt
       end
     end
 
     config.model MenuItem do
-
+      visible false
       object_label_method do
         :get_name
       end
@@ -423,6 +432,9 @@ unless RakeSettings.self_skip_initializers?
     end
 
     config.model ContactPage do
+      weight -70
+      navigation_label "Сторінки"
+
       edit do
         field :translations, :globalize_tabs
         field :page_metadata
@@ -430,6 +442,7 @@ unless RakeSettings.self_skip_initializers?
     end
 
     config.model ContactPage::Translation do
+      visible false
       edit do
         field :locale, :hidden
         field :slug
@@ -447,6 +460,7 @@ unless RakeSettings.self_skip_initializers?
     end
 
     config.model PageMetadata::Translation do
+      visible false
       edit do
         field :locale, :hidden
         field :head_title

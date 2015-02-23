@@ -56,5 +56,11 @@ en:
   read-more: "Read more"
   expand: "Expand"
   collapse: "Collapse"
+  gallery:
+    name: "Name"
+    album-images-count: "%{count} photos"
+  gallery-page: "Gallery"
+
+
 
 

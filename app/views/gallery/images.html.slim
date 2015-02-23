@@ -1,0 +1,25 @@
+.row
+  - if @articles.any?
+    .columns.large-3
+      = render "about_menu", locals: { articles: @articles }
+
+
+
+  .about-articles-list
+    .columns.large-9
+      = render "gallery_tags"
+      /= render "images"
+      - if @gallery_images.try(:any?)
+        .gallery-images
+          .gallery-items-row.row
+            - @gallery_images.each_with_index do |image, index|
+              .gallery-item.image-item.columns.large-4.small-10.small-centered.medium-6 class=("end" if index == @gallery_images.length - 1) class="#{image.tags.map{|t| "tag-#{t.id}" }.join(' ')}"
+                .gallery-item-inner
+                  .gallery-item-abs
+                    a class="fb"  href=image.smart_to_param rel=""
+                      .gallery-item-image
+                        = image_tag(( image.get_data ).try{|uploader| uploader.gallery_image.url} )
+                      .gallery-item-info
+                        .gallery-item-info-inner
+                          .gallery-item-name
+                            = image.get_name

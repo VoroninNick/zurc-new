@@ -1,4 +1,0 @@
-ul.about-menu
-  - @articles.each do |article|
-	li class=( active = ( @article && @article.id == article.id ); active ? 'active' : '' )
-	  = link_to_unless active, (article.get_name), article.smart_to_param

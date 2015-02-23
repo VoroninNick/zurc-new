@@ -1,17 +1,19 @@
-uk:
+
 #  date:
 #    formats:
 #      long: "%Y-%m-%d %I:%M"
 #  time:
 #    formats:
 #      long: "%^b %d, %Y"
-
+uk:
   breadcrumbs:
     publications: "Публікації"
     news: "Новини"
     what-we-do: "Що ми робимо"
     contact: "Контакти"
     about-us: "Про нас"
+    gallery: "Галерея"
+    gallery-albums: "Альбоми"
   main-menu:
     news: "Новини"
     about: "Про нас"
@@ -43,3 +45,6 @@ uk:
   collapse: "Приховати текст"
   gallery:
     name: "Ім'я"
+    album-images-count: "%{count} фотографій"
+
+  gallery-page: "Галерея"

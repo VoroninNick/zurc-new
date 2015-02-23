@@ -3,7 +3,7 @@
 @import "basic";
 
 
-
+//@import "fancybox";
 @import "foundation_and_overrides";
 
 
@@ -24,8 +24,13 @@
 @import 'pages/what-we-do';
 
 @import "partials/home_gallery";
+@import "gallery";
 
 .devise-view{
   max-width: 500px;
   margin: 0 auto;
+}
+
+.fancybox-lock body{
+  overflow: visible !important;
 }

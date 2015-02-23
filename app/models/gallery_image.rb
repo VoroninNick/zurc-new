@@ -28,7 +28,7 @@ class GalleryImage < ActiveRecord::Base
   end
 
   def get_name
-    get_attr(:name)
+    (name = get_attr(:name)).present? ? name : get_data.try{|d| d.file.basename }
   end
 
   def get_description
@@ -47,8 +47,22 @@ class GalleryImage < ActiveRecord::Base
 
   attr_accessible :taggings, :tagging_ids, :tags, :tag_ids
 
+  # scopes
+  scope :published, -> { where(published: 't') }
+  scope :available, -> { published }
+
   if check_tables(:gallery_albums)
     belongs_to :album, class: GalleryAlbum
   end
   attr_accessible :album, :album_id
+
+  # callbacks
+  before_create :init_fields
+  def init_fields
+    self.published ||= true
+  end
+
+  def smart_to_param
+    self.get_data.url
+  end
 end

@@ -3,9 +3,10 @@ require Rails.root.join "config/initializers/rake_settings"
 unless RakeSettings.self_skip_initializers?
   Rails.application.routes.draw do
 
-
-
     scope "(:locale)", locale: /#{I18n.available_locales.join("|")}/ do
+      get "/gallery", to: "gallery#albums", as: :gallery
+      get "/gallery/:album", to: "gallery#images", as: :gallery_album
+
       mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
       mount Ckeditor::Engine => '/ckeditor'
       devise_for :users

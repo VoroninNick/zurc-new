@@ -43,4 +43,20 @@ class ActiveRecord::Base
   def self.check_tables(*table_names)
     tables = ActiveRecord::Base.connection.tables; table_names.select {|t| !t.to_s.in?(tables) }.empty?
   end
+
+  def self.pluck_to_hash(*columns)
+    named_columns = columns.extract_options!
+    column_names = (columns || [] ) + named_columns.values
+    result_names = (columns || []) + named_columns.keys
+    puts column_names.inspect
+    #pluck(*column_names).map{|pa| Hash[*result_names.zip(pa).flatten]}
+    pluck(*column_names).map.with_index do |row, row_index|
+      result_row = {}
+      row.each_with_index do |column_value, column_index|
+        result_row[result_names[column_index].to_sym] = column_value
+      end
+
+      result_row
+    end
+  end
 end

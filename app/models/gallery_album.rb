@@ -1,5 +1,5 @@
 class GalleryAlbum < ActiveRecord::Base
-  attr_accessible :name, :image, :published, :position, :alt
+  attr_accessible :name, :image, :published, :position, :alt, :slug
 
   # menu_items
   has_many :menu_items, as: :linkable
@@ -14,7 +14,7 @@ class GalleryAlbum < ActiveRecord::Base
 
 
   # translations
-  translates :name, :alt, :image#, versioning: :paper_trail#, fallbacks_for_empty_translations: true
+  translates :name, :alt, :image, :slug#, versioning: :paper_trail#, fallbacks_for_empty_translations: true
   accepts_nested_attributes_for :translations
   attr_accessible :translations_attributes, :translations
 
@@ -22,11 +22,15 @@ class GalleryAlbum < ActiveRecord::Base
 
   class Translation
     attr_accessible :locale
-    attr_accessible :name, :data
+    attr_accessible :name, :image, :alt, :slug
 
-    mount_uploader :data, GalleryUploader
+    mount_uploader :image, GalleryUploader
 
-
+    before_validation :generate_slug
+    def generate_slug
+      self.slug = self.name || "" if self.slug.blank?
+      self.slug = self.slug.parameterize
+    end
   end
 
   def get_attr(attr_name, options = {} )
@@ -38,18 +42,28 @@ class GalleryAlbum < ActiveRecord::Base
     I18n.available_locales.map(&:to_sym).select {|locale| locale != I18n.locale.to_sym  }.first
   end
 
-  def get_name
-    get_attr(:name)
+  def get_name(options = {})
+    get_attr(:name, options)
   end
 
-  def get_description
-    get_attr(:description)
+  def get_slug(options = {})
+    get_attr(:slug, options)
   end
 
-  def get_data
-    get_attr(:data, find_via: [:translations] )
+  def get_description(options = {})
+    get_attr(:description, options)
   end
 
+  def get_image
+    get_attr(:image, find_via: [:translations] )
+  end
+
+
+
+
+  def routes_module
+    Rails.application.routes.url_helpers
+  end
 
   # associations
 
@@ -65,4 +79,12 @@ class GalleryAlbum < ActiveRecord::Base
 
   accepts_nested_attributes_for :images
   attr_accessible :images_attributes
+
+  # scopes
+  scope :published, -> { where(published: 't') }
+  scope :available, -> { joins(:images).where(gallery_images: { published: 't' }).group("gallery_albums.id") }
+
+  def smart_to_param
+    routes_module.gallery_album_path(locale: I18n.locale, album: self.get_slug)
+  end
 end

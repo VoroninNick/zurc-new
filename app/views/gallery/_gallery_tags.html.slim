@@ -1,0 +1,7 @@
+- if @available_tags.try(&:any?)
+  .gallery-tags
+    - @available_tags.each do |tag|
+      input type="checkbox" id="tag-#{tag.id}"
+      label for="tag-#{tag.id}"
+        = tag.get_name
+    hr

@@ -39,6 +39,8 @@ module ApplicationHelper
       menu_items.push({name: item.get_name, link: item.smart_to_param})
     end
 
+    menu_items.push({name: I18n.t("gallery-page"), link: gallery_path(locale: I18n.locale)})
+
     separate_menu_items(menu_items)
   end
 
