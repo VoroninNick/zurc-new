@@ -90,4 +90,42 @@ module ApplicationHelper
       capture &block
     end
   end
+
+  def head_title
+    title = @head_title
+    title = @page_metadata.try{|m| m.get_head_title } if title.blank?
+    title = I18n.t("head_title_untitled") if title.blank?
+    I18n.t("head_title", title: title)
+  end
+
+  def meta_keywords
+    keywords = @meta_keywords
+    keywords = @page_metadata.try{|m| m.meta_keywords } if keywords.blank?
+    keywords = "" if keywords.blank?
+    keywords
+  end
+
+  def meta_description
+    description = @meta_description
+    description = @page_metadata.try{|m| m.meta_description } if description.blank?
+    description = '' if description.blank?
+    description
+  end
+
+  def seo_tags
+    result = ""
+    if (title = head_title).present?
+      result += content_tag(:title, title)
+    end
+
+    if (description = meta_description).present?
+      result += content_tag(:meta, nil, content: description, name: "description")
+    end
+
+    if (keywords = meta_keywords).present?
+      result += content_tag(:meta, nil, name: "keywords", content: keywords)
+    end
+
+    result.html_safe
+  end
 end

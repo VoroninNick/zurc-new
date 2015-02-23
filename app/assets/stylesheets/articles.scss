@@ -29,9 +29,10 @@
         position: absolute;
         display: block;
         top: 0;
-        left: 0;
-        bottom: 0;
-        right: 0;
+        width: auto;
+        //left: 0;
+        //bottom: 0;
+        //right: 0;
       }
     }
 
@@ -52,6 +53,10 @@
       width: 100%;
 
     }
+
+  .featured-publication-img{
+    min-width: 100%;
+  }
 }
 
 .featured-publication-date, .featured-publication-title{

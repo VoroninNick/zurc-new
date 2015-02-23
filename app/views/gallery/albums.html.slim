@@ -13,7 +13,7 @@
         .gallery-albums
           .gallery-items-row.row
             - @gallery_albums.each_with_index do |album, index|
-              .gallery-item.album-item.columns.large-4.small-10.small-centered.medium-6 class=("end" if index == @gallery_albums.length - 1) class="#{album.tags.map{|t| "tag-#{t.id}" }.join(' ')}"
+              .gallery-item.album-item.columns.large-4.small-12.small-centered.medium-6 class=("end" if index == @gallery_albums.length - 1) class="#{album.tags.map{|t| "tag-#{t.id}" }.join(' ')}"
                 .gallery-item-inner
                   .gallery-item-abs
                     .gallery-item-image

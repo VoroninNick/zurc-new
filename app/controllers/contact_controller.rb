@@ -2,6 +2,7 @@ class ContactController < InnerPageController
   #before_action :initialize_contact_page
   def index
     initialize_contact_page
+    init_metadata
 
     @message = Message.new
   end
@@ -18,6 +19,7 @@ class ContactController < InnerPageController
   def post_message
     successful = false
     initialize_contact_page
+    init_metadata
 
     @message = Message.new(params[:message])
     if @message.valid?
@@ -34,5 +36,9 @@ class ContactController < InnerPageController
 
     #render inline: @message.errors.values.inspect if !successful
 
+  end
+
+  def init_metadata
+    @page_metadata = ContactPage.first.try(&:page_metadata)
   end
 end

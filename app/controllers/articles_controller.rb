@@ -225,6 +225,16 @@ class ArticlesController < InnerPageController
       init_what_we_do_category if @category.try{|c| c.root.send(:what_we_do_category?)}
       init_what_we_do_item if @article.try{|a| a.article_category.root.send(:what_we_do_category?)}
 
+      (resource).try do |resource|
+        @page_metadata = resource.page_metadata
+      end
+
+      @head_title = resource.get_name if @page_metadata.try{|m| m.get_head_title }.blank?
+
+      @meta_description = resource.get_description if resource.respond_to?(:get_description) && @page_metadata.try{|m| m.get_meta_description }.blank?
+
+      @meta_keywords = resource.tags.map(&:get_name).select{|t| t.present? }.uniq.join(',') if resource.respond_to?(:tags) && @page_metadata.try{|m| m.get_meta_keywords}.blank?
+
       #render inline: @breadcrumbs.inspect; @render_executed = true
 
       if template_name.split('/').one?

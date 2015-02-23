@@ -45,7 +45,7 @@ unless RakeSettings.self_skip_initializers?
 
     config.included_models = []
     if ActiveRecord::Base.check_tables(:gallery_images, :tags, :taggings, :gallery_albums)
-      [Link, Article, ArticleCategory, PagesAbout, ContactPage, HomeSlide, HomeGalleryImage, HomeFirstAbout, HomeSecondAbout, User, Attachment, GalleryImage, GalleryAlbum, Tag, Tagging, MenuItem, PageMetadata].each do |model_class|
+      [GalleryIndexPage, HomePage, Link, Article, ArticleCategory, PagesAbout, ContactPage, HomeSlide, HomeGalleryImage, HomeFirstAbout, HomeSecondAbout, User, Attachment, GalleryImage, GalleryAlbum, Tag, Tagging, MenuItem, PageMetadata].each do |model_class|
         config.included_models += [model_class]
         if model_class.respond_to?(:translates?) && model_class.translates?
           config.included_models += [model_class::Translation]
@@ -299,7 +299,7 @@ unless RakeSettings.self_skip_initializers?
     end
 
     config.model GalleryAlbum do
-      weight -90
+
       navigation_label "Галерея"
       nestable_list true
 
@@ -469,7 +469,23 @@ unless RakeSettings.self_skip_initializers?
       end
     end
 
+    config.model HomePage do
+      navigation_label "Головна сторінка"
+      label_plural "Метатеги для головної"
+      weight -3
+      edit do
+        field :page_metadata
+      end
+    end
 
+    config.model GalleryIndexPage do
+      weight -90
+      navigation_label "Галерея"
+
+      edit do
+        field :page_metadata
+      end
+    end
 
   end
 end

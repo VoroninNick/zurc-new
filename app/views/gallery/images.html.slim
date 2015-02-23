@@ -13,7 +13,7 @@
         .gallery-images
           .gallery-items-row.row
             - @gallery_images.each_with_index do |image, index|
-              .gallery-item.image-item.columns.large-4.small-10.small-centered.medium-6 class=("end" if index == @gallery_images.length - 1) class="#{image.tags.map{|t| "tag-#{t.id}" }.join(' ')}"
+              .gallery-item.image-item.columns.large-4.small-12.small-centered.medium-6 class=("end" if index == @gallery_images.length - 1) class="#{image.tags.map{|t| "tag-#{t.id}" }.join(' ')}"
                 .gallery-item-inner
                   .gallery-item-abs
                     a class="fb"  href=image.smart_to_param rel=""

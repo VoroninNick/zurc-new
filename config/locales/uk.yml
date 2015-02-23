@@ -46,5 +46,7 @@ uk:
   gallery:
     name: "Ім'я"
     album-images-count: "%{count} фотографій"
+  head_title: "%{title} - ЗУРЦ"
+  head_title_untitled: "Без назви"
 
   gallery-page: "Галерея"

@@ -30,6 +30,8 @@ class GalleryController < ApplicationController
     @available_tags = Tag.available_for(@gallery_albums)
 
     gallery_breadcrumbs
+
+    init_metadata
   end
 
   def images
@@ -42,6 +44,8 @@ class GalleryController < ApplicationController
     end
     @gallery_images = @gallery_album.try{|a| a.images.available}
     @available_tags = Tag.available_for(@gallery_images)
+
+    init_metadata
   end
 
   private
@@ -55,5 +59,21 @@ class GalleryController < ApplicationController
 
   def about_articles
     Article.published.about_us.order_by_date_desc
+  end
+
+  def init_metadata
+    @page_metadata = @gallery_album.try(&:page_metadata)
+
+    if @page_metadata.try(&:get_head_title).blank?
+      @head_title = @gallery_album.try(&:get_name)
+    end
+
+    @meta_keywords = @gallery_album.try{tags.map(&:get_name).select{|t| t.present? }.uniq.join(',')} if @page_metadata.try(&:get_meta_keywords).blank?
+
+    @page_metadata = GalleryIndexPage.first.try(&:page_metadata) if @page_metadata.blank?
+
+
+
+
   end
 end

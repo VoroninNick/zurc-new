@@ -6,6 +6,8 @@ class PageController < ApplicationController
     @home_gallery_images = HomeGalleryImage.published
     @featured_articles = Article.published.news.featured
 
+    @page_metadata = HomePage.first.try{|p| p.page_metadata }
+
     render layout: 'home'
     #output_map_coordinates
   end
