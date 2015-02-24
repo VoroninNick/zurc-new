@@ -24,6 +24,12 @@ $breadcrumbs-wrapper-height: rem-calc(70);
   position: relative !important;
 }
 
+@media #{$small-only} {
+  html, body{
+    font-size: 18px;
+  }
+}
+
 
 
 
@@ -145,6 +151,15 @@ $breadcrumbs-wrapper-height: rem-calc(70);
 			}
 		}
 	}
+}
+
+@media #{$medium-down} {
+  #logo{
+    img{
+      max-height: 90px;
+      @include transform(translateY(-1rem));
+    }
+  }
 }
 
 #menu{
@@ -546,7 +561,7 @@ body:before {
 
 
 	#data-footer-menu{
-        padding-left: 5rem;
+
 		ul{
 			li{
 				list-style: none;
@@ -573,6 +588,10 @@ body:before {
 				}
 			}
 		}
+
+      @media #{$large-up} {
+        padding-left: 5rem;
+      }
 	}
 
 
@@ -777,6 +796,77 @@ body:before {
         }
       }
 	}
+
+  @media #{$medium-down}{
+    ul.breadcrumbs{
+      li{
+        span{
+          background: white;
+          display: inline-block;
+          height: 2.5rem;
+          line-height: 2.5rem;
+          padding: 0 0.5rem;
+          cursor: pointer;
+          @include transition(all 0.5s);
+
+
+          &:after{
+            @include css-triangle(7px, $gray-color, top);
+            display: inline-block;
+            top: 4px;
+            position: relative;
+            margin-left: 7px;
+            @include transition(all 0.5s);
+          }
+
+          &.active, &:hover{
+            color: white;
+            background: $gray-color;
+
+            &:after{
+              border-top-color: white;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media #{$medium-down}{
+  ul.about-menu{
+    border-left: none;
+    border-bottom: 1px $gray-color solid;
+
+    li{
+      height: 3.5rem;
+
+      a, &.active{
+        height: 3.5rem;
+        line-height: 3.5rem;
+      }
+    }
+
+    li.active, li a{
+      font-size: 1.6rem;
+      padding: 0 4rem;
+      &:hover{
+        &:before{
+          display: none;
+        }
+      }
+
+      &:hover, &:focus{
+        background: $extra-lightgray-color;
+      }
+    }
+
+    &:not(.open) {
+      display: none;
+    }
+  }
+
+
 }
 
 #menu-wrapper{
@@ -1151,3 +1241,46 @@ body:before {
   }
 }
 
+@media #{$medium-down} {
+  #menu-container {
+    > ul {
+      width: 100%;
+      > li {
+        float: none;
+
+        &:hover{
+          .dropdown{
+            display: none;
+          }
+        }
+
+        &.has-dropdown {
+          > a {
+            span:after {
+              display: none;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  #menu-wrapper{
+    opacity: 0;
+    @include transition(opacity 0.5s);
+    @include transition-delay(10s);
+
+    .opened-menu &{
+      opacity: 1;
+    }
+    > .row{
+      max-width: none;
+    }
+  }
+
+  #menu-column{
+    padding: 0;
+  }
+
+
+}

@@ -37,48 +37,62 @@ $(function() {
 //});
 
 function isMobile(){
-    var is_mobile = window.innerWidth <= 860
-    return is_mobile
+    //var is_mobile = window.innerWidth <= 860
+    //return is_mobile
+    return true;
 }
 
-$('div#menu-container ul').on('click', 'li', function(event){
-    var $item = $(this)
+$(document).on('ready', function() {
+    $('div#menu-container ul').on('click', 'li', function (event) {
+        var $item = $(this)
 
 
-    if(isMobile()){
-        event.preventDefault()
-        $item.addClass('open')
+        if (isMobile()) {
+            //event.preventDefault()
+            //$item.addClass('open')
+        }
+    })
+
+    var $menu_button = $('#mobile-button')
+    var $menu_wrapper = $('#menu-wrapper')
+    $menu_button.on('click', toggleMenu)
+
+    function toggleMenu() {
+        if (isMobile()) {
+            $body.toggleClass('opened-menu')
+            //if($body.hasClass('opened-menu')){
+            //$menu_wrapper.css({opacity: 0});
+            //$menu_wrapper.removeAttr('style')
+            //}
+
+        }
     }
+
+    function showMenu() {
+        if (isMobile()) {
+            $body.addClass('opened-menu')
+        }
+    }
+
+    function hideMenu() {
+        if (isMobile()) {
+            $body.removeClass('opened-menu')
+        }
+    }
+
+    function menuOpened() {
+        return $body.hasClass('opened-menu')
+    }
+
+    $window.on('scroll', hideMenu)
+
+    $('ul.breadcrumbs li:last span').on('click', function(){
+        var $span = $(this)
+        $span.toggleClass('active')
+        $('ul.about-menu').toggleClass('open')
+    })
+
 })
-
-var $menu_button = $('#mobile-button')
-var $menu_wrapper = $('#menu-wrapper')
-$menu_button.on('click', toggleMenu)
-
-function toggleMenu(){
-    if(isMobile()){
-        $body.toggleClass('opened-menu')
-    }
-}
-
-function showMenu(){
-    if(isMobile()) {
-        $body.addClass('opened-menu')
-    }
-}
-
-function hideMenu(){
-    if(isMobile()) {
-        $body.removeClass('opened-menu')
-    }
-}
-
-function menuOpened(){
-    return $body.hasClass('opened-menu')
-}
-
-$window.on('scroll', hideMenu)
-
 
 //
 // TODO: make close menu when clicking anywhere

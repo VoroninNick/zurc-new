@@ -46,10 +46,27 @@ $(document).on('ready',function(){
   }
 );*/
 
-$("#foo1").owlCarousel({
-  navigation: true,
-  pagination: false,
-  items: 6
+var $home_carousel = $('#foo1')
+
+//$home_carousel.owlCarousel({
+//  navigation: true,
+//  pagination: false,
+//  items: 6
+//});
+
+$home_carousel.owlCarousel({
+    //loop: false,
+    //nav: false,
+    //margin: 10,
+    //items: 1,
+    pagination: false,
+    navigation: true,
+    items: 6,
+    itemsDesktop: [1200, 6],
+    itemsDesktopSmall: [1000, 5],
+    itemsTablet: [641, 3],
+    itemsMobile: [0, 2],
+    autoPlay: false
 });
 
 $('#foo1 li a.fb').fancybox();

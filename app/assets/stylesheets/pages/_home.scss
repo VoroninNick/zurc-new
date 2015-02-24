@@ -79,7 +79,7 @@
             color: $orange-color;
           width: 280px;
 		}
-		span.decorative-letter{
+		.decorative-letter{
 
 			position: static;
 			background-color: $orange-color;
@@ -103,30 +103,90 @@
 		}
 		//}
 	//}
+
+  @media #{$medium-only} {
+    #home-about-row{
+      > .columns{
+        min-height: 250px;
+      }
+    }
+  }
+
+  @media #{$medium-up}{
+    #home-about-row{
+      .name{
+        position: relative;
+        display: block;
+        left: -10px;
+
+        &:first-letter{
+          visibility: hidden;
+        }
+      }
+    }
+  }
+
+  @media #{$small-only}{
+    .decorative-letter{
+      display: block;
+      width: 100%;
+      margin: 0;
+      padding: 100% 0 0 0;
+      height: 0;
+      position: relative;
+    }
+
+    .decorative-letter-inner{
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      @include transform(translate(-50%, -50%));
+      display: block;
+    }
+
+
+
+    #home-about-row{
+      > .columns{
+        text-align: center;
+        padding: 0 8px;
+      }
+
+      .name{
+        font-size: 0.7rem;
+        font-weight: 600;
+        line-height: 0.9rem;
+        display: block;
+        max-width: 100%;
+      }
+    }
+
+
+  }
 }
 
 #home-publications{
 	margin-bottom: 5em;
 	margin-top: 5em;
-	h4{
+	.home-publication-name{
 		color: #8a8a8a;
 		font-size: 1.4em;
 		font-weight: 800;
-		height: 2.8em;
-
-		a{
-			font: inherit;
-			color:inherit;
-            line-height: 2.1rem;
-            height: 4.2rem;
-            display: inline-block;
-            overflow: hidden;
-		}
+		//height: 2.8em;
 
 		& + .image-link{
 			margin-top: 0.5em;
 		}
 	}
+
+    .home-publication-name-a{
+      font: inherit;
+      color:inherit;
+      line-height: 2.1rem;
+      height: 4.2rem;
+      display: inline-block;
+      overflow: hidden;
+    }
 
 	p{
 		height: 8em;
@@ -149,6 +209,43 @@
             top: 5px
 		}
 	}
+
+  @media #{$medium-down}{
+
+    > .columns{
+      margin-top: 4rem;
+      &:first-child{
+        margin-top: 0;
+      }
+    }
+
+    .home-publication-name-a{
+      height: auto;
+    }
+
+    .home-publication-image-and-description{
+      position: relative;
+    }
+
+    .home-publication-description{
+      position: absolute;
+      bottom: -1px;
+      width: 100%;
+      margin: 0;
+      height: auto;
+      background: rgba(255, 255, 255, 0.8);
+      padding: 0.5rem 2rem;
+      color: #666;
+      line-height: 1.3rem;
+    }
+
+    .image-link + .home-publication-description{
+      margin-top: 0;
+    }
+
+
+
+  }
 }
 
 #home-images{

@@ -1,6 +1,6 @@
 <div id="header">
   <div class="row">
-    <div id="logo" class="large-2 left medium-3 small-3 columns">
+    <div id="logo" class="large-2 left medium-3 small-2 columns">
       <h1><% if current_page?(:root) %><%= image_tag('logos/ZURC-logo.png', id: "logo-img"  ) %><% else %><%= link_to(image_tag('logos/ZURC-logo.png'), root_path(locale: I18n.locale)) %><% end %></h1>
     </div>
 
@@ -9,9 +9,9 @@
       <h2><%= t("header.innovations") %></h2>
     </div>
 
-    <div id="header-contacts" class="large-4 small-6 columns">
+    <div id="header-contacts" class="large-4 medium-6 small-7 columns">
       <ul>
-        <li class="phone"><span class="image-container"><%= image_tag('orange_phone.png', alt: 'phone:') %></span>+38 <color>(</color>032<color>)</color> 297<color>-</color>66<color>-</color>24</li>
+        <li class="phone"><span class="image-container show-for-medium-up"><%= image_tag('orange_phone.png', alt: 'phone:') %></span>+38 <color>(</color>032<color>)</color> 297<color>-</color>66<color>-</color>24</li>
         <li class="mail"><%= link_to( image_tag('orange_mail.png', alt: 'email:'), 'mailto:office@zurc.org', class: 'image-container' ) %><%= link_to('office@zurc.org', 'mailto:office@zurc.org') %></li>
       </ul>
     </div>
