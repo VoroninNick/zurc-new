@@ -117,11 +117,11 @@
       .name{
         position: relative;
         display: block;
-        left: -10px;
+        //left: -10px;
 
-        &:first-letter{
-          visibility: hidden;
-        }
+//        &:first-letter{
+//          visibility: hidden;
+//        }
       }
     }
   }

@@ -13,9 +13,9 @@
                 <span class="decorative-letter-inner"><%=  (name = item.get_content) ? name[0] : nil %></span>
             <% end %>
 
-            <%= content_tag url.present? ? :a : :span,  { href: (url.present? ? url : nil), class: :name } do %>
-                <%= ( link_content = item.link ? item.get_content : nil ) ? link_content[0, link_content.length] : nil %>
-            <% end %>
+            <%= content_tag url.present? ? :a : :span,  { href: (url.present? ? url : nil), class: :name } do
+                 ( link_content = item.link ? item.get_content : nil ) ? link_content[0, link_content.length] : nil
+             end %>
             <p class="show-for-medium-up"><%= item.get_description %></p>
           </div>
         <% end %>

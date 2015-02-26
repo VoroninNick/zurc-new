@@ -3,6 +3,12 @@
 // You can use CoffeeScript in this file: http://coffeescript.org/
 
 $(document).on('ready',function(){
+    $('#home-about-row div.columns a.name').each(function(){
+        var $a = $(this)
+        var current_value = $a.text()
+        var new_value = current_value.substr(1)
+        $a.text(new_value)
+    })
 	 /*$("#home-images #flexiselDemo1").flexisel({  //# Create bestseller carousel
    		enableResponsiveBreakpoints: true,
    		visibleItems: 6,
