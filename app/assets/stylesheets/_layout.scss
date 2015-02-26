@@ -908,11 +908,12 @@ body:before {
       vertical-align: top;
 
       > a{
+        text-decoration: none;
         display: block;
         height: $menu-item-height;
         line-height: $menu-item-height;
         text-transform: uppercase;
-        color: #ffffff;
+        color: #ffffff !important;
         font-weight: 800;
         padding: 0 30px;
         background-color: $blue-color;
@@ -948,16 +949,18 @@ body:before {
         > a{
           background-color: $orange-color;
 
-          &:before{
-            content: "";
-            display: block;
-            position: absolute;
-            height: 8px;
-            width: 100%;
-            top: -8px;
-            left: 0;
-            background: $orange-color;
-            border-radius: $menu-border-radius-size $menu-border-radius-size 0 0;
+          @media #{$large-up} {
+            &:before {
+              content: "";
+              display: block;
+              position: absolute;
+              height: 8px;
+              width: 100%;
+              top: -8px;
+              left: 0;
+              background: $orange-color;
+              border-radius: $menu-border-radius-size $menu-border-radius-size 0 0;
+            }
           }
         }
 
@@ -1031,6 +1034,7 @@ body:before {
 
     a{
       color: $blue-color;
+      text-decoration: none;
       display: block;
       padding: 0 15px;
       height: $menu-dropdown-item-height;
@@ -1118,7 +1122,11 @@ body:before {
     > ul{
       > li{
         display: block;
-        margin-top: 3px;
+        margin-top: 0px;
+        border-top: 1px $orange-color solid;
+        &:first-child{
+          border-top: none;
+        }
 
         .dropdown{
           position: relative;

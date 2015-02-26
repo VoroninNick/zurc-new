@@ -63,3 +63,9 @@ $gray-section-background-color: #ebebeb;
 }
 
 
+a{
+  &:hover{
+    color: $link-hover-color;
+    text-decoration: underline;
+  }
+}

@@ -34,7 +34,7 @@
                 <% if article.get_description.present? %>
                   <p class="home-publication-description"><%= article.get_description %></p>
                 <% end %>
-                <a class="show-for-large-up" href="<%= article.smart_to_param %>" class="read-more"><%= t("read-more") %></a>
+                <a class="show-for-large-up read-more" href="<%= article.smart_to_param %>"><%= t("read-more") %></a>
             </div>
           </div>
       <% end %>

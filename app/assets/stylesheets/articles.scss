@@ -106,6 +106,10 @@
   &:last-child{
     float: none !important;
   }
+
+  &.publication-item{
+    min-height: rem-calc(250);
+  }
 }
 
 .list-item-title{

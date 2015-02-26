@@ -80,7 +80,7 @@
           width: 280px;
 		}
 		.decorative-letter{
-
+            text-decoration: none;
 			position: static;
 			background-color: $orange-color;
 			font-size: 3em;
@@ -208,6 +208,12 @@
 			position: relative;
             top: 5px
 		}
+
+      &:hover{
+        &:before{
+          border-left-color: $link-hover-color;
+        }
+      }
 	}
 
   @media #{$medium-down}{
