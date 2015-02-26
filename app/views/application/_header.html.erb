@@ -1,12 +1,12 @@
 <div id="header">
   <div class="row">
     <div id="logo" class="large-2 left medium-3 small-2 columns">
-      <h1><% if current_page?(:root) %><%= image_tag('logos/ZURC-logo.png', id: "logo-img"  ) %><% else %><%= link_to(image_tag('logos/ZURC-logo.png'), root_path(locale: I18n.locale)) %><% end %></h1>
+      <h1 class="header-logo-title"><% if current_page?(:root) %><%= image_tag('logos/ZURC-logo.png', id: "logo-img"  ) %><% else %><%= link_to(image_tag('logos/ZURC-logo.png'), root_path(locale: I18n.locale)) %><% end %></h1>
     </div>
 
     <div class="large-4 medium-4 hide-for-medium-down columns" id="site-caption">
-      <h1><%= raw t("header.wurc") %></h1>
-      <h2><%= t("header.innovations") %></h2>
+      <h1 class="wurc"><%= raw t("header.wurc") %></h1>
+      <h2 class="innovations"><%= t("header.innovations") %></h2>
     </div>
 
     <div id="header-contacts" class="large-4 medium-6 small-7 columns">

@@ -100,14 +100,14 @@ module ApplicationHelper
 
   def meta_keywords
     keywords = @meta_keywords
-    keywords = @page_metadata.try{|m| m.meta_keywords } if keywords.blank?
+    keywords = @page_metadata.try{|m| m.get_meta_keywords } if keywords.blank?
     keywords = "" if keywords.blank?
     keywords
   end
 
   def meta_description
     description = @meta_description
-    description = @page_metadata.try{|m| m.meta_description } if description.blank?
+    description = @page_metadata.try{|m| m.get_meta_description } if description.blank?
     description = '' if description.blank?
     description
   end

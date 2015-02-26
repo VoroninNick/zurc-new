@@ -252,11 +252,11 @@ class ArticlesController < InnerPageController
   def init_publications
     #@featured_articles = @category.available_articles.select{|a| a.featured? }.sort{|a, b| a.release_date.present? && b.release_date.present? ? a.release_date > b.release_date : (a.release_date.present? ? a : b )   }.first(3)
     @featured_articles = ArticleCategory.publications_category.articles.available.featured
-    @articles = ArticleCategory.publications_category.articles.available.unfeatured.page(params[:page]).per(100)
+    @articles = ArticleCategory.publications_category.articles.available.unfeatured.order_by_date_desc.page(params[:page]).per(100)
   end
 
   def init_publication
-    all_publications = Article.available.publications
+    all_publications = Article.available.publications.order_by_date_desc
     current_index = nil
     all_publications.each_with_index {|item, index| if item.id == @article.id then; current_index = index; break; end; }
     @related_articles = all_publications[(current_index-1)..(current_index+1)].select{|p| p.id != @article.id }
@@ -264,11 +264,11 @@ class ArticlesController < InnerPageController
 
   def init_news
     #@featured_articles = @category.available_articles.select{|a| a.featured? }.sort{|a, b| a.release_date.present? && b.release_date.present? ? a.release_date > b.release_date : (a.release_date.present? ? a : b )   }.first(3)
-    @articles = ArticleCategory.news_category.articles.available.unfeatured.page(params[:page]).per(100)
+    @articles = ArticleCategory.news_category.articles.available.unfeatured.order_by_date_desc.page(params[:page]).per(100)
   end
 
   def init_news_item
-    all_publications = ArticleCategory.news_category.articles.available
+    all_publications = ArticleCategory.news_category.articles.available.order_by_date_desc
     current_index = nil
     all_publications.each_with_index {|item, index| if item.id == @article.id then; current_index = index; break; end; }
     @related_articles = all_publications[(current_index-1)..(current_index+1)].select{|p| p.id != @article.id }
@@ -288,7 +288,7 @@ class ArticlesController < InnerPageController
   def init_what_we_do_category
     #nvihev
     @subcategories = @category.available_child_categories
-    @articles = @category.articles.available
+    @articles = @category.articles.available.order_by_date_desc
   end
 
   def init_what_we_do_item
