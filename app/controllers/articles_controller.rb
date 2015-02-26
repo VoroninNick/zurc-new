@@ -264,7 +264,7 @@ class ArticlesController < InnerPageController
 
   def init_news
     #@featured_articles = @category.available_articles.select{|a| a.featured? }.sort{|a, b| a.release_date.present? && b.release_date.present? ? a.release_date > b.release_date : (a.release_date.present? ? a : b )   }.first(3)
-    @articles = ArticleCategory.news_category.articles.available.unfeatured.order_by_date_desc.page(params[:page]).per(100)
+    @articles = ArticleCategory.news_category.articles.available.order_by_date_desc.page(params[:page]).per(100)
   end
 
   def init_news_item
