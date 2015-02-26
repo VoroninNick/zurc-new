@@ -3,12 +3,43 @@
 // You can use CoffeeScript in this file: http://coffeescript.org/
 
 $(document).on('ready',function(){
-    $('#home-about-row div.columns a.name').each(function(){
-        var $a = $(this)
-        var current_value = $a.text()
-        var new_value = current_value.substr(1)
-        $a.text(new_value)
-    })
+    var $home_first_about_links = $('#home-about-row div.columns a.name')
+    if(Modernizr.mq("only screen and (min-width: 641px)")) {
+        $home_first_about_links.each(function () {
+
+            var $a = $(this)
+            var current_value = $a.html()
+            $a.attr('data-first-letter', current_value[0])
+            var new_value = current_value.substr(1)
+            $a.html(new_value)
+        })
+    }
+    $( window ).resize(function() {
+        if(Modernizr.mq("only screen and (max-width: 640px)")){
+            $home_first_about_links.each(function(){
+                var $a = $(this)
+                var data_first_letter = $a.attr('data-first-letter')
+                if(data_first_letter){
+                    $a.text(data_first_letter + $a.text())
+                }
+                $a.removeAttr('data-first-letter')
+            })
+        }
+        else{
+            $home_first_about_links.each(function(){
+                var $a = $(this)
+                var data_first_letter = $a.attr('data-first-letter')
+                if(!data_first_letter){
+                    var current_text = $a.text()
+                    var new_text = current_text.substr(1)
+                    var first_letter = current_text[0]
+                    $a.attr('data-first-letter', first_letter)
+                    $a.text(new_text)
+                }
+                //$a.removeAttr('data-first-letter')
+            })
+        }
+    });
 	 /*$("#home-images #flexiselDemo1").flexisel({  //# Create bestseller carousel
    		enableResponsiveBreakpoints: true,
    		visibleItems: 6,
