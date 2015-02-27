@@ -202,8 +202,15 @@ $document.on('ready', function() {
                 //$expander.removeClass('expanded').addClass('collapsed');
 
                 var container_top = $article_container.offset().top
-                $("html, #body").animate({scrollTop: container_top + "px"})
-                setTimeout(function(){$article_container.removeClass('expanded').addClass('collapsed');}, 300)
+                var current_scroll_top = $(document).scrollTop()
+                if(current_scroll_top > container_top) {
+                    $("html, #body").animate({scrollTop: container_top + "px"})
+                    setTimeout(function(){$article_container.removeClass('expanded').addClass('collapsed');}, 300)
+                }
+                else{
+                    $article_container.removeClass('expanded').addClass('collapsed');
+                }
+
                 break;
             case 'expand':
             default:
