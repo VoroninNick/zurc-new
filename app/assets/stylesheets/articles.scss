@@ -500,6 +500,7 @@
       &:hover{
         background-color: $gray-color;
         color: white;
+        text-decoration: none;
       }
     }
   }
@@ -567,6 +568,10 @@
     position: relative;
     top: 10px;
     left: -4px;
+  }
+
+  &:hover{
+    text-decoration: none;
   }
 }
 

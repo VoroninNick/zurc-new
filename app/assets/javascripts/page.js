@@ -185,7 +185,7 @@ $document.on('ready', function() {
     })
 
     var $what_we_do_category_page = $('.what-we-do-category-page')
-    $what_we_do_category_page.on('click', 'a.expander', function(event){
+    $what_we_do_category_page.on('click', 'a.expander, div.article-subcategory-article-name a', function(event){
         event.preventDefault()
         var $expander = $(this)
         var action = 'expand'
