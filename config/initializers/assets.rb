@@ -10,4 +10,25 @@ Rails.application.config.assets.version = '1.0'
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
 # Rails.application.config.assets.precompile += %w( search.js )
 
+config.assets.precompile << Proc.new do |path|
+  # if path =~ /\.(css|js)\z/
+  #   full_path = Rails.application.assets.resolve(path).to_path
+  #   app_assets_path = Rails.root.join('app', 'assets').to_path
+  #   if full_path.starts_with? app_assets_path
+  #     puts "including asset: " + full_path
+  #     true
+  #   else
+  #     puts "excluding asset: " + full_path
+  #     false
+  #   end
+  # else
+  #   false
+  # end
+  if path =~ /codemirror\.min\.js\.map\Z/
+    return false
+  else
+    return true
+  end
+end
+
 Rails.application.config.assets.precompile += %w( modernizr.custom.03421.js )
