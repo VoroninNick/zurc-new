@@ -24,11 +24,36 @@ Rails.application.config.assets.precompile << Proc.new do |path|
   # else
   #   false
   # end
-  if path =~ /codemirror\.min\.js\.map\Z/
-    false
-  else
+  excluded_regexes = [
+      /codemirror\.min\.js\.map\Z/
+  ]
+  included_regexes = [
+      /application\.(css|js)\Z/,
+      /modernizr\.custom\.03421\.js\Z/
+  ]
+
+  excluded = false
+  included = false
+
+  excluded_regexes.each do |reg|
+    if path =~ reg
+      excluded = true
+      break
+    end
+  end
+
+  included_regexes.each do |reg|
+    if path =~ reg
+      included = true
+      break
+    end
+  end
+
+  if included && !excluded
     true
+  else
+    false
   end
 end
 
-Rails.application.config.assets.precompile += %w( modernizr.custom.03421.js )
+#Rails.application.config.assets.precompile += %w( modernizr.custom.03421.js )
