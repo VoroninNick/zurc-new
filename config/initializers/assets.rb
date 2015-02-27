@@ -37,7 +37,7 @@ Rails.application.config.assets.precompile << Proc.new do |path|
 
   excluded_regexes.each do |reg|
     if path =~ reg
-      puts "included path: '#{path}'"
+      #puts "excluded path: '#{path}'"
       excluded = true
       break
     end
@@ -45,7 +45,7 @@ Rails.application.config.assets.precompile << Proc.new do |path|
 
   included_regexes.each do |reg|
     if path =~ reg
-      puts "excluded path: '#{path}'"
+      puts "included path: '#{path}'"
       included = true
       break
     end
@@ -55,7 +55,7 @@ Rails.application.config.assets.precompile << Proc.new do |path|
     puts "render=true path: '#{path}'"
     true
   else
-    puts "render=false path: '#{path}'"
+    #puts "render=false path: '#{path}'"
     false
   end
 end
