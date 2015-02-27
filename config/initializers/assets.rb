@@ -10,54 +10,66 @@ Rails.application.config.assets.version = '1.0'
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
 # Rails.application.config.assets.precompile += %w( search.js )
 
-Rails.application.config.assets.precompile << Proc.new do |path|
-  # if path =~ /\.(css|js)\z/
-  #   full_path = Rails.application.assets.resolve(path).to_path
-  #   app_assets_path = Rails.root.join('app', 'assets').to_path
-  #   if full_path.starts_with? app_assets_path
-  #     puts "including asset: " + full_path
-  #     true
-  #   else
-  #     puts "excluding asset: " + full_path
-  #     false
-  #   end
-  # else
-  #   false
-  # end
-  excluded_regexes = [
-      /codemirror\.min\.js\.map\Z/
-  ]
-  included_regexes = [
-      /application\.(css|js)\Z/,
-      /modernizr\.custom\.03421\.js\Z/
-  ]
-
-  excluded = false
-  included = false
-
-  excluded_regexes.each do |reg|
-    if path =~ reg
-      #puts "excluded path: '#{path}'"
-      excluded = true
-      break
-    end
-  end
-
-  included_regexes.each do |reg|
-    if path =~ reg
-      puts "included path: '#{path}'"
-      included = true
-      break
-    end
-  end
-
-  if included && !excluded
-    puts "render=true path: '#{path}'"
-    true
-  else
-    #puts "render=false path: '#{path}'"
-    false
-  end
-end
+# Rails.application.config.assets.precompile << Proc.new do |path|
+#   # if path =~ /\.(css|js)\z/
+#   #   full_path = Rails.application.assets.resolve(path).to_path
+#   #   app_assets_path = Rails.root.join('app', 'assets').to_path
+#   #   if full_path.starts_with? app_assets_path
+#   #     puts "including asset: " + full_path
+#   #     true
+#   #   else
+#   #     puts "excluding asset: " + full_path
+#   #     false
+#   #   end
+#   # else
+#   #   false
+#   # end
+#   excluded_regexes = [
+#       /codemirror\.min\.js\.map\Z/
+#   ]
+#   included_regexes = [
+#       /application\.(css|js)\Z/,
+#       /modernizr\.custom\.03421\.js\Z/
+#   ]
+#
+#   excluded = false
+#   included = false
+#
+#   excluded_regexes.each do |reg|
+#     if path =~ reg
+#       #puts "excluded path: '#{path}'"
+#       excluded = true
+#       break
+#     end
+#   end
+#
+#   included_regexes.each do |reg|
+#     if path =~ reg
+#       puts "included path: '#{path}'"
+#       included = true
+#       break
+#     end
+#   end
+#
+#   if included && !excluded
+#     puts "render=true path: '#{path}'"
+#     true
+#   else
+#     #puts "render=false path: '#{path}'"
+#     false
+#   end
+# end
 
 #Rails.application.config.assets.precompile += %w( modernizr.custom.03421.js )
+
+# config.assets.precompile = []
+# config.assets.precompile += Ckeditor.assets
+# config.assets.precompile += %w(app.css application.js zoomico.png jquery.js )
+#
+# config.assets.precompile += %w(ckeditor)
+#
+# config.assets.precompile += %w(rails_admin/colorpicker/*.gif rails_admin/colorpicker/*.png rails_admin/bootstrap/*.png rails_admin/aristo/images/* rails_admin/multiselect/*.png rails_admin/*.png)
+#
+#
+# config.assets.precompile += %w(ckeditor/config.js)
+# config.assets.precompile += %w(ckeditor/plugins/codemirror/plugin.js ckeditor/plugins/codemirror/lang/* ckeditor/plugins/codemirror/css/* ckeditor/plugins/codemirror/js/*.js ckeditor/plugins/codemirror/icons/* ckeditor/plugins/codemirror/theme/*)

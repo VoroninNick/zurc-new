@@ -39,5 +39,55 @@ module Zurc
     config.after_initialize do
 
     end
+
+    # ===========================================================================
+    # ---------------------------------------------------------------------------
+    # assets precompile
+    # ---------------------------------------------------------------------------
+    # ===========================================================================
+
+    config.assets.precompile = []
+    config.assets.precompile += Ckeditor.assets
+    config.assets.precompile += %w(application.css application.js zoomico.png jquery.js )
+    #config.assets.precompile += %w(voronin-studio-logo.png)
+    #config.assets.precompile += %w(contact-compiler.css)
+
+    #config.assets.precompile += %w(footer-get-top.jpg behance_footer.jpg)
+
+    #config.assets.precompile += %w(favicon.ico)
+
+    # add banners images
+    #config.assets.precompile += %w(banners/* static_images/* portfolio/*)
+
+    config.assets.precompile += %w(ckeditor)
+    config.assets.precompile += %w(rails_admin/rails_admin.css rails_admin/rails_admin.css)
+
+    config.assets.precompile += %w(fonts/*, fontawesome*)
+
+    #config.assets.precompile += %w(file_editor_application.css, file_editor_application.js)
+
+    # august
+    #config.assets.precompile += %w(jquery-ui/ui-bg_flat_75_ffffff_40x100.png)
+
+
+    # config.assets.precompile += ["jquery-ui/ui-bg_flat_75_ffffff_40x100.png",
+    #                              "jquery-ui/ui-bg_highlight-soft_75_cccccc_1x100.png",
+    #                              "jquery-ui/ui-bg_glass_75_e6e6e6_1x400.png",
+    #                              "jquery-ui/ui-bg_glass_75_dadada_1x400.png",
+    #                              "jquery-ui/ui-bg_glass_65_ffffff_1x400.png",
+    #                              "jquery-ui/ui-bg_glass_55_fbf9ee_1x400.png",
+    #                              "jquery-ui/ui-bg_glass_95_fef1ec_1x400.png",
+    #                              "jquery-ui/ui-icons_222222_256x240.png",
+    #                              "jquery-ui/ui-icons_888888_256x240.png",
+    #                              "jquery-ui/ui-icons_454545_256x240.png", "jquery-ui/ui-icons_2e83ff_256x240.png", "jquery-ui/ui-icons_cd0a0a_256x240.png", "jquery-ui/ui-bg_flat_0_aaaaaa_40x100.png"]
+
+    config.assets.precompile += %w(rails_admin/colorpicker/*.gif rails_admin/colorpicker/*.png rails_admin/bootstrap/*.png rails_admin/aristo/images/* rails_admin/multiselect/*.png rails_admin/*.png)
+
+
+    config.assets.precompile += %w(ckeditor/config.js)
+    config.assets.precompile += %w(ckeditor/plugins/codemirror/plugin.js ckeditor/plugins/codemirror/lang/* ckeditor/plugins/codemirror/css/* ckeditor/plugins/codemirror/js/*.js ckeditor/plugins/codemirror/icons/* ckeditor/plugins/codemirror/theme/*)
+
+
+    config.assets.compile = true
   end
 end
