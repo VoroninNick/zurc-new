@@ -64,6 +64,7 @@ module Zurc
 
     config.assets.precompile += %w(fonts/*, fontawesome*)
 
+
     #config.assets.precompile += %w(file_editor_application.css, file_editor_application.js)
 
     # august
@@ -87,6 +88,9 @@ module Zurc
     config.assets.precompile += %w(ckeditor/config.js)
     config.assets.precompile += %w(ckeditor/plugins/codemirror/plugin.js ckeditor/plugins/codemirror/lang/* ckeditor/plugins/codemirror/css/* ckeditor/plugins/codemirror/js/*.js ckeditor/plugins/codemirror/icons/* ckeditor/plugins/codemirror/theme/*)
 
+
+    # add images
+    config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif)
 
     config.assets.compile = true
   end
