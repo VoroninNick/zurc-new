@@ -45,7 +45,7 @@ Rails.application.config.assets.precompile << Proc.new do |path|
 
   included_regexes.each do |reg|
     if path =~ reg
-      puts "included path: '#{path}'"
+      puts "excluded path: '#{path}'"
       included = true
       break
     end
