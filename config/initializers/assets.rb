@@ -25,9 +25,9 @@ Rails.application.config.assets.precompile << Proc.new do |path|
   #   false
   # end
   if path =~ /codemirror\.min\.js\.map\Z/
-    return false
+    false
   else
-    return true
+    true
   end
 end
 
