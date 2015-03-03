@@ -92,6 +92,8 @@ module Zurc
     # add images
     config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif)
 
+    config.assets.precompile += %w(modernizr.custom.03421.js)
+
     config.assets.compile = true
   end
 end

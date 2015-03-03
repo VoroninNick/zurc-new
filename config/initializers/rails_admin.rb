@@ -61,7 +61,9 @@ unless RakeSettings.self_skip_initializers?
         field :article_category
         field :tags
         field :translations, :globalize_tabs
-        field :image
+        field :image do
+          help "Розмір аватарки: 400х300; Розмір для баннера на сторінці публікацій: великий: 800х400; малий: 360х180;вибрані новини на головній: 600х325;"
+        end
         field :attachments
         field :release_date
         field :page_metadata
@@ -102,7 +104,9 @@ unless RakeSettings.self_skip_initializers?
       })
       edit do
         field :published
-        field :image
+        field :image do
+          help "Що ми робимо: розмір баннера: 1200х396"
+        end
         field :translations, :globalize_tabs
         field :page_metadata
         field :articles
@@ -144,7 +148,9 @@ unless RakeSettings.self_skip_initializers?
 
       edit do
         field :published
-        field :image
+        field :image do
+          help "Розмір: 1800х800"
+        end
         field :translations, :globalize_tabs
       end
     end
@@ -213,7 +219,9 @@ unless RakeSettings.self_skip_initializers?
 
       edit do
         field :published
-        field :image
+        field :image do
+          help "розмір: маленька: 175х100; велика: 700х400(зберігає пропорції)"
+        end
         field :translations, :globalize_tabs
       end
     end
@@ -293,7 +301,10 @@ unless RakeSettings.self_skip_initializers?
       edit do
         field :locale, :hidden
         field :name
-        field :data
+        field :data do
+          label "Зображення"
+          help "Розмір: 580х580"
+        end
         field :alt
       end
     end
