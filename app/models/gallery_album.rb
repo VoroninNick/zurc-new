@@ -85,6 +85,10 @@ class GalleryAlbum < ActiveRecord::Base
   scope :available, -> { joins(:images).where(gallery_images: { published: 't' }).group("gallery_albums.id") }
 
   def smart_to_param
-    routes_module.gallery_album_path(locale: I18n.locale, album: self.get_slug)
+    if self.get_slug
+      routes_module.gallery_album_path(locale: I18n.locale, album: self.get_slug)
+    else
+      return nil
+    end
   end
 end
