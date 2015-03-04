@@ -28,7 +28,7 @@ class GalleryImage < ActiveRecord::Base
   end
 
   def get_name
-    (name = get_attr(:name)).present? ? name : get_data.try{|d| d.file.basename }
+    (name = get_attr(:name)).present? ? name : get_data.try{|d| d.file.try(&:basename) }
   end
 
   def get_description
