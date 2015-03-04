@@ -82,7 +82,7 @@ class GalleryAlbum < ActiveRecord::Base
 
   # scopes
   scope :published, -> { where(published: 't') }
-  scope :available, -> { published.joins(:images).where(gallery_images: { published: 't' }).group("gallery_albums.id") }
+  scope :available, -> { published.joins(:images).where(gallery_images: { published: 't' }).where.not(gallery_images: {data: nil}).group("gallery_albums.id") }
 
   def smart_to_param
     if self.get_slug
