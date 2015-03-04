@@ -49,7 +49,7 @@ class GalleryImage < ActiveRecord::Base
 
   # scopes
   scope :published, -> { where(published: 't') }
-  scope :available, -> { published }
+  scope :available, -> { published.where.not(data: nil) }
 
   if check_tables(:gallery_albums)
     belongs_to :album, class: GalleryAlbum
