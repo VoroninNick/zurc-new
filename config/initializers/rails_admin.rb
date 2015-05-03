@@ -319,7 +319,7 @@ unless RakeSettings.self_skip_initializers?
         field :published
         field :translations, :globalize_tabs
         field :page_metadata
-        field :images
+        #field :images
       end
     end
 
