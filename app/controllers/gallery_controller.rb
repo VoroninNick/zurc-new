@@ -48,6 +48,28 @@ class GalleryController < ApplicationController
     init_metadata
   end
 
+  def order_gallery_album_images
+    order_data = params[:order_data]
+
+    order_array_data = order_data.map{ |key, value| value }
+    render inline: order_array_data.inspect
+    ids = order_array_data.map{|item| item[:id].to_i }
+    images = GalleryImage.where(id: ids)
+    images.each_with_index do |image, index|
+      image_order_data = order_array_data.select{|item| item[:id].to_i == image.id }.first
+      data_position = image_order_data[:position].to_i
+      if data_position != image.position
+        image.position = data_position
+        image.save
+      end
+    end
+  end
+
+  def delete_gallery_image
+    image_id = params[:image_id].to_i
+    GalleryImage.destroy(image_id)
+  end
+
   private
 
   def gallery_breadcrumbs
@@ -76,4 +98,6 @@ class GalleryController < ApplicationController
 
 
   end
+
+
 end

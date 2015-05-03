@@ -3,6 +3,9 @@ require Rails.root.join "config/initializers/rake_settings"
 unless RakeSettings.self_skip_initializers?
   Rails.application.routes.draw do
 
+    post "update_images_order", to: "gallery#order_gallery_album_images"
+    post "delete_gallery_image", to: "gallery#delete_gallery_image"
+
     scope "(:locale)", locale: /#{I18n.available_locales.join("|")}/ do
       get "/gallery", to: "gallery#albums", as: :gallery
       get "/gallery/:album", to: "gallery#images", as: :gallery_album
