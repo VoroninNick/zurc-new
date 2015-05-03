@@ -36,7 +36,7 @@ module RailsAdmin
                   image = object.send(album_images_association_name).build
                   #image.data = params_element[:file]
 
-                  I18n.available_locales.each do |locale|
+                  [I18n.locale].each do |locale|
                     image_translation = image.translations.any? ? image.translations_by_locale[locale] : nil
                     if image_translation.nil?
                       image_translation = image.translations.build(locale: locale)
