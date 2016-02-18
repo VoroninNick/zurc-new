@@ -305,11 +305,23 @@ unless RakeSettings.self_skip_initializers?
           def value
             @bindings[:object].translations.each do |t|
               attachment = t.send(name)
-              if attachment.file.try(:exists?)
+              if attachment.versions[:thumb].file.try(:exists?)
                 return attachment
-              end  
-            end  
-          end  
+              end
+            end
+
+            return nil
+            #@bindings[:object].get_data
+          end
+
+          # def resource_url
+          #   v = value.versions[:thumb]
+          #   return v.url if v.file.exists?
+          #
+          #   return nil
+          # end
+
+
 
           
         end  
