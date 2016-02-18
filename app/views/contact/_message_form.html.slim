@@ -25,7 +25,7 @@
                 - if @message.errors[:phone].any?
                   - @message.errors[:phone].each do |error_message|
                     span
-                      = error_message
+                      = t("simple_form.placeholders.message.phone")
                 - else
                   = tm.t :phone
 
@@ -39,11 +39,11 @@
               = l.input_field :message_text, as: :text
               /label.input-label.text for="message_message_text"
                 = tm.t :message_text
-              = f.label :phone, class: "input-label phone #{"error" if params[:action].to_sym != :index && @message.errors[:message_text].any?}" do
+              = f.label :message_text, class: "input-label phone #{"error" if params[:action].to_sym != :index && @message.errors[:message_text].any?}" do
                 - if @message.errors[:message_text].any?
                   - @message.errors[:message_text].each do |error_message|
                     span
-                      = error_message
+                      = simple_form.placeholders.message.message_text
                 - else
                   = tm.t :phone
 

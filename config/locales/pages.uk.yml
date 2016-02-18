@@ -1,0 +1,20 @@
+uk:
+  pages:
+    contact: 
+      phones_header: "Телефони"
+      address_header: "Адреса"
+      working_hours_header: "Робочі години"
+      days: "у робочі дні, окрім вихідних та свят"
+      non_working_days: "Вихідні: субота, неділя та офіційні державні свята"
+      street: "вул. Лисенка 21 (1-ий поверх)"
+      city: "м. Львів, Україна"
+    publications: 
+      recent_publications_header: "Останні публікації"
+
+
+
+  views:
+    page-sections:
+      contact:
+        message_form: "Зворотній зв'язок"
+        map: "Центральний офіс"

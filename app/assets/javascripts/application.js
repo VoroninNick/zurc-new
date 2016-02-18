@@ -32,3 +32,5 @@
 //= require infinity_scroll
 //= require pages/contact
 //= require gallery
+
+// require disqus_rails

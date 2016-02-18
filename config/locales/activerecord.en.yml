@@ -21,4 +21,9 @@ en:
         name: "Ім'я"
         short_description: "Короткий опис"
         full_description: "Повний опис"
+      message:
+        name: "Your name"
+        email: "Email"
+        phone: "Phone"
+        message_text: "Message"
 

@@ -40,7 +40,7 @@
     .page-section.post-background-section.publications-list-section class=( "no-padding-top" if !(@featured_articles && @featured_articles.any?) )
       .row
         .page-title.columns.large-12
-          = "Останні публікації"
+          = t("pages.publications.recent_publications_header")
         .list.publications-list.infinity-scroll-list
           - if @articles.count > 0
             .list.publications-list-collection

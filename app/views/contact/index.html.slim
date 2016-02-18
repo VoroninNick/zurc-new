@@ -6,7 +6,7 @@
           img.contact-info-col-icon-img src="#{asset_path('phone.png')}"
         .contact-info-col-content
           .contact-info-col-header
-            = "Телефони"
+            = t("pages.contact.phones_header")
           .contact-info-col-text
             p
               span.phone
@@ -21,13 +21,13 @@
           img.contact-info-col-icon-img src="#{asset_path('home.png')}"
         .contact-info-col-content
           .contact-info-col-header
-            = "Адреса"
+            = t("pages.contact.address_header")
           .contact-info-col-text
             p#address-p
               span#street
-                = "вул. Лисенка 21 (1-ий поверх)"
+                = t("pages.contact.street")
               span.city
-                = "м. Львів, Україна"
+                = t("pages.contact_city")
             p#contact-info-email
               .email
                 a href="mailto:office@zurc.org"
@@ -37,15 +37,15 @@
           img.contact-info-col-icon-img src="#{asset_path('clock.png')}"
         .contact-info-col-content
           .contact-info-col-header
-            = "Робочі години"
+            = t("pages.contact.working_hours_header")
           .contact-info-col-text
             p
               span#time-range
                 = raw "10:00 &mdash; 18:00"
               span#days
-                = "у робочі дні, окрім вихідних та свят"
+                = t("pages.contact.days")
             p#tip
-              = "Вихідні: субота, неділя та офіційні державні свята"
+              = t("pages.contact.non_working_days")
   = render partial: "contact/map"
 
   = render partial: "contact/message_form"

@@ -1,0 +1,12 @@
+en:
+  pages:
+    contact: 
+      phones_header: "Phones"
+      address_header: "Address"
+      working_hours_header: "Working hours"
+      days: "in working days, except weekends and holidays"
+      non_working_days: "Weekend: Saturday, Sunday and official public holidays"
+      street: "st. Lysenko 21 (first floor)"
+      city: "m. Lviv, Ukraine"
+    publications: 
+      recent_publications_header: "Recent publications"

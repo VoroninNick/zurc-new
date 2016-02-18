@@ -118,7 +118,9 @@ unless RakeSettings.self_skip_initializers?
       edit do
         field :locale, :hidden
         field :name
-        field :slug
+        field :slug do
+          help "Наприклад, для статті 'Моя стаття': moya-stattia"
+        end  
       end
     end
 
@@ -259,6 +261,9 @@ unless RakeSettings.self_skip_initializers?
 
     config.model Tag do
       #nestable_list true
+      
+      navigation_label "Галерея"
+
 
       edit do
         field :translations, :globalize_tabs
@@ -293,6 +298,25 @@ unless RakeSettings.self_skip_initializers?
         field :published
         field :translations, :globalize_tabs
       end
+
+      list do
+        field :id
+        field :data, :carrierwave do
+          def value
+            @bindings[:object].translations.each do |t|
+              attachment = t.send(name)
+              if attachment.file.try(:exists?)
+                return attachment
+              end  
+            end  
+          end  
+
+          
+        end  
+        field :name
+        field :alt
+        field :album
+      end  
     end
 
     config.model GalleryImage::Translation do
@@ -490,6 +514,7 @@ unless RakeSettings.self_skip_initializers?
     end
 
     config.model GalleryIndexPage do
+      visible false
       weight -90
       navigation_label "Галерея"
 

@@ -95,5 +95,12 @@ module Zurc
     config.assets.precompile += %w(modernizr.custom.03421.js)
 
     config.assets.compile = true
+
+    config.after_initialize do
+      Disqus::defaults[:account] = "zurc-org"
+      Disqus::defaults[:developer] = true
+      Disqus::defaults[:container_id] = "disqus_thread"
+      Disqus::defaults[:show_powered_by] = false
+    end
   end
 end

@@ -131,3 +131,6 @@ gem 'rubytree'
 # gem 'rails_admin_globalize_field', github: 'VoroninNick/rails_admin_globalize_field', branch: 'allow-current-locale'
 # gem 'ukrainian', github: 'VoroninNick/ukrainian', branch: 'master'
 gem 'bundler', '>= 1.8.0'
+
+
+gem 'disqus'

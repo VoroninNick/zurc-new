@@ -50,3 +50,39 @@ uk:
   head_title_untitled: "Без назви"
 
   gallery-page: "Галерея"
+
+  activerecord:
+    models:
+      gallery_album: "альбом"
+      gallery_image: "картинка"
+      gallery_index_page: "Сторінка галереї"
+      contact_page: "Сторінка 'Контакти'"
+      pages_about: "Сторінка 'Про нас'"
+      attachment: "Прикріплені файли"
+      page_metadata: "Метадані"
+      user: "Користувач"
+      home_slide: "Слайди на головній"
+      home_first_about: "Головна > Про нас 1"
+      home_second_about: "Головна > Про нас 1"
+      home_first_about: "Головна > Про нас 1"
+      home_gallery_image: "Головна > Галерея"
+      article_category: "Категорія статей"
+      tag: "Тег"
+    attributes:
+      article_category:
+        image: "Картинка"
+        name: "Назва категорії"
+        slug: "URL-шлях"
+        position: "Порядковий номер"
+        published: "Опубліковано"
+        page_metadata: "Метадані"
+        articles: "Статті з категорії"
+        translations: "Переклад"
+      article_category/translation:
+        name: "Назва"
+        slug: "URL-шлях"
+      article: 
+        published: "Опубліковано"
+        article_category: "Категорія статті"
+        image: "Картинка"
+        release_date: "Дата релізу"

@@ -30,6 +30,13 @@
     .article-content.columns.large-8.right
       = raw @article.get_content
     a#scroll-to-top.columns.large-8.right href="#body"
+  .row
+    .columns
+      #disqus_thread
+        = raw disqus_thread 
+
+  .row  
     .list.publications-list-collection.related-articles
       - @related_articles.each do |article|
         = render partial: "list_item", locals: { article: article }
+

@@ -2,10 +2,10 @@ en:
   simple_form:
     placeholders:
       message:
-        name: Voronin Nick
-        phone: +38 (050) 033 22 19
-        email: voronin.nick@gmail.com
-        message_text: "E-book must replay over a year, worked well. Not used it about two or three months, now shows that charging. After charging the same, does not light, but the computer sees it,"
+        name: "enter your first name, middle name, last name"
+        phone: "enter your contact phone"
+        email: "enter your email"
+        message_text: "enter your feedback text"
     notices:
       message:
         successful: "Thanks, your message was successfully sent"
