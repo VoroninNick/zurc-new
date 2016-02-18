@@ -41,6 +41,7 @@ $document.on('ready page:load', function(){
             }
         },
         messages: {
+            required: "Це поле не може бути порожнім",
             name: {
                 required: "Ваше ім'я не може бути порожнім",
                 minlength: "Ваше ім'я: мынымум 2 символи"
@@ -71,7 +72,7 @@ $document.on('ready page:load', function(){
                 data: form_data,
                 dataType: "json",
                 success: function(){
-                    alert("Дякуэмо, повідомлення було упішно надіслано")
+                    alert("Дякуємо, повідомлення було упішно надіслано")
                 },
                 error: function(){
                     alert("Вибачте, виникла помилка")

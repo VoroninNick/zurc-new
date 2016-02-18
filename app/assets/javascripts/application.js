@@ -14,6 +14,7 @@
 //= require jquery_ujs
 // require turbolinks
 //= require variables
+//= require form_messages
 //= require jquery.validate
 
 //= require jquery.flexisel

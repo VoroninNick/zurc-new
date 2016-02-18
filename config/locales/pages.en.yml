@@ -10,3 +10,9 @@ en:
       city: "m. Lviv, Ukraine"
     publications: 
       recent_publications_header: "Recent publications"
+
+  views:
+    page-sections:
+      contact:
+        message_form: "Your feedback"
+        map: "Central office"

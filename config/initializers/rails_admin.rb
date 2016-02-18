@@ -300,8 +300,10 @@ unless RakeSettings.self_skip_initializers?
       end
 
       list do
+        field :published
         field :id
         field :data, :carrierwave do
+          label "Thumbnail"
           def value
             @bindings[:object].translations.each do |t|
               attachment = t.send(name)
@@ -326,7 +328,7 @@ unless RakeSettings.self_skip_initializers?
           
         end  
         field :name
-        field :alt
+
         field :album
       end  
     end
