@@ -11,7 +11,7 @@ class CreateAttachments < ActiveRecord::Migration
       t.timestamps null: false
     end
 
-    Attachment.create_translation_table!(data: :string, name: :string)
+    Attachment.create_translation_table(:data, :name)
   end
 
   def down

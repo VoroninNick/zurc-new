@@ -12,58 +12,14 @@ class GalleryAlbum < ActiveRecord::Base
   accepts_nested_attributes_for :page_metadata
   attr_accessible :page_metadata_attributes
 
-
-  # translations
-  translates :name, :alt, :image, :slug#, versioning: :paper_trail#, fallbacks_for_empty_translations: true
-  accepts_nested_attributes_for :translations
-  attr_accessible :translations_attributes, :translations
-
-  globalize_accessors
-
-  class Translation
-    attr_accessible :locale
-    attr_accessible :name, :image, :alt, :slug
-
-    mount_uploader :image, GalleryUploader
-
-    before_validation :generate_slug
-    def generate_slug
-      self.slug = self.name || "" if self.slug.blank?
-      self.slug = self.slug.parameterize
-    end
-  end
-
-  def get_attr(attr_name, options = {} )
-    options[:locales_priority] = [I18n.locale, another_locale] unless options.keys.include?(:locales_priority)
-    super(attr_name, options)
-  end
+  globalize :name, :alt, :image, :slug
 
   def another_locale
     I18n.available_locales.map(&:to_sym).select {|locale| locale != I18n.locale.to_sym  }.first
   end
 
-  def get_name(options = {})
-    get_attr(:name, options)
-  end
-
-  def get_slug(options = {})
-    get_attr(:slug, options)
-  end
-
-  def get_description(options = {})
-    get_attr(:description, options)
-  end
-
-  def get_image
-    get_attr(:image, find_via: [:translations] )
-  end
 
 
-
-
-  def routes_module
-    Rails.application.routes.url_helpers
-  end
 
   # associations
 
@@ -75,10 +31,12 @@ class GalleryAlbum < ActiveRecord::Base
   if check_tables(:gallery_images)
     has_many :images, class: GalleryImage, foreign_key: :album_id
     attr_accessible :images, :image_ids
+    accepts_nested_attributes_for :images
+    attr_accessible :images_attributes
+
   end
 
-  accepts_nested_attributes_for :images
-  attr_accessible :images_attributes
+
 
   # scopes
   scope :published, -> { where(published: 't') }

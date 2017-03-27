@@ -3,20 +3,7 @@ class GalleryImage < ActiveRecord::Base
   attr_accessible :name, :data, :published, :position, :alt
 
   # translations
-  translates :name, :alt, :data#, versioning: :paper_trail#, fallbacks_for_empty_translations: true
-  accepts_nested_attributes_for :translations
-  attr_accessible :translations_attributes, :translations
-
-  globalize_accessors
-
-  class Translation
-    attr_accessible :locale
-    attr_accessible :name, :data
-
-    mount_uploader :data, GalleryUploader
-
-
-  end
+  globalize :name, :alt, :data
 
   def get_attr(attr_name, options = {} )
     options[:locales_priority] = [I18n.locale, another_locale] unless options.keys.include?(:locales_priority)
@@ -29,14 +16,6 @@ class GalleryImage < ActiveRecord::Base
 
   def get_name
     (name = get_attr(:name)).present? ? name : get_data.try{|d| d.file.try(&:basename) }
-  end
-
-  def get_description
-    get_attr(:description)
-  end
-
-  def get_data
-    get_attr(:data, find_via: [:translations] )
   end
 
 

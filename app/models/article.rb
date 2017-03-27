@@ -34,55 +34,12 @@ class Article < ActiveRecord::Base
 
 
   # translations
-  translates :name, :description, :intro, :content, :slug, :author#, versioning: :paper_trail#, fallbacks_for_empty_translations: true
-  accepts_nested_attributes_for :translations
-  attr_accessible :translations_attributes, :translations
-
-  globalize_accessors
-
-  class Translation
-    attr_accessible :locale
-    attr_accessible :name, :description, :intro, :content, :slug, :author
-
-    before_validation :generate_slug
-    def generate_slug
-      self.slug = self.name || "" if self.slug.blank?
-      self.slug = self.slug.parameterize
-    end
-  end
-
-  def get_attr(attr_name, options = {} )
-    options[:locales_priority] = [I18n.locale, another_locale] unless options.keys.include?(:locales_priority)
-    super(attr_name, options)
-  end
+  globalize :name, :description, :intro, :content, :slug, :author#, versioning: :paper_trail#, fallbacks_for_empty_translations: true
 
   def another_locale
     I18n.available_locales.map(&:to_sym).select {|locale| locale != I18n.locale.to_sym  }.first
   end
 
-  def get_name(options = {})
-    get_attr(:name, options)
-  end
-
-  def get_description options = {}
-    get_attr(:description, options)
-  end
-
-  def get_intro options = {}
-    get_attr(:intro, options)
-  end
-
-  def get_content options = {}
-    get_attr(:content, options)
-  end
-
-  def get_slug(options = {})
-    get_attr(:slug, options)
-  end
-
-  def get_author(options = {})
-    get_attr(:author, options)
-  end
 
   # def with_translation(locale = I18n.locale )
   #   self.class.translated_attribute_names.each do |attr_name|

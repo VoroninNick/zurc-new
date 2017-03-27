@@ -8,7 +8,7 @@ class CreateArticleCategories < ActiveRecord::Migration
       t.boolean :published
     end
 
-    ArticleCategory.create_translation_table!(name: :string, slug: :string)
+      ArticleCategory.create_translation_table(:name, :slug)
   end
 
   def down

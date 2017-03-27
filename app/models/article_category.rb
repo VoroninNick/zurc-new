@@ -29,22 +29,7 @@ class ArticleCategory < ActiveRecord::Base
   end
 
   # translations
-  translates :name, :slug#, versioning: :paper_trail, fallbacks_for_empty_translations: true
-  accepts_nested_attributes_for :translations
-  attr_accessible :translations_attributes, :translations
-
-  globalize_accessors
-
-  class Translation
-    attr_accessible :locale
-    attr_accessible :name, :slug
-
-    before_validation :generate_slug
-    def generate_slug
-        self.slug = self.name || "" if self.slug.blank?
-        self.slug = self.slug.parameterize
-    end
-  end
+  globalize :name, :slug#, versioning: :paper_trail, fallbacks_for_empty_translations: true
 
   def get_attr(attr_name, options = {} )
     options[:locales_priority] = [I18n.locale, another_locale] unless options.keys.include?(:locales_priority)

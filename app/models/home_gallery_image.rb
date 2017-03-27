@@ -2,25 +2,7 @@ class HomeGalleryImage < ActiveRecord::Base
   attr_accessible :published, :position, :image, :image_alt
 
   # translations
-  translates :image_alt#, versioning: :paper_trail#, fallbacks_for_empty_translations: true
-  accepts_nested_attributes_for :translations
-  attr_accessible :translations_attributes, :translations
-
-  globalize_accessors
-
-  class Translation
-    attr_accessible :locale
-    attr_accessible :image_alt
-
-    def name
-      self.image_alt
-    end
-
-    before_validation :set_image_alt
-    def set_image_alt
-      self.image_alt = "image #{HomeGalleryImage.count + 1}" if self.image_alt.blank?
-    end
-  end
+  globalize :image_alt
 
   def get_attr(attr_name, options = {} )
     options[:locales_priority] = [I18n.locale, another_locale] unless options.keys.include?(:locales_priority)

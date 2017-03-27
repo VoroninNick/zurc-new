@@ -12,7 +12,7 @@ class CreateArticles < ActiveRecord::Migration
       t.boolean :published
     end
 
-    Article.create_translation_table!(name: :string, description: :text, intro: :text, content: :text, slug: :string, author: :string)
+    Article.create_translation_table(:name, :description, :intro, :content, :slug, :author)
   end
 
   def down

@@ -8,16 +8,8 @@ class Link < ActiveRecord::Base
   attr_accessible :owner, :owner_id, :owner_type
 
   # translations
-  translates :content, :url, :alt, :title#, versioning: :paper_trail#, fallbacks_for_empty_translations: true
-  accepts_nested_attributes_for :translations
-  attr_accessible :translations_attributes, :translations
+  globalize :content, :url, :alt, :title#, versioning: :paper_trail#, fallbacks_for_empty_translations: true
 
-  globalize_accessors
-
-  class Translation
-    attr_accessible :locale
-    attr_accessible :content, :url, :alt, :title
-  end
 
   def get_attr(attr_name, options = {} )
     options[:locales_priority] = [I18n.locale, another_locale] unless options.keys.include?(:locales_priority)

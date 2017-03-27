@@ -6,7 +6,7 @@ class CreatePagesAbouts < ActiveRecord::Migration
       t.timestamps null: false
     end
 
-    PagesAbout.create_translation_table!(content: :text)
+    PagesAbout.create_translation_table(:content)
   end
 
   def down

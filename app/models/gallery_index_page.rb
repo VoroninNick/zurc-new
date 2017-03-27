@@ -1,5 +1,4 @@
 class GalleryIndexPage < ActiveRecord::Base
-  # page meta_data
   has_one :page_metadata, as: :page
   attr_accessible :page_metadata
 

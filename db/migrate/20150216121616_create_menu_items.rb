@@ -12,7 +12,7 @@ class CreateMenuItems < ActiveRecord::Migration
       t.timestamps null: false
     end
 
-    MenuItem.create_translation_table!(name: :string, link: :string)
+    MenuItem.create_translation_table(:name, :link)
   end
 
   def down

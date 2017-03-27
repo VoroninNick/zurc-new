@@ -9,7 +9,7 @@ class CreateHomeGalleryImages < ActiveRecord::Migration
       t.timestamps null: false
     end
 
-    HomeGalleryImage.create_translation_table!(image_alt: :string)
+    HomeGalleryImage.create_translation_table(:image_alt)
   end
 
   def down

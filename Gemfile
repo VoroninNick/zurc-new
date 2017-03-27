@@ -46,7 +46,7 @@ group :development, :test do
 end
 
 group :development do
-  gem "thin"
+  gem "puma"
   gem "better_errors"
   gem "binding_of_caller"
   gem 'meta_request'
@@ -81,10 +81,6 @@ gem 'paperclip'
 
 gem 'paper_trail'
 
-gem 'globalize', '~> 5.0.0'
-gem 'globalize-accessors'
-gem 'globalize-versioning', github: 'VoroninNick/globalize-versioning', branch: "pasha"
-
 gem 'responders'
 gem 'has_scope'
 gem 'inherited_resources'
@@ -92,7 +88,7 @@ gem 'inherited_resources'
 gem 'slim'
 gem 'slim-rails'
 
-gem "foundation-rails"
+gem "foundation-rails", "~> 5.0"
 
 
 
@@ -116,10 +112,9 @@ gem 'ckeditor'
 # rails_admin
 gem 'rails_admin'
 gem 'rails_admin-i18n'
-#puts ARGV.include?('c') ? 'console' : 'not console'
 
-gem 'rails_admin_globalize_field', github: "VoroninNick/rails_admin_globalize_field", ref: "5e986ccb18"
-#, github: 'VoroninNick/rails_admin_globalize_field', branch: 'allow-current-locale', group: :disable_for_scripts
+gem 'globalize'
+gem 'rails_admin_globalize_field'
 gem 'rails_admin_nestable'
 
 gem 'fancybox2-rails'
@@ -127,10 +122,12 @@ gem 'fancybox2-rails'
 gem 'ancestry'
 gem 'rubytree'
 
-# gems listed below prevent rails scripts
-# gem 'rails_admin_globalize_field', github: 'VoroninNick/rails_admin_globalize_field', branch: 'allow-current-locale'
-# gem 'ukrainian', github: 'VoroninNick/ukrainian', branch: 'master'
 gem 'bundler', '>= 1.8.0'
 
 
 gem 'disqus'
+
+gem 'cms', github: 'pkorenev/cms'
+
+gem "htmlcompressor"
+gem 'rack-page_caching'

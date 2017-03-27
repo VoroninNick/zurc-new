@@ -9,16 +9,8 @@ class HomeFirstAbout < ActiveRecord::Base
   delegate :get_url, :get_content, to: :link
 
   # translations
-  translates :name, :description#, versioning: :paper_trail#, fallbacks_for_empty_translations: true
-  accepts_nested_attributes_for :translations
-  attr_accessible :translations_attributes, :translations
+  globalize :name, :description
 
-  globalize_accessors
-
-  class Translation
-    attr_accessible :locale
-    attr_accessible :name, :description
-  end
 
   def get_attr(attr_name, options = {} )
     options[:locales_priority] = [I18n.locale, another_locale] unless options.keys.include?(:locales_priority)
@@ -27,14 +19,6 @@ class HomeFirstAbout < ActiveRecord::Base
 
   def another_locale
     I18n.available_locales.map(&:to_sym).select {|locale| locale != I18n.locale.to_sym  }.first
-  end
-
-  def get_name(options = {})
-    get_attr(:name, options)
-  end
-
-  def get_description options = {}
-    get_attr(:description, options)
   end
 
   # scopes

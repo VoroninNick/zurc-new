@@ -10,7 +10,7 @@ class CreateHomeSlides < ActiveRecord::Migration
       t.timestamps null: false
     end
 
-    HomeSlide.create_translation_table!(name: :string, description: :string, image_alt: :string)
+    HomeSlide.create_translation_table(:name, :description, :image_alt)
   end
 
   def down

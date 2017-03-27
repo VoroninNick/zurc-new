@@ -14,11 +14,13 @@ unless RakeSettings.self_skip_initializers?
       mount Ckeditor::Engine => '/ckeditor'
       devise_for :users
 
-      get "/:root_category/(*url)", to: "articles#smart_article", as: :smart_article, root_category: /#{ arr = ArticleCategory.roots.published.map(&:translations); translations = []; arr.each {|sub_arr| translations.concat sub_arr };   translations.map(&:slug).select{|s| s.present? }.uniq.join('|')}/
-
-      contact_slugs = ( arr = ContactPage.all.map(&:translations); translations = []; arr.each {|sub_arr| translations.concat sub_arr };   translations.map(&:slug).select{|s| s.present? }.uniq.join('|'))
-      get "/*url", to: "contact#index", as: :contact, url: /#{contact_slugs}/ if contact_slugs.present?
-
+      if ArticleCategory.table_exists?
+        get "/:root_category/(*url)", to: "articles#smart_article", as: :smart_article, root_category: /#{ arr = ArticleCategory.roots.published.map(&:translations); translations = []; arr.each {|sub_arr| translations.concat sub_arr };   translations.map(&:slug).select{|s| s.present? }.uniq.join('|')}/
+      end
+      if ContactPage.table_exists?
+        contact_slugs = ( arr = ContactPage.all.map(&:translations); translations = []; arr.each {|sub_arr| translations.concat sub_arr };   translations.map(&:slug).select{|s| s.present? }.uniq.join('|'))
+        get "/*url", to: "contact#index", as: :contact, url: /#{contact_slugs}/ if contact_slugs.present?
+      end
       match "/:model_name/:id/multiple_upload", to: 'rails_admin/main#multiple_upload', as: :ra_multiple_upload, via: [:get, :post]
       #
       match '/message', to: 'contact#message', via: [:get, :post], as: :message

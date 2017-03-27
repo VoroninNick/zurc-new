@@ -6,7 +6,7 @@ class CreateTags < ActiveRecord::Migration
       t.timestamps null: false
     end
 
-    Tag.create_translation_table!(name: :string, slug: :string)
+    Tag.create_translation_table(:name, :slug)
   end
 
   def down

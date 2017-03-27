@@ -10,7 +10,7 @@ class CreateGalleryImages < ActiveRecord::Migration
       t.timestamps null: false
     end
 
-    GalleryImage.create_translation_table!(name: :string, alt: :string, data: :string)
+    GalleryImage.create_translation_table(:name, :alt, :data)
   end
 
   def down

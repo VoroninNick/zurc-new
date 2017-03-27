@@ -18,7 +18,7 @@ class CreateLinks < ActiveRecord::Migration
       t.timestamps null: false
     end
 
-    Link.create_translation_table!(content: :text, url: :string, alt: :string, title: :string)
+    Link.create_translation_table(:content, :url, :alt, :title)
   end
 
   def down

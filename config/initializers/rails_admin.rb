@@ -17,7 +17,7 @@ unless RakeSettings.self_skip_initializers?
     # config.authorize_with :cancan
 
     ## == PaperTrail ==
-    config.audit_with :paper_trail, 'User', 'PaperTrail::Version' # PaperTrail >= 3.0.0
+    #config.audit_with :paper_trail, 'User', 'PaperTrail::Version' # PaperTrail >= 3.0.0
 
     ### More at https://github.com/sferik/rails_admin/wiki/Base-configuration
 
@@ -43,15 +43,10 @@ unless RakeSettings.self_skip_initializers?
       end
     end
 
-    config.included_models = []
-    if ActiveRecord::Base.check_tables(:gallery_images, :tags, :taggings, :gallery_albums)
-      [GalleryIndexPage, HomePage, Link, Article, ArticleCategory, PagesAbout, ContactPage, HomeSlide, HomeGalleryImage, HomeFirstAbout, HomeSecondAbout, User, Attachment, GalleryImage, GalleryAlbum, Tag, Tagging, MenuItem, PageMetadata].each do |model_class|
-        config.included_models += [model_class]
-        if model_class.respond_to?(:translates?) && model_class.translates?
-          config.included_models += [model_class::Translation]
-        end
-      end
-    end
+    config.include_models GalleryIndexPage, HomePage, Link, Article, ArticleCategory
+    config.include_models PagesAbout, ContactPage, HomeSlide, HomeGalleryImage, HomeFirstAbout
+    config.include_models HomeSecondAbout, User, Attachment, GalleryImage, GalleryAlbum, Tag, Tagging
+    config.include_models MenuItem, PageMetadata
 
     config.model Article do
       navigation_label "Статті"
@@ -80,7 +75,7 @@ unless RakeSettings.self_skip_initializers?
       end
     end
 
-    config.model Article::Translation do
+    config.model_translation Article do
 
       visible false
 
@@ -113,7 +108,7 @@ unless RakeSettings.self_skip_initializers?
       end
     end
 
-    config.model ArticleCategory::Translation do
+    config.model_translation ArticleCategory do
       visible false
       edit do
         field :locale, :hidden
@@ -132,7 +127,7 @@ unless RakeSettings.self_skip_initializers?
       end
     end
 
-    config.model PagesAbout::Translation do
+    config.model_translation PagesAbout do
       visible false
 
       edit do
@@ -157,7 +152,7 @@ unless RakeSettings.self_skip_initializers?
       end
     end
 
-    config.model HomeSlide::Translation do
+    config.model_translation HomeSlide do
       visible false
 
       edit do
@@ -184,7 +179,7 @@ unless RakeSettings.self_skip_initializers?
 
     end
 
-    config.model HomeFirstAbout::Translation do
+    config.model_translation HomeFirstAbout do
       visible false
 
       edit do
@@ -206,7 +201,7 @@ unless RakeSettings.self_skip_initializers?
       end
     end
 
-    config.model HomeSecondAbout::Translation do
+    config.model_translation HomeSecondAbout do
       visible false
 
       edit do
@@ -229,7 +224,7 @@ unless RakeSettings.self_skip_initializers?
       end
     end
 
-    config.model HomeGalleryImage::Translation do
+    config.model_translation HomeGalleryImage do
       visible false
 
       edit do
@@ -250,7 +245,7 @@ unless RakeSettings.self_skip_initializers?
       end
     end
 
-    config.model Attachment::Translation do
+    config.model_translation Attachment do
       visible false
 
       edit do
@@ -272,8 +267,7 @@ unless RakeSettings.self_skip_initializers?
       end
     end
 
-    config.model Tag::Translation do
-      visible false
+    config.model_translation Tag do
 
       edit do
         field :locale, :hidden
@@ -283,7 +277,6 @@ unless RakeSettings.self_skip_initializers?
     end
 
     config.model Tagging do
-      #nestable_list true
       visible false
       edit do
         field :translations, :globalize_tabs
@@ -334,7 +327,7 @@ unless RakeSettings.self_skip_initializers?
       end  
     end
 
-    config.model GalleryImage::Translation do
+    config.model_translation GalleryImage do
       visible false
 
       edit do
@@ -362,7 +355,7 @@ unless RakeSettings.self_skip_initializers?
       end
     end
 
-    config.model GalleryAlbum::Translation do
+    config.model_translation GalleryAlbum do
       visible false
 
       edit do
@@ -420,7 +413,7 @@ unless RakeSettings.self_skip_initializers?
       end
     end
 
-    config.model MenuItem::Translation do
+    config.model_translation MenuItem do
       visible false
 
       edit do
@@ -469,7 +462,7 @@ unless RakeSettings.self_skip_initializers?
       end
     end
 
-    config.model Link::Translation do
+    config.model_translation Link do
       visible false
 
       edit do
@@ -491,7 +484,7 @@ unless RakeSettings.self_skip_initializers?
       end
     end
 
-    config.model ContactPage::Translation do
+    config.model_translation ContactPage do
       visible false
       edit do
         field :locale, :hidden
@@ -509,7 +502,7 @@ unless RakeSettings.self_skip_initializers?
       end
     end
 
-    config.model PageMetadata::Translation do
+    config.model_translation PageMetadata do
       visible false
       edit do
         field :locale, :hidden

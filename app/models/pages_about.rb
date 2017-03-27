@@ -9,16 +9,7 @@ class PagesAbout < ActiveRecord::Base
 
 
   # translations
-  translates :content#, versioning: :paper_trail#, fallbacks_for_empty_translations: true
-  accepts_nested_attributes_for :translations
-  attr_accessible :translations_attributes, :translations
-
-  globalize_accessors
-
-  class Translation
-    attr_accessible :locale
-    attr_accessible :content
-  end
+  globalize :content
 
   def get_attr(attr_name, options = {} )
     options[:locales_priority] = [I18n.locale, another_locale] unless options.keys.include?(:locales_priority)
@@ -27,10 +18,6 @@ class PagesAbout < ActiveRecord::Base
 
   def another_locale
     I18n.available_locales.map(&:to_sym).select {|locale| locale != I18n.locale.to_sym  }.first
-  end
-
-  def get_content
-    get_attr(:content)
   end
 
   # scopes

@@ -9,7 +9,7 @@ class CreateHomeSecondAbouts < ActiveRecord::Migration
       t.timestamps null: false
     end
 
-    HomeSecondAbout.create_translation_table!(name: :string, description: :text)
+    HomeSecondAbout.create_translation_table(:name, :description)
   end
 
   def down
