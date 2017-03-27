@@ -26,7 +26,7 @@
     <% slides.each_with_index do |slide, index| %>
 
       <li style="" id="slide-<%= index %>" class="slide-bg group">
-        <a href="#">
+        <a href="<%= url = slide.get_url; url.present? ? url : "" %>">
           <img src="<%= "#{ slide.image.home_slide.url }" %>" alt="<%= slide.get_image_alt %>" />
         </a>
         <% if slide.get_name.present? || slide.get_description.present? %>

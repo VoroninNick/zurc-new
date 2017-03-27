@@ -1,8 +1,8 @@
 class HomeSlide < ActiveRecord::Base
-  attr_accessible :published, :image, :name, :description, :position, :image_alt
+  attr_accessible :url, :published, :image, :name, :description, :position, :image_alt
 
   # translations
-  translates :name, :description, :image_alt#, versioning: :paper_trail#, fallbacks_for_empty_translations: true
+  translates :name, :description, :image_alt, :url #, versioning: :paper_trail#, fallbacks_for_empty_translations: true
   accepts_nested_attributes_for :translations
   attr_accessible :translations_attributes, :translations
 
@@ -10,7 +10,7 @@ class HomeSlide < ActiveRecord::Base
 
   class Translation
     attr_accessible :locale
-    attr_accessible :name, :description, :image_alt
+    attr_accessible :name, :description, :image_alt, :url
 
     before_validation :set_image_alt
     def set_image_alt
@@ -37,6 +37,10 @@ class HomeSlide < ActiveRecord::Base
 
   def get_image_alt
     get_attr(:image_alt)
+  end
+
+  def get_url
+    get_attr(:url)
   end
 
   # images

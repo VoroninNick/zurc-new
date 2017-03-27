@@ -165,6 +165,7 @@ unless RakeSettings.self_skip_initializers?
         field :name
         field :image_alt
         field :description
+        field :url
       end
     end
 
