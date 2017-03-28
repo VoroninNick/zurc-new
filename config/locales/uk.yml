@@ -72,7 +72,7 @@ uk:
       article_category:
         image: "Картинка"
         name: "Назва категорії"
-        slug: "URL-шлях"
+        url_fragment: "URL-шлях"
         position: "Порядковий номер"
         published: "Опубліковано"
         page_metadata: "Метадані"
@@ -80,7 +80,7 @@ uk:
         translations: "Переклад"
       article_category/translation:
         name: "Назва"
-        slug: "URL-шлях"
+        url_fragment: "URL-шлях"
       article: 
         published: "Опубліковано"
         article_category: "Категорія статті"

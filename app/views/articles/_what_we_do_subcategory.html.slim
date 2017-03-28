@@ -6,18 +6,18 @@
         ul#article-subcategories-menu
           - categories.each_with_index do |article_subcategory, index|
             li
-              a href=article_subcategory.smart_to_param data-target="#{"#{article_subcategory.get_slug}-#{article_subcategory.id}"}"
-                = article_subcategory.get_name
+              a href=article_subcategory.smart_to_param data-target="#{"#{article_subcategory.url_fragment}-#{article_subcategory.id}"}"
+                = article_subcategory.name
 
 
     #article-subcategories
       - categories.each_with_index do |article_subcategory, index|
-        .article-subcategory data-id="#{"#{article_subcategory.get_slug}-#{article_subcategory.id}"}" class=("article-category-with-bg" if index % 2 == 1 )
+        .article-subcategory data-id="#{"#{article_subcategory.url_fragment}-#{article_subcategory.id}"}" class=("article-category-with-bg" if index % 2 == 1 )
           .row
             .article-subcategory-name.visual-h1.columns.large-12
               /a href=article_subcategory.smart_to_param
               a href="#"
-                = article_subcategory.get_name
+                = article_subcategory.name
             .article-subcategory-articles
               - article_subcategory.articles.each do |article|
                 = render partial: "what_we_do_article_list_item", locals: { article: article }

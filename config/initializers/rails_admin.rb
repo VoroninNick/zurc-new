@@ -46,35 +46,49 @@ unless RakeSettings.self_skip_initializers?
     config.include_models GalleryIndexPage, HomePage, Link, Article, ArticleCategory
     config.include_models PagesAbout, ContactPage, HomeSlide, HomeGalleryImage, HomeFirstAbout
     config.include_models HomeSecondAbout, User, Attachment, GalleryImage, GalleryAlbum, Tag, Tagging
-    config.include_models MenuItem, PageMetadata
+    config.include_models MenuItem, Cms::MetaTags
 
-    config.model Article do
-      navigation_label "Статті"
-      edit do
-        field :published
-        field :featured
-        field :article_category
-        field :tags
-        field :translations, :globalize_tabs
-        field :image do
-          help "Розмір аватарки: 400х300; Розмір для баннера на сторінці публікацій: великий: 800х400; малий: 360х180;вибрані новини на головній: 600х325;"
+    [Article, PublicationArticle, NewsArticle, AboutUsArticle, WhatWeDoArticle].each do |m|
+      config.model m do
+        navigation_label "Статті"
+        edit do
+          field :published
+          field :featured
+          field :article_category
+          field :tags
+          field :translations, :globalize_tabs
+          field :image do
+            help "Розмір аватарки: 400х300; Розмір для баннера на сторінці публікацій: великий: 800х400; малий: 360х180;вибрані новини на головній: 600х325;"
+          end
+          field :attachments
+          field :release_date
+          field :page_metadata
         end
-        field :attachments
-        field :release_date
-        field :page_metadata
-      end
 
-      list do
-        field :published
-        field :get_name do
-          label "І'мя"
+        list do
+          field :published
+          field :name do
+            label "І'мя"
+            def value
+              @bindings[:object].name
+            end
+          end
+          field :article_category do
+            label "Категорія"
+          end
+          field :image, :carrierwave do
+            def value
+              @bindings[:object].image.site_thumb.url
+            end
+
+            pretty_value do
+              "<img src='#{value}'/>".html_safe
+            end
+          end
+          field :release_date
         end
-        field :article_category
-        field :image
-        field :release_date
       end
     end
-
     config.model_translation Article do
 
       visible false
@@ -82,7 +96,7 @@ unless RakeSettings.self_skip_initializers?
       edit do
         field :locale, :hidden
         field :name
-        field :slug
+        field :url_fragment
         field :description
         field :intro
         field :content, :ck_editor
@@ -113,7 +127,7 @@ unless RakeSettings.self_skip_initializers?
       edit do
         field :locale, :hidden
         field :name
-        field :slug do
+        field :url_fragment do
           help "Наприклад, для статті 'Моя стаття': moya-stattia"
         end  
       end
@@ -272,7 +286,7 @@ unless RakeSettings.self_skip_initializers?
       edit do
         field :locale, :hidden
         field :name
-        field :slug
+        field :url_fragment
       end
     end
 
@@ -346,6 +360,20 @@ unless RakeSettings.self_skip_initializers?
       navigation_label "Галерея"
       nestable_list true
 
+      list do
+        field :published
+        field :name
+        field :image do
+          def value
+            images = @bindings[:object].try(:images)
+            if images
+              images.first.image.url
+            end
+          end
+        end
+
+      end
+
       edit do
         field :tags
         field :published
@@ -361,7 +389,7 @@ unless RakeSettings.self_skip_initializers?
       edit do
         field :locale, :hidden
         field :name
-        field :slug
+        field :url_fragment
         field :image
         field :alt
       end
@@ -370,7 +398,7 @@ unless RakeSettings.self_skip_initializers?
     config.model MenuItem do
       visible false
       object_label_method do
-        :get_name
+        :name
       end
 
       nestable_tree({
@@ -407,7 +435,7 @@ unless RakeSettings.self_skip_initializers?
       end
 
       list do
-        field :get_name do
+        field :name do
           label "Ім'я"
         end
       end
@@ -426,7 +454,7 @@ unless RakeSettings.self_skip_initializers?
     config.model Link do
       visible false
       object_label_method do
-        :get_content
+        :content
       end
 
       edit do
@@ -456,7 +484,7 @@ unless RakeSettings.self_skip_initializers?
       end
 
       list do
-        field :get_content do
+        field :content do
           label "Ім'я"
         end
       end
@@ -488,11 +516,11 @@ unless RakeSettings.self_skip_initializers?
       visible false
       edit do
         field :locale, :hidden
-        field :slug
+        field :url_fragment
       end
     end
 
-    config.model PageMetadata do
+    config.model Cms::MetaTags do
       edit do
         field :translations, :globalize_tabs
         group :advanced do
@@ -502,7 +530,7 @@ unless RakeSettings.self_skip_initializers?
       end
     end
 
-    config.model_translation PageMetadata do
+    config.model_translation Cms::MetaTags do
       visible false
       edit do
         field :locale, :hidden
@@ -529,6 +557,36 @@ unless RakeSettings.self_skip_initializers?
       edit do
         field :page_metadata
       end
+    end
+
+    # =====================
+    # about us
+    # =====================
+    config.include_models AboutPageContent
+    config.include_models TeamMember, YearReport
+    config.include_models PublicationArticle, NewsArticle, AboutUsArticle, WhatWeDoArticle
+
+    config.model TeamMember do
+      #navigation_label_key(:about_us, 1)
+      field :image
+      field :translations, :globalize_tabs
+      field :emails
+    end
+
+    config.model_translation TeamMember do
+      field :locale, :hidden
+      field :name
+      field :position
+    end
+
+    config.model AboutMission do
+      #navigation_label_key :about_us, 2
+      field :translations, :globalize_tabs
+    end
+
+    config.model_translation AboutMission do
+      field :locale, :hidden
+      field :content, :ck_editor
     end
 
   end

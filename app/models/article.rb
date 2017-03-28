@@ -1,9 +1,9 @@
 class Article < ActiveRecord::Base
   # attr_acceessible
-  attr_accessible :name, :description, :intro, :content, :release_date, :slug, :author, :published, :featured, :image
+  attr_accessible :name, :description, :intro, :content, :release_date, :url_fragment, :author, :published, :featured, :image
 
   # associations
-  belongs_to :article_category, class: ArticleCategory
+  belongs_to :article_category, class_name: ArticleCategory
   attr_accessible :article_category, :article_category_id
 
   has_many :attachments, as: :attachable
@@ -18,27 +18,19 @@ class Article < ActiveRecord::Base
   attr_accessible :taggings, :tagging_ids, :tags, :tag_ids
 
   # menu_items
-  has_many :menu_items, as: :linkable, class: MenuItem
+  has_many :menu_items, as: :linkable, class_name: MenuItem
   attr_accessible :menu_items, :menu_item_ids
 
   # linkable
-  has_many :links, as: :linkable, class: Link
+  has_many :links, as: :linkable, class_name: Link
   attr_accessible :links, :link_ids
 
   # page meta_data
-  has_one :page_metadata, as: :page
-  attr_accessible :page_metadata
-
-  accepts_nested_attributes_for :page_metadata
-  attr_accessible :page_metadata_attributes
+  has_seo_tags
 
 
   # translations
-  globalize :name, :description, :intro, :content, :slug, :author#, versioning: :paper_trail#, fallbacks_for_empty_translations: true
-
-  def another_locale
-    I18n.available_locales.map(&:to_sym).select {|locale| locale != I18n.locale.to_sym  }.first
-  end
+  globalize :name, :description, :intro, :content, :url_fragment, :author#, versioning: :paper_trail#, fallbacks_for_empty_translations: true
 
 
   # def with_translation(locale = I18n.locale )
@@ -64,7 +56,7 @@ class Article < ActiveRecord::Base
   scope :order_by_date_desc, -> { order('release_date desc') }
   scope :featured, -> { where(featured: 't').order_by_date_desc.limit(3) }
   scope :unfeatured, -> { where.not(id: featured.map(&:id)) }
-  scope :by_url, -> (url) { where(slug: url ) }
+  scope :by_url, -> (url) { where(url_fragment: url ) }
   scope :available, proc { published }
 
   # images
@@ -124,20 +116,19 @@ class Article < ActiveRecord::Base
   end
 
   def to_param(options = {})
-    #return routes_module.send("show_publication_path", id: self.get_slug, locale: I18n.locale) if self.publication?
-    # return routes_module.send("show_smart_article_path", id: self.get_slug, locale: I18n.locale) if self.publication?
-    # return routes_module.send("show_news_path", id: self.get_slug, locale: I18n.locale) if self.news?
-    # return routes_module.send("show_about_path", id: self.get_slug, locale: I18n.locale) if self.about_us?
-    # return routes_module.send("show_what_we_do_path", id: self.get_slug, locale: I18n.locale) if self.what_we_do?
+    #return routes_module.send("show_publication_path", id: self.get_url_fragment, locale: I18n.locale) if self.publication?
+    # return routes_module.send("show_smart_article_path", id: self.get_url_fragment, locale: I18n.locale) if self.publication?
+    # return routes_module.send("show_news_path", id: self.get_url_fragment, locale: I18n.locale) if self.news?
+    # return routes_module.send("show_about_path", id: self.get_url_fragment, locale: I18n.locale) if self.about_us?
+    # return routes_module.send("show_what_we_do_path", id: self.get_url_fragment, locale: I18n.locale) if self.what_we_do?
     smart_to_param(options)
   end
 
   def smart_to_param(options = {})
-    options[:locales_priority] = [I18n.locale, another_locale] if options[:locales_priority].blank?
-    options[:locale] = options[:locales_priority].first if options[:locale].blank?
-    routes_module.smart_article_path locale: options[:locale],
-                                     root_category: article_category.try {|category| category.root.get_slug(locales_priority: options[:locales_priority]) } ,
-                                     url: (article_category.path.select{|c| !c.root? }.map{|c| c.get_slug(locales_priority: options[:locales_priority] ) }.select{|slug| slug.present? } << self.get_slug(locales_priority: options[:locales_priority]) ).join("/")
+
+    routes_module.smart_article_path locale: I18n.locale,
+                                     root_category: article_category.try {|category| category.root.url_fragment } ,
+                                     url: (article_category.path.select{|c| !c.root? }.map{|c| c.url_fragment }.select{|url_fragment| url_fragment.present? } << self.url_fragment ).join("/")
   end
 
   def smart_breadcrumbs
@@ -146,12 +137,12 @@ class Article < ActiveRecord::Base
     path_length = path.length
     path.each do |c|
       crumb = {}
-      crumb[:title] = c.get_name
+      crumb[:title] = c.name
       crumb[:url] = c.smart_to_param
       breadcrumbs << crumb
     end
 
-    breadcrumbs << {title: self.get_name}
+    breadcrumbs << {title: self.name}
 
     breadcrumbs
   end

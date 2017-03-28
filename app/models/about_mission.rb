@@ -1,0 +1,3 @@
+class AboutMission < AboutPageContent
+
+end

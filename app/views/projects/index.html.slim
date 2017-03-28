@@ -4,7 +4,7 @@ table
   thead
     tr
       th Name
-      th Slug
+      th url_fragment
       th Deadline date
       th
       th
@@ -14,7 +14,7 @@ table
     - @projects.each do |project|
       tr
         td = project.name
-        td = project.slug
+        td = project.url_fragment
         td = project.deadline_date
         td = link_to 'Show', project
         td = link_to 'Edit', edit_project_path(project)

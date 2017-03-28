@@ -1,7 +1,7 @@
 class MenuItem < ActiveRecord::Base
   attr_accessible :linkable_id, :linkable_type, :name, :link, :link_source, :name_source, :priority, :ancestry, :node_type, :items_source
 
-  #enum link_source: [:custom_link, :association_name], name_source: [:custom_name, :association_slug]
+  #enum link_source: [:custom_link, :association_name], name_source: [:custom_name, :association_url_fragment]
 
   # associations
   belongs_to :linkable, polymorphic: true
@@ -12,17 +12,11 @@ class MenuItem < ActiveRecord::Base
   # translations
   globalize :name, :link
 
-
-
-  def another_locale
-    I18n.available_locales.map(&:to_sym).select {|locale| locale != I18n.locale.to_sym  }.first
-  end
-
-  def get_name
+  def name
     #return "test"
     return get_attr(:name) if self.node_type.respond_to?(:to_sym) && self.node_type.to_sym == :menu  && self.get_attr(:name).present?
     return get_attr(:name) if self.name_source == "custom" && self.get_attr(:name).present?
-    return linkable.get_name if self.linkable && self.linkable.respond_to?(:get_name) && self.linkable.get_name.present?
+    return linkable.name if self.linkable && self.linkable.respond_to?(:name) && self.linkable.name.present?
 
     return "#{self.class.to_s}##{self.id}"
   end
@@ -76,8 +70,8 @@ class MenuItem < ActiveRecord::Base
     else
       #item = Tree::TreeNode.new
 
-      item[:name] = menu_item.get_name
-      item[:link] = menu_item.get_link
+      item[:name] = menu_item.name
+      item[:link] = menu_item.link
       if menu_item.children.any?
         menu_item.children.eac
       end
@@ -88,7 +82,7 @@ class MenuItem < ActiveRecord::Base
   def eval_about_children
     collection = ArticleCategory.about_us_category.try{|category| category.available? ? category.articles.select{|a| a.available? } : [] }
     if collection.any?
-      return collection.map {|item| return { name: item.get_name, link: item.to_param } }
+      return collection.map {|item| return { name: item.name, link: item.to_param } }
     end
 
     []
@@ -97,7 +91,7 @@ class MenuItem < ActiveRecord::Base
   def eval_what_we_do_children
     collection = ArticleCategory.what_we_do_category.try{|category| category.available? ? category.children.select{|c| c.available? } : [] }
     if collection.any?
-      return collection.map {|item| return { name: item.get_name, link: item.to_param } }
+      return collection.map {|item| return { name: item.name, link: item.to_param } }
     end
 
     []

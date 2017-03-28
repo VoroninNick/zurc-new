@@ -1,7 +1,7 @@
 class ActiveRecord::Base
   def get_attr(attr_name, options = {} )
 
-    options[:locales_priority] = [I18n.locale, another_locale] unless options.keys.include?(:locales_priority)
+    options[:locales_priority] = [I18n.locale, another_locale] if options[:locales_priority].blank?
     options[:find_via] = [:globalize_accessors, :translations] unless options.keys.include?(:find_via)
 
     available_find_methods = [:globalize_accessors, :translations]
@@ -18,7 +18,8 @@ class ActiveRecord::Base
       if find_method == :globalize_accessors
         options[:locales_priority].select{|locale| locale.respond_to?(:to_sym) }.map(&:to_sym).each do |locale|
           next unless object.respond_to?(attr_name.to_sym)
-          attr_value = object.send("#{attr_name}_#{locale}");
+
+          attr_value = object.respond_to?("#{attr_name}_#{locale}") ? send("#{attr_name}_#{locale}") : translations_by_locale[locale].try(attr_name.to_sym)
           break if attr_value.present?
         end
       elsif find_method == :translations

@@ -15,11 +15,11 @@ unless RakeSettings.self_skip_initializers?
       devise_for :users
 
       if ArticleCategory.table_exists?
-        get "/:root_category/(*url)", to: "articles#smart_article", as: :smart_article, root_category: /#{ arr = ArticleCategory.roots.published.map(&:translations); translations = []; arr.each {|sub_arr| translations.concat sub_arr };   translations.map(&:slug).select{|s| s.present? }.uniq.join('|')}/
+        get "/:root_category/(*url)", to: "articles#smart_article", as: :smart_article, root_category: /#{ arr = ArticleCategory.roots.published.map(&:translations); translations = []; arr.each {|sub_arr| translations.concat sub_arr };   translations.map(&:url_fragment).select{|s| s.present? }.uniq.join('|')}/
       end
       if ContactPage.table_exists?
-        contact_slugs = ( arr = ContactPage.all.map(&:translations); translations = []; arr.each {|sub_arr| translations.concat sub_arr };   translations.map(&:slug).select{|s| s.present? }.uniq.join('|'))
-        get "/*url", to: "contact#index", as: :contact, url: /#{contact_slugs}/ if contact_slugs.present?
+        contact_url_fragments = ( arr = ContactPage.all.map(&:translations); translations = []; arr.each {|sub_arr| translations.concat sub_arr };   translations.map(&:url_fragment).select{|s| s.present? }.uniq.join('|'))
+        get "/*url", to: "contact#index", as: :contact, url: /#{contact_url_fragments}/ if contact_url_fragments.present?
       end
       match "/:model_name/:id/multiple_upload", to: 'rails_admin/main#multiple_upload', as: :ra_multiple_upload, via: [:get, :post]
       #

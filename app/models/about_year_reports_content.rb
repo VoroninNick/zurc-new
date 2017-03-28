@@ -1,0 +1,3 @@
+class AboutYearReportsContent < AboutPageContent
+
+end

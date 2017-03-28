@@ -1,0 +1,3 @@
+class AboutCompletedProjectsPage < AboutPageContent
+
+end

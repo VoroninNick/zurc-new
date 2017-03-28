@@ -22,9 +22,9 @@ module ApplicationHelper
         if node.available?
           content_tag(:li) do
             if sub_nodes
-              return node.get_name +  nested_menu_nodes(sub_nodes)
+              return node.name +  nested_menu_nodes(sub_nodes)
             else
-              return node.get_name
+              return node.name
             end
           end
         end
@@ -36,7 +36,7 @@ module ApplicationHelper
     about_articles = Article.published.about_us.order_by_date_desc
     menu_items = []
     about_articles.each do |item|
-      menu_items.push({name: item.get_name, link: item.smart_to_param})
+      menu_items.push({name: item.name, link: item.smart_to_param})
     end
 
     menu_items.push({name: I18n.t("gallery-page"), link: gallery_path(locale: I18n.locale)})
@@ -49,7 +49,7 @@ module ApplicationHelper
     what_we_do_child_nodes = ArticleCategory.available_what_we_do_categories
     menu_items = []
     what_we_do_child_nodes.each do |item|
-      menu_items.push({name: item.get_name, link: item.smart_to_param})
+      menu_items.push({name: item.name, link: item.smart_to_param})
     end
 
     separate_menu_items(menu_items)
@@ -91,41 +91,5 @@ module ApplicationHelper
     end
   end
 
-  def head_title
-    title = @head_title
-    title = @page_metadata.try{|m| m.get_head_title } if title.blank?
-    title = I18n.t("head_title_untitled") if title.blank?
-    I18n.t("head_title", title: title)
-  end
 
-  def meta_keywords
-    keywords = @meta_keywords
-    keywords = @page_metadata.try{|m| m.get_meta_keywords } if keywords.blank?
-    keywords = "" if keywords.blank?
-    keywords
-  end
-
-  def meta_description
-    description = @meta_description
-    description = @page_metadata.try{|m| m.get_meta_description } if description.blank?
-    description = '' if description.blank?
-    description
-  end
-
-  def seo_tags
-    result = ""
-    if (title = head_title).present?
-      result += content_tag(:title, title)
-    end
-
-    if (description = meta_description).present?
-      result += content_tag(:meta, nil, content: description, name: "description")
-    end
-
-    if (keywords = meta_keywords).present?
-      result += content_tag(:meta, nil, name: "keywords", content: keywords)
-    end
-
-    result.html_safe
-  end
 end

@@ -1,20 +1,15 @@
 class ContactPage < ActiveRecord::Base
   # menu_items
-  has_many :menu_items, as: :linkable, class: MenuItem
+  has_many :menu_items, as: :linkable, class_name: MenuItem
   attr_accessible :menu_items, :menu_item_ids
 
   # linkable
-  has_many :links, as: :linkable, class: Link
+  has_many :links, as: :linkable, class_name: Link
   attr_accessible :links, :link_ids
 
-  # page meta_data
-  has_one :page_metadata, as: :page
-  attr_accessible :page_metadata
+  has_seo_tags
 
-  accepts_nested_attributes_for :page_metadata
-  attr_accessible :page_metadata_attributes
-
-  attr_accessible :slug
+  attr_accessible :url_fragment
 
   after_save :reload_routes
   def reload_routes
@@ -22,7 +17,7 @@ class ContactPage < ActiveRecord::Base
   end
 
   # translations
-  globalize :slug#, versioning: :paper_trail#, fallbacks_for_empty_translations: true
+  globalize :url_fragment#, versioning: :paper_trail#, fallbacks_for_empty_translations: true
 
 
   def get_attr(attr_name, options = {} )
@@ -43,6 +38,6 @@ class ContactPage < ActiveRecord::Base
     options[:locale] = options[:locales_priority].first if options[:locale].blank?
 
     routes_module.contact_path locale: options[:locale],
-                               url: get_slug(options)
+                               url: url_fragment
   end
 end

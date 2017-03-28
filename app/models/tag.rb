@@ -1,33 +1,15 @@
 class Tag < ActiveRecord::Base
   # attr_accessible
-  attr_accessible :name, :slug
+  attr_accessible :name, :url_fragment
 
   # translations
-  globalize :name, :slug
-
-  def get_attr(attr_name, options = {} )
-    options[:locales_priority] = [I18n.locale, another_locale] unless options.keys.include?(:locales_priority)
-    super(attr_name, options)
-  end
-
-  def another_locale
-    I18n.available_locales.map(&:to_sym).select {|locale| locale != I18n.locale.to_sym  }.first
-  end
-
-  def get_name(options = {})
-    get_attr(:name, options)
-  end
-
-  def get_slug(options = {})
-    get_attr(:slug, options)
-  end
-
+  globalize :name, :url_fragment
   # associations
 
   #tables = ActiveRecord::Base.connection.tables; [:articles, :gallery_images].select {|t| t.to_s.in?(tables) }
 
  if check_tables(:gallery_images, :gallery_albums)
-    has_many :taggings, class: Tagging
+    has_many :taggings, class_name: Tagging
     has_many :articles, through: :taggings, source_type: Article, source: :taggable
     has_many :gallery_images, through: :taggings, source_type: GalleryImage, source: :taggable
     has_many :gallery_albums, through: :taggings, source_type: GalleryAlbum, source: :taggable

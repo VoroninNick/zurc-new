@@ -4,19 +4,6 @@ class HomeGalleryImage < ActiveRecord::Base
   # translations
   globalize :image_alt
 
-  def get_attr(attr_name, options = {} )
-    options[:locales_priority] = [I18n.locale, another_locale] unless options.keys.include?(:locales_priority)
-    super(attr_name, options)
-  end
-
-  def another_locale
-    I18n.available_locales.map(&:to_sym).select {|locale| locale != I18n.locale.to_sym  }.first
-  end
-
-  def get_image_alt
-    get_attr(:image_alt)
-  end
-
   def name
     self.image_alt
   end

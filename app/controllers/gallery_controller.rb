@@ -6,22 +6,6 @@ class GalleryController < ApplicationController
 
   def index
 
-    #@available_tags = Tag.available.with_translations.pluck_to_hash("tag_translations.name", name: "tag_translations.slug")
-
-
-
-
-
-
-
-
-
-
-    #@available_tags = Tag.available.with_translations.pluck_to_hash("tag_translations.name", name: "tag_translations.slug")
-
-    #@available_tags = Tag.available.with_translations.pluck_to_hash(translations: [:name, :slug], taggings: :id )
-    #User.where(id: foo.user_id).pluck(:name).first
-
   end
 
   def albums
@@ -38,9 +22,9 @@ class GalleryController < ApplicationController
     gallery_breadcrumbs
 
     params_album = params[:album]
-    @gallery_album = GalleryAlbum.available.with_translations.where(slug: params_album).first
+    @gallery_album = GalleryAlbum.available.with_translations.where(url_fragment: params_album).first
     if @gallery_album
-      @breadcrumbs << { title: @gallery_album.get_name }
+      @breadcrumbs << { title: @gallery_album.name }
     end
     @gallery_images = @gallery_album.try{|a| a.images.available}
     @available_tags = Tag.available_for(@gallery_images)
@@ -84,18 +68,6 @@ class GalleryController < ApplicationController
   end
 
   def init_metadata
-    @page_metadata = @gallery_album.try(&:page_metadata)
-
-    if @page_metadata.try(&:get_head_title).blank?
-      @head_title = @gallery_album.try(&:get_name)
-    end
-
-    @meta_keywords = @gallery_album.try{tags.map(&:get_name).select{|t| t.present? }.uniq.join(',')} if @page_metadata.try(&:get_meta_keywords).blank?
-
-    @page_metadata = GalleryIndexPage.first.try(&:page_metadata) if @page_metadata.blank?
-
-
-
 
   end
 

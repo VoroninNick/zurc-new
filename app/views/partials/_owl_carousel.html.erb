@@ -31,7 +31,7 @@
 	        		<!--<li><a href="http://placehold.it/525x300&text=[img11]" class="fb"><img src="http://placehold.it/175x100&text=[img11]" alt="basketball" /></a></li>-->
 
                   <% gallery_items.each do |item| %>
-                      <li><a href="<%= item.image.home_gallery_large.url %>" class="fb" rel="home-gallery"><img src="<%= item.image.home_gallery_small.url %>" alt="<% item.get_image_alt %>" /></a></li>
+                      <li><a href="<%= item.image.home_gallery_large.url %>" class="fb" rel="home-gallery"><img src="<%= item.image.home_gallery_small.url %>" alt="<% item.image_alt %>" /></a></li>
                   <% end %>
 	    		</ul>
 	    		<div class="clearfix"></div>

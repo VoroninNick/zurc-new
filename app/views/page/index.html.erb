@@ -7,16 +7,16 @@
         <% @home_first_abouts.each do |item| %>
           <div class="large-3 medium-6 small-3 columns">
 
-            <% url = item.link ? item.get_url : nil %>
+            <% url = item.link ? item.url : nil %>
 
             <%= content_tag(url.present? ? :a : :span, { href: (url.present? ? url : nil), class: 'decorative-letter'}) do %>
-                <span class="decorative-letter-inner"><%=  (name = item.get_content) ? name[0] : nil %></span>
+                <span class="decorative-letter-inner"><%=  (name = item.content) ? name[0] : nil %></span>
             <% end %>
 
             <%= content_tag url.present? ? :a : :span,  { href: (url.present? ? url : nil), class: :name } do
-                 ( link_content = item.link ? item.get_content : nil ) ? link_content[0, link_content.length] : nil
+                 ( link_content = item.link ? item.content : nil ) ? link_content[0, link_content.length] : nil
              end %>
-            <p class="show-for-medium-up"><%= item.get_description %></p>
+            <p class="show-for-medium-up"><%= item.description %></p>
           </div>
         <% end %>
       </div>
@@ -28,11 +28,11 @@
 
       <% @featured_articles.each do |article| %>
           <div class="large-4 columns">
-            <h4 class="home-publication-name"><%= link_to(article.get_name, article.smart_to_param, class: 'home-publication-name-a') %></h4>
+            <h4 class="home-publication-name"><%= link_to(article.name, article.smart_to_param, class: 'home-publication-name-a') %></h4>
             <div class="home-publication-image-and-description">
-                <%= link_to( image_tag( article.image.home_featured, alt: article.get_name ), article.smart_to_param, class: 'image-link' ) %>
-                <% if article.get_description.present? %>
-                  <p class="home-publication-description"><%= article.get_description %></p>
+                <%= link_to( image_tag( article.image.home_featured, alt: article.name ), article.smart_to_param, class: 'image-link' ) %>
+                <% if article.description.present? %>
+                  <p class="home-publication-description"><%= article.description %></p>
                 <% end %>
                 <a class="show-for-large-up read-more" href="<%= article.smart_to_param %>"><%= t("read-more") %></a>
             </div>
@@ -49,11 +49,11 @@
       <% @home_second_abouts.each do |item| %>
           <div class="large-3 medium-6 small-12 columns">
 
-            <%= content_tag ( url = item.link ? item.get_url : nil ).present? ? :a : :span, { href: (url.present? ? url : nil), class: "home-about2-column-title" } do  %>
-              <%= item.link ? item.get_content : nil %>
+            <%= content_tag ( url = item.link ? item.url : nil ).present? ? :a : :span, { href: (url.present? ? url : nil), class: "home-about2-column-title" } do  %>
+              <%= item.link ? item.content : nil %>
             <% end %>
             <p class="home-about2-column-description">
-              <%= item.get_description %>
+              <%= item.description %>
             </p>
           </div>
       <% end %>

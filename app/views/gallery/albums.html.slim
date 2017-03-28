@@ -17,9 +17,9 @@
                 .gallery-item-inner
                   .gallery-item-abs
                     .gallery-item-image
-                      = link_to(image_tag(( album.get_image.file ? album.get_image : album.images.available.first.get_data).try{|uploader| uploader.gallery_image.url} ), album.smart_to_param )
+                      = link_to(image_tag(( album.image.file ? album.image : album.images.available.first.data).try{|uploader| uploader.gallery_image.url} ), album.smart_to_param )
                     a.gallery-item-info href=album.smart_to_param
                       .gallery-item-info-inner
-                        = content_tag(:span, album.get_name, class: 'gallery-item-name')
+                        = content_tag(:span, album.name, class: 'gallery-item-name')
                       /.album-images-count
                         = t("gallery.album-images-count", count: album.images.count)

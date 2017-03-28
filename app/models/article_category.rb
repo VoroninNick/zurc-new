@@ -1,27 +1,22 @@
 class ArticleCategory < ActiveRecord::Base
   # attr_accessible
-  attr_accessible :name, :slug, :published, :position, :ancestry
+  attr_accessible :name, :url_fragment, :published, :position, :ancestry
 
   # associations
-  has_many :articles, class: Article
+  has_many :articles, class_name: Article
   attr_accessible :articles, :article_ids
 
   has_ancestry
 
   # menu_items
-  has_many :menu_items, as: :linkable, class: MenuItem
+  has_many :menu_items, as: :linkable, class_name: MenuItem
   attr_accessible :menu_items, :menu_item_ids
 
   # linkable
-  has_many :links, as: :linkable, class: Link
+  has_many :links, as: :linkable, class_name: Link
   attr_accessible :links, :link_ids
 
-  # page meta_data
-  has_one :page_metadata, as: :page
-  attr_accessible :page_metadata
-
-  accepts_nested_attributes_for :page_metadata
-  attr_accessible :page_metadata_attributes
+  has_seo_tags
 
   after_save :reload_routes
   def reload_routes
@@ -29,23 +24,10 @@ class ArticleCategory < ActiveRecord::Base
   end
 
   # translations
-  globalize :name, :slug#, versioning: :paper_trail, fallbacks_for_empty_translations: true
-
-  def get_attr(attr_name, options = {} )
-    options[:locales_priority] = [I18n.locale, another_locale] unless options.keys.include?(:locales_priority)
-    super(attr_name, options)
-  end
+  globalize :name, :url_fragment#, versioning: :paper_trail, fallbacks_for_empty_translations: true
 
   def another_locale
     I18n.available_locales.map(&:to_sym).select {|locale| locale != I18n.locale.to_sym  }.first
-  end
-
-  def get_name options = {}
-    get_attr(:name, options)
-  end
-
-  def get_slug options = {}
-    get_attr(:slug, options)
   end
 
   # images
@@ -93,7 +75,7 @@ class ArticleCategory < ActiveRecord::Base
   end
 
   def to_param(options = {})
-    #return routes_module.show_what_we_do_category_path(id: self.get_slug, locale: I18n.locale) if what_we_do_child?
+    #return routes_module.show_what_we_do_category_path(id: self.get_url_fragment, locale: I18n.locale) if what_we_do_child?
     smart_to_param(options)
   end
 
@@ -119,23 +101,22 @@ class ArticleCategory < ActiveRecord::Base
   end
 
   def smart_to_param(options = {})
-    options[:locales_priority] = [I18n.locale, another_locale] if options[:locales_priority].blank?
-    options[:locale] = options[:locales_priority].first if options[:locale].blank?
+    options[:locale] = I18n.locale if options[:locale].blank?
     routes_module.smart_article_path locale: options[:locale],
-                                     root_category: self.try {|c| c.root.get_slug(locales_priority: options[:locales_priority]) } ,
-                                     url: (self.path.select{|c| !c.root? }.map{|c| c.get_slug(locales_priority: options[:locales_priority] ) }.select{|slug| slug.present? } ).join("/")
+                                     root_category: self.try {|c| c.root.url_fragment } ,
+                                     url: (self.path.select{|c| !c.root? }.map{|c| c.url_fragment }.select{|url_fragment| url_fragment.present? } ).join("/")
   end
 
-  def find_slug_in_translations(options = {} )
+  def find_url_fragment_in_translations(options = {} )
     options[:translations] = [I18n.locale, another_locale] if options[:translations].blank?
 
-    action = :find_slug
-    action = :find_translation_with_specified_slug if options[:slug].present?
-    if action == :find_slug
-    elsif action == :find_translation_with_specified_slug
+    action = :find_url_fragment
+    action = :find_translation_with_specified_url_fragment if options[:url_fragment].present?
+    if action == :find_url_fragment
+    elsif action == :find_translation_with_specified_url_fragment
       self.translations.each do |t|
         next unless t.locale.to_sym.in?(options[:translations].map(&:to_sym))
-        return t.locale.to_sym if t.slug == options[:slug]
+        return t.locale.to_sym if t.url_fragment == options[:url_fragment]
       end
     end
   end
@@ -183,7 +164,7 @@ class ArticleCategory < ActiveRecord::Base
     path_length = path.length
     path.each do |c|
       crumb = {}
-      crumb[:title] = c.get_name
+      crumb[:title] = c.name
       crumb[:url] = c.smart_to_param unless c.id == self.id
       breadcrumbs << crumb
     end

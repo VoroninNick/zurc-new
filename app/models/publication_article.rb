@@ -1,0 +1,3 @@
+class PublicationArticle < Article
+
+end

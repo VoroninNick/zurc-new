@@ -1,0 +1,3 @@
+class AboutToolsContent < AboutPageContent
+
+end

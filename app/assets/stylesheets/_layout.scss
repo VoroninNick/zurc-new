@@ -714,7 +714,7 @@ body:before {
 				img{
 					opacity: 0.5;
 
-					@include single-transition(opacity, 300ms, ease-out); 
+					@include transition(opacity 300ms ease-out);
 				}
 
 				&:hover{

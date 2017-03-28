@@ -5,17 +5,8 @@ class GalleryImage < ActiveRecord::Base
   # translations
   globalize :name, :alt, :data
 
-  def get_attr(attr_name, options = {} )
-    options[:locales_priority] = [I18n.locale, another_locale] unless options.keys.include?(:locales_priority)
-    super(attr_name, options)
-  end
-
-  def another_locale
-    I18n.available_locales.map(&:to_sym).select {|locale| locale != I18n.locale.to_sym  }.first
-  end
-
-  def get_name
-    (name = get_attr(:name)).present? ? name : get_data.try{|d| d.file.try(&:basename) }
+  def name
+    (name = get_attr(:name)).present? ? name : data.try{|d| d.file.try(&:basename) }
   end
 
 
@@ -31,7 +22,7 @@ class GalleryImage < ActiveRecord::Base
   scope :available, -> { published.joins(:translations).where.not(gallery_image_translations: { data: nil }) }
 
   if check_tables(:gallery_albums)
-    belongs_to :album, class: GalleryAlbum
+    belongs_to :album, class_name: GalleryAlbum
   end
   attr_accessible :album, :album_id
 
@@ -42,6 +33,6 @@ class GalleryImage < ActiveRecord::Base
   end
 
   def smart_to_param
-    self.get_data.url
+    self.data.url
   end
 end

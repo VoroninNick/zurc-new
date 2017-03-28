@@ -9,11 +9,11 @@
                 = link_to article.smart_to_param do
                   - if article.ad_image_url.present?
                     img.featured-publication-img src="#{article.ad_image_url}"
-                  - if article.get_name.present? || article.release_date.present?
+                  - if article.name.present? || article.release_date.present?
                     .featured-publication-title-and-date
                       - if article.name.present?
                         .featured-publication-title
-                          = article.get_name
+                          = article.name
                       - if article.release_date.present?
                         .featured-publication-date
                           = article.release_date.strftime("%d.%m.%Y")
@@ -25,11 +25,11 @@
                   = link_to article.smart_to_param do
                     - if article.ad_image_url.present?
                       img.featured-publication-img src="#{article.ad_image_url}"
-                    - if article.get_name.present? || article.release_date.present?
+                    - if article.name.present? || article.release_date.present?
                       .featured-publication-title-and-date
-                        - if article.get_name.present?
+                        - if article.name.present?
                           .featured-publication-title
-                            = article.get_name
+                            = article.name
                         - if article.release_date.present?
                           .featured-publication-date
                             = article.release_date.strftime("%d.%m.%Y")

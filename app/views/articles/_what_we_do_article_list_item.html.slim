@@ -11,10 +11,10 @@
           .article-subcategory-article-name.visual-h2
             /a href=article.smart_to_param
             a href="#"
-              = article.get_name
+              = article.name
           = render partial: "article_attachments", locals: { attachments: article.attachments } if article && article.respond_to?(:attachments) && article.attachments.any?
           .article-content
-            = raw article.get_content
+            = raw article.content
           a.expander href="#"
             span.expand
               = t("expand")
@@ -31,10 +31,10 @@
           .article-subcategory-article-name.visual-h2
             /a href=article.smart_to_param
             a href="#"
-              = article.get_name
+              = article.name
           = render partial: "article_attachments", locals: { attachments: article.attachments } if article && article.respond_to?(:attachments) && article.attachments.any?
           .article-content
-            = raw article.get_content
+            = raw article.content
           a.expander href="#"
             span.expand
               = t("expand")

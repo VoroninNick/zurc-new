@@ -26,16 +26,16 @@
     <% slides.each_with_index do |slide, index| %>
 
       <li style="" id="slide-<%= index %>" class="slide-bg group">
-        <a href="<%= url = slide.get_url; url.present? ? url : "" %>">
-          <img src="<%= "#{ slide.image.home_slide.url }" %>" alt="<%= slide.get_image_alt %>" />
+        <a href="<%= url = slide.url; url.present? ? url : "" %>">
+          <img src="<%= "#{ slide.image.home_slide.url }" %>" alt="<%= slide.image_alt %>" />
         </a>
-        <% if slide.get_name.present? || slide.get_description.present? %>
+        <% if slide.name.present? || slide.description.present? %>
             <div class="rs-caption">
-              <% if slide.get_name.present? %>
-                <span class="home-slider-slide-caption-title"><%= slide.get_name %></span>
+              <% if slide.name.present? %>
+                <span class="home-slider-slide-caption-title"><%= slide.name %></span>
               <% end %>
-              <% if slide.get_description.present? %>
-                <span class="home-slider-slide-caption-description"><%= slide.get_description %></span>
+              <% if slide.description.present? %>
+                <span class="home-slider-slide-caption-description"><%= slide.description %></span>
               <% end %>
             </div>
         <% end %>

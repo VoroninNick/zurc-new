@@ -1,0 +1,3 @@
+class AboutHistory < AboutPageContent
+
+end

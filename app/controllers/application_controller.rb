@@ -1,7 +1,21 @@
 class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
-  protect_from_forgery with: :exception
+  #protect_from_forgery with: :exception
+
+  include ActionView::Helpers::OutputSafetyHelper
+  include Cms::Helpers::ImageHelper
+  include ActionView::Helpers::AssetUrlHelper
+  include Cms::Helpers::UrlHelper
+  include ActionView::Helpers::TagHelper
+  include ActionView::Helpers::UrlHelper
+  #include Cms::Helpers::PagesHelper
+  include Cms::Helpers::MetaDataHelper
+  #include Cms::Helpers::NavigationHelper
+  #include Cms::Helpers::ActionView::UrlHelper
+  #include Cms::Helpers::Breadcrumbs
+  ##include Cms::Helpers::TranslationHelper
+  include ApplicationHelper
 
   before_filter :set_admin_locale
 
@@ -64,7 +78,7 @@ class ApplicationController < ActionController::Base
   def set_locale_links
     @locale_links = {}
     I18n.available_locales.each do |locale|
-      @locale_links[locale.to_sym] = url_for(locale: locale)
+      @locale_links[locale.to_sym] = url_for(locale: locale) rescue "#"
     end
   end
 

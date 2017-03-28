@@ -1,0 +1,3 @@
+class AboutUsArticle < Article
+
+end

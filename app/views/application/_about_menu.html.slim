@@ -1,6 +1,6 @@
 ul.about-menu
   - @articles.each do |article|
 	li class=( active = ( (@article && @article.id == article.id)  ); active ? 'active' : '' )
-	  = link_to_unless active, (article.get_name), article.smart_to_param
+	  = link_to_unless active, (article.name), article.smart_to_param
   li class=( active = ( params[:controller] == 'gallery'  ); active ? 'active' : '' )
     = link_to_unless active, t("gallery-page"), gallery_path(locale: I18n.locale)

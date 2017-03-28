@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.0'
+gem 'rails', '4.2.7'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 # Use SCSS for stylesheets
@@ -47,8 +47,8 @@ end
 
 group :development do
   gem "puma"
-  gem "better_errors"
-  gem "binding_of_caller"
+  #gem "better_errors"
+  #gem "binding_of_caller"
   gem 'meta_request'
 
   #gem 'coffee-rails-source-maps'
@@ -86,7 +86,7 @@ gem 'has_scope'
 gem 'inherited_resources'
 
 gem 'slim'
-gem 'slim-rails'
+gem 'slim-rails', '3.1.1'
 
 gem "foundation-rails", "~> 5.0"
 
@@ -105,7 +105,7 @@ gem 'email_validator'
 
 gem 'admino'
 
-gem 'ckeditor'
+gem 'ckeditor', '4.2.2'
 
 
 

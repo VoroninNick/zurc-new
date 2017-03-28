@@ -76,10 +76,10 @@ module VoroninStudio
     def self.load_root_categories
       #categories = ArticleCategory.roots.published
       #translations = categories.map(&:translations)
-      #slugs = translations.map(&:slug).select{ |s| s.present? }
-      #get "/:root_category/(*url)", to: "publications#category", as: :smart_publication, root_category: /#{slugs.join('|')}/
+      #url_fragments = translations.map(&:url_fragment).select{ |s| s.present? }
+      #get "/:root_category/(*url)", to: "publications#category", as: :smart_publication, root_category: /#{url_fragments.join('|')}/
 
-      get "/:root_category/(*url)", to: "publications#category", as: :smart_article, root_category: /#{ArticleCategory.roots.published.map(&:translations).map(&:slug).select{|s| s.present? }.join('|')}/
+      get "/:root_category/(*url)", to: "publications#category", as: :smart_article, root_category: /#{ArticleCategory.roots.published.map(&:translations).map(&:url_fragment).select{|s| s.present? }.join('|')}/
     end
 
     def self.reload

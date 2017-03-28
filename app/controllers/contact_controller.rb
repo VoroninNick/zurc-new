@@ -11,7 +11,7 @@ class ContactController < InnerPageController
     @contact_page = true
     @breadcrumbs.push({title: I18n.t("breadcrumbs.contact"), url: false, current: true})
     I18n.available_locales.select{|locale| locale.to_sym != I18n.locale.to_sym }.each do |locale|
-      @locale_links[locale.to_sym] = ContactPage.first.to_param(locales_priority: [another_locale, I18n.locale])
+      @locale_links[locale.to_sym] = ContactPage.first.to_param
     end
     @map_markers = [[49.843031, 24.041205, "test-header", "test-description"] ]
   end
@@ -39,6 +39,6 @@ class ContactController < InnerPageController
   end
 
   def init_metadata
-    @page_metadata = ContactPage.first.try(&:page_metadata)
+
   end
 end

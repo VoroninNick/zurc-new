@@ -1,8 +1,8 @@
 .list-item.publication-item.columns.large-6 class="#{"has-attachments" if article.respond_to?(:attachments) && article.attachments.count > 0}"
-  - if article.get_name
+  - if article.name.present?
     .list-item-title
       a.list-item-title-a href=article.smart_to_param
-        = article.get_name
+        = article.name
   - if article.release_date
     .list-item-date
       = article.release_date.strftime("%d.%m.%Y")
@@ -10,7 +10,7 @@
     .list-item-thumb
       a.list-item-thumb-a href=article.smart_to_param
         = image_tag article.image.url(:site_thumb)
-  - if article.get_description.present?
+  - if article.description.present?
     .list-item-short-description
-      = article.get_description
+      = article.description
   = render partial: "article_attachments", locals: { attachments: article.attachments } if article.respond_to?(:attachments)

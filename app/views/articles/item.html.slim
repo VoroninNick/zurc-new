@@ -2,9 +2,9 @@
   .row
     .article-info
       .article-header.columns.large-8.right
-        - if  @article.get_name.present?
+        - if  @article.name.present?
           .article-title.page-title
-            = @article.get_name
+            = @article.name
         .article-details
           - if @article.release_date.present?
             .article-date
@@ -12,15 +12,15 @@
                 = "Дата публікації:"
               span.article-date-value
                 = @article.release_date.strftime("%d.%m.%Y")
-          - if @article.get_author.present?
+          - if @article.author.present?
             .article-author
               span.article-author-label
                 = "Автор:"
               span.article-author-value
-                = @article.get_author
-        - if @article.get_intro.present?
+                = @article.author
+        - if @article.intro.present?
           .article-intro
-            = @article.get_intro
+            = @article.intro
       - if @article.image && @article.image.url.present?
         .article-image-and-attachments.columns.large-4.left
           .article-image
@@ -28,7 +28,7 @@
           = render partial: "article_attachments", locals: { attachments: @article.attachments } if @article && @article.respond_to?(:attachments) && @article.attachments.any?
       /.clearfix
     .article-content.columns.large-8.right
-      = raw @article.get_content
+      = raw @article.content
     a#scroll-to-top.columns.large-8.right href="#body"
   .row
     .columns

@@ -5,6 +5,10 @@ class Attachment < ActiveRecord::Base
   # translations
   globalize :name, :data#, versioning: :paper_trail#, fallbacks_for_empty_translations: true
 
+  Translation.class_eval do
+    mount_uploader :data, AttachmentUploader
+  end
+
 
   def get_attr(attr_name, options = {} )
     options[:locales_priority] = [I18n.locale, another_locale] unless options.keys.include?(:locales_priority)
@@ -15,8 +19,8 @@ class Attachment < ActiveRecord::Base
     I18n.available_locales.map(&:to_sym).select {|locale| locale != I18n.locale.to_sym  }.first
   end
 
-  def get_icon_url
-    data = get_data
+  def icon_url
+    data = self.data
     if data.present?
       #allowed_extensions = ["pdf"]
       extension_image_names = {
@@ -34,6 +38,10 @@ class Attachment < ActiveRecord::Base
     else
       return nil
     end
+  end
+
+  def data
+    self.get_attr(:data)
   end
 
   # associations

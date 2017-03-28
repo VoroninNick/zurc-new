@@ -1,0 +1,3 @@
+class WhatWeDoArticle < Article
+
+end

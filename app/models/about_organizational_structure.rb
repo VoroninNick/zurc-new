@@ -1,0 +1,3 @@
+class AboutOrganizationalStructure < AboutPageContent
+
+end

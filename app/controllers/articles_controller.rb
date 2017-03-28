@@ -35,8 +35,8 @@ class ArticlesController < InnerPageController
 
     if @article
       @breadcrumbs.push({title: I18n.t("breadcrumbs.publications"), url: send("publications_path"), current: false})
-      if @article.get_name.present?
-        @breadcrumbs.push({title: @article.get_name, url: false, current: true})
+      if @article.name.present?
+        @breadcrumbs.push({title: @article.name, url: false, current: true})
       end
       all_publications = Article.published.publications
       current_index = nil
@@ -72,8 +72,8 @@ class ArticlesController < InnerPageController
           @breadcrumbs.push({title: I18n.t("breadcrumbs.publications"), url: send("publications_path"), current: false})
 
 
-          if @article.get_name.present?
-            @breadcrumbs.push({title: @article.get_name, url: false, current: true})
+          if @article.name.present?
+            @breadcrumbs.push({title: @article.name, url: false, current: true})
           end
 
           render template: "publications/show"
@@ -88,7 +88,7 @@ class ArticlesController < InnerPageController
 
     respond_to do |format|
       format.html do
-        @about_content = ((page = PagesAbout.published); page ? page.get_content : "" )
+        @about_content = ((page = PagesAbout.published); page ? page.content : "" )
         @breadcrumbs.push({title: I18n.t("breadcrumbs.about-us"), url: false, current: true})
       end
     end
@@ -100,8 +100,8 @@ class ArticlesController < InnerPageController
     @article = Article.with_translations.published.about_us.by_url(@params_id).first
     if @article
       @breadcrumbs.push({title: I18n.t("breadcrumbs.about-us"), url: send("publications_path"), current: false})
-      if @article.get_name.present?
-        @breadcrumbs.push({title: @article.get_name, url: false, current: true})
+      if @article.name.present?
+        @breadcrumbs.push({title: @article.name, url: false, current: true})
       end
     end
 
@@ -118,7 +118,7 @@ class ArticlesController < InnerPageController
   end
 
   def show_what_we_do_category
-    @article_category = available_what_we_do_categories.select {|c| c.find_slug_in_translations(slug: params[:id]) }.first
+    @article_category = available_what_we_do_categories.select {|c| c.find_url_fragment_in_translations(url_fragment: params[:id]) }.first
     if @article_category
       @article_subcategories = @article_category.child_categories_with_articles.select{|c| c.published == true }
       #@articles = @article_category.articles
@@ -126,11 +126,11 @@ class ArticlesController < InnerPageController
       respond_to do |format|
         format.html do
           @breadcrumbs.push({title: I18n.t("breadcrumbs.what-we-do"), url: send("what_we_do_path"), current: false})
-          if @article_category.get_name.present?
-            @breadcrumbs.push({title: @article_category.get_name, url: false, current: true})
+          if @article_category.name.present?
+            @breadcrumbs.push({title: @article_category.name, url: false, current: true})
           end
 
-          @locale_links[another_locale.to_sym] = @article_category.smart_to_param( locales_priority: [another_locale.to_sym, I18n.locale.to_sym])
+          @locale_links[another_locale.to_sym] = @article_category.smart_to_param
 
         end
       end
@@ -145,11 +145,11 @@ class ArticlesController < InnerPageController
 
     # first determine item is article or category
 
-    root_category = ArticleCategory.with_translations.where(slug: params[:root_category]).first
+    root_category = ArticleCategory.with_translations.where(url_fragment: params[:root_category]).first
 
     if root_category
       @root_category = root_category
-      template_category = root_category.page_metadata.try(:template_name)
+      template_category = root_category.seo_tags.try(:template_name)
       template_category = nil
       template_category = "what_we_do" if root_category.what_we_do_category?
       template_category = "about_us" if root_category.about_us_category?
@@ -161,26 +161,26 @@ class ArticlesController < InnerPageController
 
       if params_url.present?
         category = root_category
-        slugs_arr = params_url.split('/').select{|str| str.present? }
-        last_slug = slugs_arr.delete_at(slugs_arr.length - 1)
-        #last_slug = nil
+        url_fragments_arr = params_url.split('/').select{|str| str.present? }
+        last_url_fragment = url_fragments_arr.delete_at(url_fragments_arr.length - 1)
+        #last_url_fragment = nil
         last_successful_index = 0
-        slugs_arr_last_index = slugs_arr.length
+        url_fragments_arr_last_index = url_fragments_arr.length
 
-        #render inline: "#{slugs_arr.inspect}" ; render_executed = true
+        #render inline: "#{url_fragments_arr.inspect}" ; render_executed = true
 
 
-        slugs_arr.each_with_index do |slug, index|
-          category_new = category.children.select{|c| c.available? && c.translations.where(slug: slug ).any? }.first
+        url_fragments_arr.each_with_index do |url_fragment, index|
+          category_new = category.children.select{|c| c.available? && c.translations.where(url_fragment: url_fragment ).any? }.first
           break if category_new.nil?
           category = category_new
           last_successful_index = index
         end
 
-        if last_successful_index == slugs_arr_last_index
-          child_node = category.children.select{|c| c.available? && c.translations.where(slug: last_slug).any?  }.first
+        if last_successful_index == url_fragments_arr_last_index
+          child_node = category.children.select{|c| c.available? && c.translations.where(url_fragment: last_url_fragment).any?  }.first
           if child_node.nil?
-            child_node = category.articles.select{|a| a.available? && a.translations.where(slug: last_slug).any? }.first
+            child_node = category.articles.select{|a| a.available? && a.translations.where(url_fragment: last_url_fragment).any? }.first
           end
 
           if child_node.present?
@@ -213,7 +213,7 @@ class ArticlesController < InnerPageController
 
       @breadcrumbs = resource.smart_breadcrumbs
       I18n.available_locales.select{|locale| locale.to_sym != I18n.locale.to_sym }.each do |locale|
-        @locale_links[locale.to_sym] = resource.smart_to_param(locales_priority: [another_locale, I18n.locale])
+        @locale_links[locale.to_sym] = resource.smart_to_param
       end
 
       init_publication if  @article.try{|a| a.article_category.root.send(:publications_category?)}
@@ -225,17 +225,11 @@ class ArticlesController < InnerPageController
       init_what_we_do_category if @category.try{|c| c.root.send(:what_we_do_category?)}
       init_what_we_do_item if @article.try{|a| a.article_category.root.send(:what_we_do_category?)}
 
-      (resource).try do |resource|
-        @page_metadata = resource.page_metadata
-      end
 
-      @head_title = resource.get_name if @page_metadata.try{|m| m.get_head_title }.blank?
 
-      @meta_description = resource.get_description if resource.respond_to?(:get_description) && @page_metadata.try{|m| m.get_meta_description }.blank?
 
-      @meta_keywords = resource.tags.map(&:get_name).select{|t| t.present? }.uniq.join(',') if resource.respond_to?(:tags) && @page_metadata.try{|m| m.get_meta_keywords}.blank?
 
-      #render inline: @breadcrumbs.inspect; @render_executed = true
+
 
       if template_name.split('/').one?
         render built_template_name unless @render_executed
@@ -276,7 +270,7 @@ class ArticlesController < InnerPageController
 
   def init_about_us_category
     @articles = about_articles
-    @about_content = ((page = PagesAbout.published); page ? page.get_content : "" )
+    @about_content = ((page = PagesAbout.published); page ? page.content : "" )
   end
 
   def init_about_us_item
