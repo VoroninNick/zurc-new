@@ -11,7 +11,7 @@ class GalleryController < ApplicationController
   def albums
 
     @gallery_albums = GalleryAlbum.available
-    @available_tags = Tag.available_for(@gallery_albums)
+    @available_tags = Cms::Tag.available_for(@gallery_albums)
 
     gallery_breadcrumbs
 

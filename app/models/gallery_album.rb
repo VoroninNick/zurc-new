@@ -15,10 +15,7 @@ class GalleryAlbum < ActiveRecord::Base
 
   # associations
 
-  has_many :taggings, as: :taggable
-  has_many :tags, through: :taggings
-
-  attr_accessible :taggings, :tagging_ids, :tags, :tag_ids
+  has_tags
 
   if check_tables(:gallery_images)
     has_many :images, class_name: GalleryImage, foreign_key: :album_id

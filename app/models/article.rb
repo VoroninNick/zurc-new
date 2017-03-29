@@ -12,10 +12,7 @@ class Article < ActiveRecord::Base
 
   # tags
 
-  has_many :taggings, as: :taggable
-  has_many :tags, through: :taggings
-
-  attr_accessible :taggings, :tagging_ids, :tags, :tag_ids
+  has_tags
 
   # menu_items
   has_many :menu_items, as: :linkable, class_name: MenuItem

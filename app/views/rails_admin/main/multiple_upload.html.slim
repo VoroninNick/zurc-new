@@ -53,6 +53,7 @@ sass:
 - album_images_attributes_field_name = "images_attributes"
 - image_field_name = "data"
 - large_version_name = "gallery_image"
+- thumb_version_name = "thumb"
 
 
 = simple_form_for(rails_admin.multiple_upload_path(@abstract_model.to_param, id: 1), html: { multipart: true }) do |f|
@@ -64,44 +65,48 @@ sass:
   - if @object.send(album_images_association_name).try(&:any?)
     .gallery-images
       - @object.images.order("position asc").each do |img|
+        - path = nil
+        - use_translations = true
+        - if use_translations
+          - image_translation = img.translations.first
+          - if image_translation
+            - image_field = image_translation.send(image_field_name)
+            / if Paperclip
+            - path = image_field.try{|img| img.send(thumb_version_name).file.try(&:path) }
 
-        - image_translation = img.translations.first
-        - if image_translation
-          - image_field = image_translation.send(image_field_name)
-          / if Paperclip
-          - path = image_field.try{|img| img.file.try(&:path) }
+            / else if Carrierwave
+        - else
+          - path = img.send(image_field_name).try(thumb_version_name.to_sym).try{|img| img.file.try(&:path) }
 
-          / else if Carrierwave
-
-          - if path
-            .gallery-image data-image-id=img.id data-image-filename=Pathname.new(path).basename title=Pathname.new(path).basename
-              .delete-gallery-image
-                = "delete"
-              = link_to(image_tag(image_field.url), image_field.versions[large_version_name.to_sym].url, class: "fancybox", rel: "#{underscored_album_class_name}-#{@object.id}-#{album_images_association_name}"  )
+        - if path
+          .gallery-image data-image-id=img.id data-image-filename=Pathname.new(path).basename title=Pathname.new(path).basename
+            .delete-gallery-image
+              = "delete"
+            = link_to(image_tag(image_field.versions[thumb_version_name.to_sym].url), image_field.versions[large_version_name.to_sym].url, class: "fancybox", rel: "#{underscored_album_class_name}-#{@object.id}-#{album_images_association_name}"  )
 
 
 
-          /= form_for rails_admin.multiple_upload_path(@abstract_model.to_param, id: @object.id), :html => { :multipart => true, :id => "fileupload"  } do |f|
-          /  div class="row"
-          /    /= f.hidden_field :gallery_token, value: @gallery.token
-          /
-          /    div class=" fileupload-buttonbar"
-          /      div class="progressbar fileupload-progressbar nofade"
-          /        div style="width:0%;"
-          /      span class="btn btn-mini fileinput-button"
-          /        i class="icon-plus"
-          /        span
-          /          = t('photos.add_files') + '...'
-          /        = f.file_field :image, :multiple => true
-          /
-          /
-          /
-          /
-          /  h2
-          /    = "Pictures"
-          /
-          /  div class="row"
-          /    ul class="thumbnails files"
-          /
+        /= form_for rails_admin.multiple_upload_path(@abstract_model.to_param, id: @object.id), :html => { :multipart => true, :id => "fileupload"  } do |f|
+        /  div class="row"
+        /    /= f.hidden_field :gallery_token, value: @gallery.token
+        /
+        /    div class=" fileupload-buttonbar"
+        /      div class="progressbar fileupload-progressbar nofade"
+        /        div style="width:0%;"
+        /      span class="btn btn-mini fileinput-button"
+        /        i class="icon-plus"
+        /        span
+        /          = t('photos.add_files') + '...'
+        /        = f.file_field :image, :multiple => true
+        /
+        /
+        /
+        /
+        /  h2
+        /    = "Pictures"
+        /
+        /  div class="row"
+        /    ul class="thumbnails files"
+        /
 
-          /script type="text/javascript" src="fancybox.js"
+        /script type="text/javascript" src="fancybox.js"

@@ -5,8 +5,10 @@ class Attachment < ActiveRecord::Base
   # translations
   globalize :name, :data#, versioning: :paper_trail#, fallbacks_for_empty_translations: true
 
-  Translation.class_eval do
-    mount_uploader :data, AttachmentUploader
+  if defined?(Translation)
+    Translation.class_eval do
+      mount_uploader :data, AttachmentUploader
+    end
   end
 
 

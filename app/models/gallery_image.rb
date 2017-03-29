@@ -3,22 +3,33 @@ class GalleryImage < ActiveRecord::Base
   attr_accessible :name, :data, :published, :position, :alt
 
   # translations
-  globalize :name, :alt, :data
+  globalize :name, :alt#, :data
 
   def name
     (name = get_attr(:name)).present? ? name : data.try{|d| d.file.try(&:basename) }
   end
 
+  mount_uploader :data, GalleryUploader
+
+  if defined?(Translation)
+    Translation.class_eval do
+      mount_uploader :data, GalleryUploader
+    end
+  end
+
+  def image_url(version = :thumb)
+    url = data.send(version).url
+    url = translations.select{|t| t.data.present?  }.first.try{|t| t.data.send(version).url } if url.blank?
+
+    url
+  end
 
   # associations
 
-  has_many :taggings, as: :taggable
-  has_many :tags, through: :taggings
-
-  attr_accessible :taggings, :tagging_ids, :tags, :tag_ids
+  has_tags
 
   # scopes
-  scope :published, -> { where(published: 't') }
+  boolean_scope :published
   scope :available, -> { published.joins(:translations).where.not(gallery_image_translations: { data: nil }) }
 
   if check_tables(:gallery_albums)

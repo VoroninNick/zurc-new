@@ -58,7 +58,7 @@ unless RakeSettings.self_skip_initializers?
 
     config.include_models GalleryIndexPage, HomePage, Link, Article, ArticleCategory
     config.include_models PagesAbout, ContactPage, HomeSlide, HomeGalleryImage, HomeFirstAbout
-    config.include_models HomeSecondAbout, User, Attachment, GalleryImage, GalleryAlbum, Tag, Tagging
+    config.include_models HomeSecondAbout, User, Attachment, GalleryImage, GalleryAlbum, Cms::Tag, Cms::Tagging
     config.include_models MenuItem, Cms::MetaTags
 
 
@@ -293,7 +293,7 @@ unless RakeSettings.self_skip_initializers?
       end
     end
 
-    config.model Tag do
+    config.model Cms::Tag do
       #nestable_list true
 
       navigation_label_key(:gallery, 4)
@@ -305,7 +305,7 @@ unless RakeSettings.self_skip_initializers?
       end
     end
 
-    config.model_translation Tag do
+    config.model_translation Cms::Tag do
 
       edit do
         field :locale, :hidden
@@ -314,7 +314,7 @@ unless RakeSettings.self_skip_initializers?
       end
     end
 
-    config.model Tagging do
+    config.model Cms::Tagging do
       visible false
       edit do
         field :translations, :globalize_tabs
@@ -336,23 +336,18 @@ unless RakeSettings.self_skip_initializers?
         field :id
         field :data, :carrierwave do
           def value
-            @bindings[:object].translations.each do |t|
-              attachment = t.send(name)
-              if attachment.versions[:thumb].file.try(:exists?)
-                return attachment
-              end
-            end
-
-            return nil
-            #@bindings[:object].get_data
+            @bindings[:object].image_url
           end
 
-          # def resource_url
-          #   v = value.versions[:thumb]
-          #   return v.url if v.file.exists?
-          #
-          #   return nil
-          # end
+          pretty_value do
+            v = value
+            if v.present?
+              "<img src='#{v}'/>".html_safe
+            else
+              "-"
+            end
+          end
+
 
 
 
@@ -382,15 +377,28 @@ unless RakeSettings.self_skip_initializers?
 
       list do
         field :published
-        field :name
+        field :name do
+          def value
+            @bindings[:object].name
+          end
+        end
         field :image do
           def value
-            images = @bindings[:object].try(:images)
-            if images
-              images.first.image.url
+            images = @bindings[:object].try(:images).try{|images| images.select{|i| i && (i.data || i.translations.any?{|t| t.data.present? } ) } }
+
+            images.first.try(:image_url)
+          end
+
+          pretty_value do
+            v = value
+            if v.present?
+              "<img src='#{v}'/>".html_safe
+            else
+              "-"
             end
           end
         end
+        field :tags
 
       end
 
