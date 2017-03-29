@@ -43,18 +43,55 @@ unless RakeSettings.self_skip_initializers?
       end
     end
 
+
+    config.navigation_labels do
+      {articles: 0,
+       about_us: 100,
+       what_we_do: 200,
+       gallery: 300,
+       home: 400,
+       pages: 500,
+       attachments: 600,
+       users: 700
+      }
+    end
+
     config.include_models GalleryIndexPage, HomePage, Link, Article, ArticleCategory
     config.include_models PagesAbout, ContactPage, HomeSlide, HomeGalleryImage, HomeFirstAbout
     config.include_models HomeSecondAbout, User, Attachment, GalleryImage, GalleryAlbum, Tag, Tagging
     config.include_models MenuItem, Cms::MetaTags
 
-    [Article, PublicationArticle, NewsArticle, AboutUsArticle, WhatWeDoArticle].each do |m|
+
+
+    config.model User do
+      navigation_label_key(:users, 1)
+      list do
+        field :id
+        field :email
+      end
+
+      edit do
+        field :email
+        field :password
+        field :password_confirmation
+      end
+    end
+
+    [Article, PublicationArticle, NewsArticle, AboutUsArticle, WhatWeDoArticle].each_with_index do |m, i|
       config.model m do
-        navigation_label "Статті"
+        navigation_label_key :articles, i+1
         edit do
           field :published
           field :featured
-          field :article_category
+          field :article_category do
+            label do
+              I18n.t("activerecord.attributes.article.article_category")
+            end
+            visible do
+              klass = @bindings[:object].class
+              klass == WhatWeDoArticle || klass == Article
+            end
+          end
           field :tags
           field :translations, :globalize_tabs
           field :image do
@@ -62,19 +99,20 @@ unless RakeSettings.self_skip_initializers?
           end
           field :attachments
           field :release_date
-          field :page_metadata
+          field :seo_tags
         end
 
         list do
           field :published
           field :name do
-            label "І'мя"
             def value
               @bindings[:object].name
             end
           end
           field :article_category do
-            label "Категорія"
+            label do
+              I18n.t("activerecord.attributes.article.article_category")
+            end
           end
           field :image, :carrierwave do
             def value
@@ -105,8 +143,7 @@ unless RakeSettings.self_skip_initializers?
     end
 
     config.model ArticleCategory do
-      navigation_label "Статті"
-      weight -100
+      navigation_label_key(:articles, 1)
 
       nestable_tree({
         position_field: :position
@@ -117,13 +154,12 @@ unless RakeSettings.self_skip_initializers?
           help "Що ми робимо: розмір баннера: 1200х396"
         end
         field :translations, :globalize_tabs
-        field :page_metadata
+        field :seo_tags
         field :articles
       end
     end
 
     config.model_translation ArticleCategory do
-      visible false
       edit do
         field :locale, :hidden
         field :name
@@ -134,7 +170,7 @@ unless RakeSettings.self_skip_initializers?
     end
 
     config.model PagesAbout do
-      navigation_label "Сторінки"
+      navigation_label_key(:pages, 2)
       edit do
         field :published
         field :translations, :globalize_tabs
@@ -142,7 +178,6 @@ unless RakeSettings.self_skip_initializers?
     end
 
     config.model_translation PagesAbout do
-      visible false
 
       edit do
         field :locale, :hidden
@@ -152,8 +187,7 @@ unless RakeSettings.self_skip_initializers?
 
     # home page elements
     config.model HomeSlide do
-      weight -80
-      navigation_label "Головна сторінка"
+      navigation_label_key :home, 1
 
       nestable_list true
 
@@ -167,8 +201,6 @@ unless RakeSettings.self_skip_initializers?
     end
 
     config.model_translation HomeSlide do
-      visible false
-
       edit do
         field :locale, :hidden
         field :name
@@ -179,8 +211,7 @@ unless RakeSettings.self_skip_initializers?
     end
 
     config.model HomeFirstAbout do
-      weight -1
-      navigation_label "Головна сторінка"
+      navigation_label_key(:home, 2)
 
       nestable_list true
 
@@ -194,8 +225,6 @@ unless RakeSettings.self_skip_initializers?
     end
 
     config.model_translation HomeFirstAbout do
-      visible false
-
       edit do
         field :locale, :hidden
         #field :name
@@ -204,7 +233,7 @@ unless RakeSettings.self_skip_initializers?
     end
 
     config.model HomeSecondAbout do
-      navigation_label "Головна сторінка"
+      navigation_label_key(:home, 3)
 
       nestable_list true
 
@@ -216,8 +245,6 @@ unless RakeSettings.self_skip_initializers?
     end
 
     config.model_translation HomeSecondAbout do
-      visible false
-
       edit do
         field :locale, :hidden
         field :description
@@ -225,7 +252,7 @@ unless RakeSettings.self_skip_initializers?
     end
 
     config.model HomeGalleryImage do
-      navigation_label "Головна сторінка"
+      navigation_label_key(:home, 4)
 
       nestable_list true
 
@@ -239,8 +266,6 @@ unless RakeSettings.self_skip_initializers?
     end
 
     config.model_translation HomeGalleryImage do
-      visible false
-
       edit do
         field :locale, :hidden
         field :image_alt
@@ -250,6 +275,7 @@ unless RakeSettings.self_skip_initializers?
     # end home page
 
     config.model Attachment do
+      navigation_label_key(:attachments, 1)
       nestable_list true
 
       edit do
@@ -260,8 +286,6 @@ unless RakeSettings.self_skip_initializers?
     end
 
     config.model_translation Attachment do
-      visible false
-
       edit do
         field :locale, :hidden
         field :name
@@ -271,8 +295,8 @@ unless RakeSettings.self_skip_initializers?
 
     config.model Tag do
       #nestable_list true
-      
-      navigation_label "Галерея"
+
+      navigation_label_key(:gallery, 4)
 
 
       edit do
@@ -298,7 +322,7 @@ unless RakeSettings.self_skip_initializers?
     end
 
     config.model GalleryImage do
-      navigation_label "Галерея"
+      navigation_label_key(:gallery, 3)
       nestable_list true
 
       edit do
@@ -311,7 +335,6 @@ unless RakeSettings.self_skip_initializers?
         field :published
         field :id
         field :data, :carrierwave do
-          label "Thumbnail"
           def value
             @bindings[:object].translations.each do |t|
               attachment = t.send(name)
@@ -342,13 +365,10 @@ unless RakeSettings.self_skip_initializers?
     end
 
     config.model_translation GalleryImage do
-      visible false
-
       edit do
         field :locale, :hidden
         field :name
         field :data do
-          label "Зображення"
           help "Розмір: 580х580"
         end
         field :alt
@@ -357,7 +377,7 @@ unless RakeSettings.self_skip_initializers?
 
     config.model GalleryAlbum do
 
-      navigation_label "Галерея"
+      navigation_label_key(:gallery, 2)
       nestable_list true
 
       list do
@@ -378,14 +398,12 @@ unless RakeSettings.self_skip_initializers?
         field :tags
         field :published
         field :translations, :globalize_tabs
-        field :page_metadata
+        field :seo_tags
         #field :images
       end
     end
 
     config.model_translation GalleryAlbum do
-      visible false
-
       edit do
         field :locale, :hidden
         field :name
@@ -435,15 +453,11 @@ unless RakeSettings.self_skip_initializers?
       end
 
       list do
-        field :name do
-          label "Ім'я"
-        end
+        field :name
       end
     end
 
     config.model_translation MenuItem do
-      visible false
-
       edit do
         field :locale, :hidden
         field :name
@@ -484,15 +498,11 @@ unless RakeSettings.self_skip_initializers?
       end
 
       list do
-        field :content do
-          label "Ім'я"
-        end
+        field :content
       end
     end
 
     config.model_translation Link do
-      visible false
-
       edit do
         field :locale, :hidden
         field :content
@@ -503,17 +513,15 @@ unless RakeSettings.self_skip_initializers?
     end
 
     config.model ContactPage do
-      weight -70
-      navigation_label "Сторінки"
+      navigation_label_key(:pages, 1)
 
       edit do
         field :translations, :globalize_tabs
-        field :page_metadata
+        field :seo_tags
       end
     end
 
     config.model_translation ContactPage do
-      visible false
       edit do
         field :locale, :hidden
         field :url_fragment
@@ -521,6 +529,7 @@ unless RakeSettings.self_skip_initializers?
     end
 
     config.model Cms::MetaTags do
+      visible false
       edit do
         field :translations, :globalize_tabs
         group :advanced do
@@ -531,46 +540,55 @@ unless RakeSettings.self_skip_initializers?
     end
 
     config.model_translation Cms::MetaTags do
-      visible false
       edit do
         field :locale, :hidden
-        field :head_title
-        field :meta_keywords
-        field :meta_description
+        field :title
+        field :keywords
+        field :description
       end
     end
 
     config.model HomePage do
-      navigation_label "Головна сторінка"
-      label_plural "Метатеги для головної"
-      weight -3
+      navigation_label_key(:home, 5)
       edit do
-        field :page_metadata
+        field :seo_tags
       end
     end
 
     config.model GalleryIndexPage do
       visible false
-      weight -90
-      navigation_label "Галерея"
+      navigation_label_key(:gallery, 1)
 
       edit do
-        field :page_metadata
+        field :seo_tags
       end
     end
 
     # =====================
     # about us
     # =====================
-    config.include_models AboutPageContent
+    #config.include_models AboutPageContent
     config.include_models TeamMember, YearReport
     config.include_models PublicationArticle, NewsArticle, AboutUsArticle, WhatWeDoArticle
 
     config.model TeamMember do
-      #navigation_label_key(:about_us, 1)
-      field :image
-      field :translations, :globalize_tabs
-      field :emails
+      navigation_label_key(:about_us, 1)
+      list do
+        field :published
+        field :image
+        field :translations, :globalize_tabs
+        field :emails do
+          def value
+            @bindings[:object].emails.join(", ")
+          end
+        end
+      end
+      edit do
+        field :published
+        field :image
+        field :translations, :globalize_tabs
+        field :emails
+      end
     end
 
     config.model_translation TeamMember do
@@ -587,6 +605,33 @@ unless RakeSettings.self_skip_initializers?
     config.model_translation AboutMission do
       field :locale, :hidden
       field :content, :ck_editor
+    end
+
+    config.model YearReport do
+      navigation_label_key(:about_us, 2)
+      list do
+        field :published
+        field :name do
+          def value
+            @bindings[:object].name
+          end
+        end
+        field :data, :carrierwave do
+          def value
+            @bindings[:object].data
+          end
+        end
+      end
+      edit do
+        field :published
+        field :translations, :globalize_tabs
+      end
+    end
+
+    config.model_translation YearReport do
+      field :locale, :hidden
+      field :name
+      field :data
     end
 
   end

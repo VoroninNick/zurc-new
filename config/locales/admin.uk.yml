@@ -1,0 +1,10 @@
+uk:
+  admin:
+    navigation_labels:
+      about_us: "Про нас"
+      articles: "Статті"
+      gallery: "Галерея"
+      home: "Головна"
+      pages: "Сторінки"
+      users: "Користувачі"
+      attachments: "Прикріплені файли"

@@ -23,6 +23,7 @@
 /public/
 /config/application.yml
 /config/initializers/passwords.rb
+/config/application.yml
 /Guardfile
 
 /Gemfile.lock

@@ -22,7 +22,9 @@ class ContactController < InnerPageController
     init_metadata
 
     @message = Message.new(params[:message])
-    if @message.valid?
+    @message.referer = request.referer
+    @message.session_id = session.id
+    if @message.save
       successful = true
       MessageMailer.create_message(@message).deliver_now
     end

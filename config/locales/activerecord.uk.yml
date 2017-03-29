@@ -12,9 +12,22 @@ uk:
       pages/home_page: "Головна"
       message: "Повідомлення"
       article_ad_new: "Статті(Реклама)"
+      year_report:
+        one: "Річний звіт"
+        other: "Річні звіти"
+      team_member:
+        one: "Член команди"
+        other: "Члени команди"
 
 
     attributes:
+      # ============================
+      # common attributes
+      # ============================
+
+      # ============================
+      # specific model attributes
+      # ============================
       article:
         name: "Ім'я"
       article/translation:
@@ -42,3 +55,11 @@ uk:
         email: "Електронна скринька"
         phone: "Контактний телефон"
         message_text: "Текст повідомлення"
+      gallery_image:
+        data: "Thumbnail"
+      gallery_image/translation:
+        data: "Зображення"
+      menu_item:
+        name: "Ім'я"
+      link:
+        content: "Ім'я"

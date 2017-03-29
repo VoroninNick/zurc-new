@@ -131,3 +131,7 @@ gem 'cms', github: 'pkorenev/cms'
 
 gem "htmlcompressor"
 gem 'rack-page_caching'
+
+gem 'enumerize'
+
+gem 'figaro'
