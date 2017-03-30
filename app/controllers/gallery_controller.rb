@@ -27,7 +27,7 @@ class GalleryController < ApplicationController
       @breadcrumbs << { title: @gallery_album.name }
     end
     @gallery_images = @gallery_album.try{|a| a.images.available}
-    @available_tags = Tag.available_for(@gallery_images)
+    @available_tags = Cms::Tag.available_for(@gallery_images)
 
     init_metadata
   end

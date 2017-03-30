@@ -18,7 +18,7 @@
                   .gallery-item-abs
                     a class="fb"  href=image.smart_to_param rel=""
                       .gallery-item-image
-                        = image_tag(( image.data ).try{|uploader| uploader.gallery_image.url} )
+                        = image_tag(( image.image_url(:gallery_image) ) )
                       .gallery-item-info
                         .gallery-item-info-inner
                           .gallery-item-name

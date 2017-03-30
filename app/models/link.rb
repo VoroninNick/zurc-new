@@ -1,5 +1,5 @@
 class Link < ActiveRecord::Base
-  attr_accessible :linkable_id, :linkable_type, :content, :url, :blank_window, :no_follow, :alt, :title, :content_source, :url_source
+  attr_accessible *attribute_names
 
   belongs_to :linkable, polymorphic: true
   attr_accessible :linkable

@@ -1,6 +1,5 @@
 class PagesAbout < ActiveRecord::Base
-  # attr_acceessible
-  attr_accessible :content, :published
+  attr_accessible *attribute_names
 
   # associations
   #belongs_to :article_category, class: ArticleCategory

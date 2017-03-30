@@ -1,6 +1,6 @@
 class ArticleCategory < ActiveRecord::Base
   # attr_accessible
-  attr_accessible :name, :url_fragment, :published, :position, :ancestry
+  attr_accessible *attribute_names
 
   # associations
   has_many :articles, class_name: Article
@@ -17,6 +17,7 @@ class ArticleCategory < ActiveRecord::Base
   attr_accessible :links, :link_ids
 
   has_seo_tags
+  has_cache
 
   after_save :reload_routes
   def reload_routes
@@ -70,10 +71,6 @@ class ArticleCategory < ActiveRecord::Base
   #   children.select {|category|   }
   # end
 
-  def routes_module
-    Rails.application.routes.url_helpers
-  end
-
   def to_param(options = {})
     #return routes_module.show_what_we_do_category_path(id: self.get_url_fragment, locale: I18n.locale) if what_we_do_child?
     smart_to_param(options)
@@ -102,7 +99,7 @@ class ArticleCategory < ActiveRecord::Base
 
   def smart_to_param(options = {})
     options[:locale] = I18n.locale if options[:locale].blank?
-    routes_module.smart_article_path locale: options[:locale],
+    url_routes.smart_article_path locale: options[:locale],
                                      root_category: self.try {|c| c.root.url_fragment } ,
                                      url: (self.path.select{|c| !c.root? }.map{|c| c.url_fragment }.select{|url_fragment| url_fragment.present? } ).join("/")
   end

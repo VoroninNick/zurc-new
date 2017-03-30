@@ -1,5 +1,5 @@
 class HomeFirstAbout < ActiveRecord::Base
-  attr_accessible :published, :name, :description, :position
+  attr_accessible *attribute_names
 
   # link
   has_one :link, as: :owner, class_name: Link

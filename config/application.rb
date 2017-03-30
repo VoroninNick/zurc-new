@@ -28,7 +28,7 @@ module Zurc
 
     #config.i18n.fallbacks = I18n::Locale::Fallbacks.new(uk: :en, en: :uk)
     config.i18n.fallbacks = true
-    config.i18n.available_locales = [:uk, :en]
+    config.i18n.available_locales = [:uk, :en, :ru]
     config.i18n.default_locale = :uk
 
 

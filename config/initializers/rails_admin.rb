@@ -98,7 +98,9 @@ unless RakeSettings.self_skip_initializers?
             help "Розмір аватарки: 400х300; Розмір для баннера на сторінці публікацій: великий: 800х400; малий: 360х180;вибрані новини на головній: 600х325;"
           end
           field :attachments
-          field :release_date
+          field :release_date do
+            date_format(:short)
+          end
           field :seo_tags
         end
 
@@ -123,7 +125,9 @@ unless RakeSettings.self_skip_initializers?
               "<img src='#{value}'/>".html_safe
             end
           end
-          field :release_date
+          field :release_date do
+            date_format(:short)
+          end
         end
       end
     end
@@ -384,9 +388,9 @@ unless RakeSettings.self_skip_initializers?
         end
         field :image do
           def value
-            images = @bindings[:object].try(:images).try{|images| images.select{|i| i && (i.data || i.translations.any?{|t| t.data.present? } ) } }
 
-            images.first.try(:image_url)
+
+            @bindings[:object].try(:image_url)
           end
 
           pretty_value do

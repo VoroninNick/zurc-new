@@ -1,5 +1,5 @@
 class MenuItem < ActiveRecord::Base
-  attr_accessible :linkable_id, :linkable_type, :name, :link, :link_source, :name_source, :priority, :ancestry, :node_type, :items_source
+  attr_accessible *attribute_names
 
   #enum link_source: [:custom_link, :association_name], name_source: [:custom_name, :association_url_fragment]
 

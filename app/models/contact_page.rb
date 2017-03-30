@@ -1,4 +1,6 @@
 class ContactPage < ActiveRecord::Base
+  attr_accessible *attribute_names
+
   # menu_items
   has_many :menu_items, as: :linkable, class_name: MenuItem
   attr_accessible :menu_items, :menu_item_ids
@@ -8,6 +10,7 @@ class ContactPage < ActiveRecord::Base
   attr_accessible :links, :link_ids
 
   has_seo_tags
+  has_cache
 
   attr_accessible :url_fragment
 
@@ -29,15 +32,11 @@ class ContactPage < ActiveRecord::Base
     I18n.available_locales.map(&:to_sym).select {|locale| locale != I18n.locale.to_sym  }.first
   end
 
-  def routes_module
-    Rails.application.routes.url_helpers
-  end
-
   def to_param(options = {})
     options[:locales_priority] = [I18n.locale, another_locale] unless options.keys.include?(:locales_priority)
     options[:locale] = options[:locales_priority].first if options[:locale].blank?
 
-    routes_module.contact_path locale: options[:locale],
+    url_helpers.contact_path locale: options[:locale],
                                url: url_fragment
   end
 end

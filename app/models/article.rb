@@ -1,6 +1,6 @@
 class Article < ActiveRecord::Base
   # attr_acceessible
-  attr_accessible :name, :description, :intro, :content, :release_date, :url_fragment, :author, :published, :featured, :image
+  attr_accessible *attribute_names
 
   # associations
   belongs_to :article_category, class_name: ArticleCategory
@@ -24,6 +24,8 @@ class Article < ActiveRecord::Base
 
   # page meta_data
   has_seo_tags
+
+  has_cache
 
 
   # translations
@@ -103,13 +105,16 @@ class Article < ActiveRecord::Base
     end
   end
 
+  before_save :initialize_release_date
+
+  def initialize_release_date
+    self.release_date = DateTime.now if self.release_date.blank?
+
+    true
+  end
 
   def available?
     published?
-  end
-
-  def routes_module
-    Rails.application.routes.url_helpers
   end
 
   def to_param(options = {})
@@ -123,7 +128,7 @@ class Article < ActiveRecord::Base
 
   def smart_to_param(options = {})
 
-    routes_module.smart_article_path locale: I18n.locale,
+    url_helpers.smart_article_path locale: I18n.locale,
                                      root_category: article_category.try {|category| category.root.url_fragment } ,
                                      url: (article_category.path.select{|c| !c.root? }.map{|c| c.url_fragment }.select{|url_fragment| url_fragment.present? } << self.url_fragment ).join("/")
   end

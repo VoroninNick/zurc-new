@@ -1,6 +1,6 @@
 class GalleryImage < ActiveRecord::Base
 
-  attr_accessible :name, :data, :published, :position, :alt
+  attr_accessible *attribute_names
 
   # translations
   globalize :name, :alt#, :data
@@ -17,11 +17,13 @@ class GalleryImage < ActiveRecord::Base
     end
   end
 
-  def image_url(version = :thumb)
-    url = data.send(version).url
-    url = translations.select{|t| t.data.present?  }.first.try{|t| t.data.send(version).url } if url.blank?
+  def image(version = :thumb)
+    upload = data.send(version)
+    upload = translations.select{|t| t.data.present?  }.first if upload.blank?
+  end
 
-    url
+  def image_url(version = :thumb)
+    image(version).try{|t| t.data.send(version).url }
   end
 
   # associations

@@ -1,5 +1,5 @@
 class Attachment < ActiveRecord::Base
-  attr_accessible :attachable_type, :attachable_id, :name, :data, :published, :position
+  attr_accessible *attribute_names
 
 
   # translations

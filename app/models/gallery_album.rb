@@ -1,5 +1,5 @@
 class GalleryAlbum < ActiveRecord::Base
-  attr_accessible :name, :image, :published, :position, :alt, :url_fragment
+  attr_accessible *attribute_names
 
   # menu_items
   has_many :menu_items, as: :linkable
@@ -31,11 +31,23 @@ class GalleryAlbum < ActiveRecord::Base
   scope :published, -> { where(published: 't') }
   scope :available, -> { published.joins(images: :translations).where(gallery_images: { published: 't' }).where.not(gallery_image_translations: {data: nil}).group("gallery_albums.id") }
 
+
+  has_cache
+
   def smart_to_param
     if self.url_fragment
-      routes_module.gallery_album_path(locale: I18n.locale, album: self.url_fragment)
+      url_helpers.gallery_album_path(locale: I18n.locale, album: self.url_fragment)
     else
       return nil
     end
+  end
+
+  def image()
+    images = try(:images).try{|images| images.select{|i| i && i.image } }
+    images.first.image
+  end
+
+  def image_url(version = :thumb)
+    image.try{|img| img.data.send(version).url }
   end
 end

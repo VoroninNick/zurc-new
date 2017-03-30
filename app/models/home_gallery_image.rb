@@ -1,5 +1,5 @@
 class HomeGalleryImage < ActiveRecord::Base
-  attr_accessible :published, :position, :image, :image_alt
+  attr_accessible *attribute_names
 
   # translations
   globalize :image_alt

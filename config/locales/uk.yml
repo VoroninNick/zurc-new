@@ -6,6 +6,9 @@
 #    formats:
 #      long: "%^b %d, %Y"
 uk:
+  time:
+    formats:
+      short: "%d.%m.%Y %H:%M"
   breadcrumbs:
     publications: "Публікації"
     news: "Новини"

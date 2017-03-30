@@ -1,5 +1,5 @@
 class HomeSlide < ActiveRecord::Base
-  attr_accessible :url, :published, :image, :name, :description, :position, :image_alt
+  attr_accessible *attribute_names
 
   # translations
   globalize :name, :description, :image_alt, :url
