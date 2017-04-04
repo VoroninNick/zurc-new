@@ -34,14 +34,25 @@
     }
 
     a{
+      color: #acacac;
       &:after{
         content: attr(data-entries-count);
+        vertical-align: top;
+        font-size: 12px;
+        margin: 0 3px;
+      }
+    }
+    &.active{
+      a {
+        color: $orange-color;
       }
     }
   }
 }
 
 .list-article-column{
+  float: left !important;
+
   &:nth-child(3n+4){
     clear: left;
   }
@@ -94,6 +105,22 @@
   }
 }
 
+.article-date-value{
+  .tag{
+    display: inline-block;
+
+    &:after{
+      content: ",";
+      margin: 0 3px 0 0;
+    }
+
+    &:last-child{
+      &:after{
+        content: none;
+      }
+    }
+  }
+}
 
 
 .publications-list-page{

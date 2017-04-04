@@ -107,7 +107,14 @@ module ApplicationHelper
       return base_url
     end
 
-    tags_str = tag.url_fragment
-    base_url + "/tags=" + tags_str
+    selected_tags_url_fragments = @selected_tags.map(&:url_fragment)
+    if !selected_tags_url_fragments.include?(tag.url_fragment)
+      selected_tags_url_fragments << tag.url_fragment
+    else
+      selected_tags_url_fragments = selected_tags_url_fragments.select{|s| s != tag.url_fragment }
+    end
+    tags_str = selected_tags_url_fragments.join(',')
+    tags_part_str = tags_str.present? ? "/tags=" + tags_str : ""
+    base_url + tags_part_str
   end
 end

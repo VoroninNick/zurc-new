@@ -257,7 +257,7 @@ class ArticlesController < InnerPageController
     #@featured_articles = @category.available_articles.select{|a| a.featured? }.sort{|a, b| a.release_date.present? && b.release_date.present? ? a.release_date > b.release_date : (a.release_date.present? ? a : b )   }.first(3)
     @featured_articles = ArticleCategory.publications_category.articles.available.featured
     @all_articles = ArticleCategory.publications_category.articles.available.unfeatured.order_by_date_desc
-    @articles = @all_articles.page(params[:page]).per(PER_PAGE)
+    init_tags_and_articles
   end
 
   def init_publication
@@ -270,7 +270,20 @@ class ArticlesController < InnerPageController
   def init_news
     #@featured_articles = @category.available_articles.select{|a| a.featured? }.sort{|a, b| a.release_date.present? && b.release_date.present? ? a.release_date > b.release_date : (a.release_date.present? ? a : b )   }.first(3)
     @all_articles = ArticleCategory.news_category.articles.available.order_by_date_desc
-    @articles = @all_articles.page(params[:page]).per(PER_PAGE)
+
+    init_tags_and_articles
+
+
+  end
+
+  def init_tags_and_articles
+    params_tags = (params[:tags] || "")
+    params_tags_arr = params_tags.split(",")
+    @articles = @all_articles
+    if params_tags_arr.any?
+      @articles = @articles.joins(tags: :translations).where(cms_tag_translations: {url_fragment: params_tags_arr, locale: I18n.locale}).uniq
+    end
+    @articles = @articles.page(params[:page]).per(PER_PAGE)
   end
 
   def init_news_item

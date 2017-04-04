@@ -18,6 +18,16 @@
                 = "Автор:"
               span.article-author-value
                 = @article.author
+          - if @article.tags.any?
+            .article-date.article-tags
+              span.article-date-label
+                |Теги:
+              span.article-date-value
+                - @article.tags.each do |tag|
+                  .tag
+                    a href=tag_url(tag)
+                      = tag.name
+
         - if @article.intro.present?
           .article-intro
             = @article.intro

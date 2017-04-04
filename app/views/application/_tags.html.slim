@@ -4,10 +4,10 @@
     .tag-list
       .tags-dropdown-arrow
         = embedded_svg_from_assets "svg/arrows/arrow-left.svg"
-
-      a.tag href=tag_url class=("active" if @selected_tags.blank?) data-entries-count=@all_articles.count
-        = t("tags.all")
+      .tag class=("active" if @selected_tags.blank?)
+        a href=tag_url  data-entries-count=@all_articles.count
+          = t("tags.all")
       - @tags.each do |tag|
-        .tag
+        .tag class=("active" if tag.id.in?(@selected_tag_ids))
           a href=tag_url(tag) data-entries-count=@root_category.entries_count_for_tag(tag)
             = tag.name

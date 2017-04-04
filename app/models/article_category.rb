@@ -175,15 +175,24 @@ class ArticleCategory < ActiveRecord::Base
 
     if news_category? || publications_category?
       #Cms::Tag.available_for(self.articles.available.unfeatured)
-      featured_articles_ids = Article.available.featured.pluck(:id)
-      Cms::Tag.joins(taggings: {}, articles: {}).where(articles: { article_category_id: self.id }).where.not(articles: {id: featured_articles_ids}).uniq
+
+      rel = Cms::Tag.joins(taggings: {}, articles: {}).where(articles: { article_category_id: self.id })
+      if publications_category?
+        featured_articles_ids = Article.available.featured.pluck(:id)
+        rel = rel.where.not(articles: {id: featured_articles_ids})
+      end
+      rel = rel.uniq
     else
       []
     end
   end
 
   def entries_count_for_tag(tag = :all)
-    articles = self.articles.available.unfeatured
+    articles = self.articles.available
+    if publications_category?
+      articles = articles.unfeatured
+    end
+
     if tag == :all
       return articles.count
     end
