@@ -206,7 +206,15 @@ class ArticlesController < InnerPageController
       resource ||= root_category
 
       if resource.is_a?(Article)
-        template_name = "item"
+        if resource.geography?
+          template_name = "geography"
+          @markers = AboutMapMarker.published.map{|m| Hash[[:title, :address, :phones, :fax_phones, :emails, :lat_lng].map{|k| [k, m.send(k)] }] }
+        else
+          template_name = "item"
+        end
+
+
+
         @article = resource
       elsif resource.is_a?(ArticleCategory)
         template_name = "category"

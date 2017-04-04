@@ -1,0 +1,15 @@
+.article-info
+  .article-header.columns.large-8.right
+    - if  @article.name.present?
+      h1.article-title.page-title
+        = @article.name
+      = render "article_details"
+
+      - if @article.intro.present?
+        .article-intro
+          = @article.intro
+  - if @article.image && @article.image.url.present?
+    .article-image-and-attachments.columns.large-4.left
+      .article-image
+        img src="#{@article.image.url(:avatar)}"
+      = render partial: "article_attachments", locals: { attachments: @article.attachments } if @article && @article.respond_to?(:attachments) && @article.attachments.any?

@@ -3,6 +3,10 @@ var HOME_MAPTYPE_ID = 'home_style';
 var marker;
 
 function init() {
+  var $map_wrapper = $('.map-wrapper')
+  if (!$map_wrapper.length){
+    return
+  }
 
     var homeStyleProperties = [
         {
@@ -22,7 +26,7 @@ function init() {
 
     var customMapType = new google.maps.StyledMapType(homeStyleProperties, styledMapOptions);
 
-    var $map_wrapper = $('.map-wrapper')
+
     var data_markers_str = $map_wrapper.attr('data-markers')
     var data_markers_format = $map_wrapper.attr('data-markers-format') || 'latlng'
     var zoom = + $map_wrapper.attr('data-zoom')
@@ -55,10 +59,17 @@ function init() {
             for(var i = 0; i < data_markers.length; i++) {
                 var data_marker = data_markers[i]
                 var m = {}
-                m['lat'] = data_marker[0]
-                m['lng'] = data_marker[1]
-                m['title'] = data_marker[2]
-                m['description'] = data_marker[3]
+                var lat_lng_arr = data_marker.lat_lng.split(",")
+                if (!lat_lng_arr){
+                  continue
+                }
+
+                m['lat'] = lat_lng_arr[0]
+                m['lng'] = lat_lng_arr[1]
+                m['title'] = data_marker.title
+
+                m['description'] = render_marker_description(data_marker)
+
                 markers.push(m)
             }
         }
@@ -97,14 +108,20 @@ function init() {
         }
 
 
-
+        var info_window_contents = []
 
         for(var i=0; i<markers.length;i++) {
 
             var m = markers[i]
+            console.log("marker: ", m)
+
+            var title_str = ""
+            if (m.title && m.title.length){
+              title_str = '<h3>'+ m.title+'</h3>'
+            }
 
             //var $div = jQuery('<div class="marker"><div class="marker-tooltip-wrapper"><div class="marker-tooltip"><h3>'+ m.title+'</h3><p>'+ m.description+'</p></div></div></div>');
-            var $div = jQuery('<div class="content"><h3>'+ m.title+'</h3><p>'+ m.description+'</p></div>');
+            var $div = jQuery('<div  data-info-window-id="'+(i+1)+'" class="info-window-content content">'+title_str+'<div class="description">'+ m.description+'</div></div>');
             var $marker_tooltip = $div.find('.marker-tooltip')
             $marker_tooltip.append('')
 
@@ -114,6 +131,7 @@ function init() {
             })
 
             var div = $div.get(0)
+            info_window_contents.push(div)
 
             if(!standard_method) {
 
@@ -161,14 +179,48 @@ function init() {
                     content: div
                 });
 
-                google.maps.event.addListener(marker, 'click', function() {
-                    infowindow.open(map,marker);
-                });
+                google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                  return function() {
+                    //alert("test: " + i)
+                    infowindow.setContent(info_window_contents[i])
+                    infowindow.open(map, marker);
+                    //$("[data-info-window-id="+(i+1)+"]").addClass("visible")
+                  }
+                })(marker, i));
             }
         }
     }
 
     console.log('map initialized successfully')
+}
+
+function render_marker_description(marker) {
+  console.log("render_marker_description: marker: ", marker)
+  var address_str = "<div>"
+  address_str += marker.address
+  address_str + "</div>"
+
+  var phones_str = multiline_list(marker.phones, "Телефони:")
+  var fax_phones_str = multiline_list(marker.fax_phones, "Факс:")
+  var emails_str = multiline_list(marker.emails, "Електронна пошта:")
+
+  var description = address_str + phones_str + fax_phones_str + emails_str
+  return description
+}
+
+function multiline_list(arr, label){
+  if(!arr.length) {
+    return ""
+  }
+
+  var str = "<div>"
+  str += "<h4>"+label+"</h4>"
+  for(var i = 0; i < arr.length; i++){
+    var phone = arr[i]
+    str += "<div>"+phone+"</div>"
+  }
+  str += "</div>"
+  return str
 }
 
 $document.on('ready page:load', function() {

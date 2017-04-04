@@ -150,5 +150,9 @@ class Article < ActiveRecord::Base
     breadcrumbs
   end
 
+  def geography?
+    self.id == 18
+  end
+
 
 end

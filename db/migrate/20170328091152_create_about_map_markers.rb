@@ -7,6 +7,7 @@ class CreateAboutMapMarkers < ActiveRecord::Migration
       t.text :phones
       t.text :fax_phones
       t.text :emails
+      t.string :lat_lng
       t.timestamps null: false
     end
 

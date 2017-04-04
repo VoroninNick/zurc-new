@@ -1,0 +1,5 @@
+- if @related_articles.try(:any?)
+  .row
+    .list.publications-list-collection.related-articles
+      - @related_articles.each do |article|
+        = render partial: "list_item", locals: { article: article }

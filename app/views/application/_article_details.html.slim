@@ -1,0 +1,22 @@
+.article-details
+  - if @article.release_date.present?
+    .article-date
+      span.article-date-label
+        = "Дата публікації:"
+      span.article-date-value
+        = @article.release_date.strftime("%d.%m.%Y")
+    - if @article.author.present?
+      .article-author
+        span.article-author-label
+          = "Автор:"
+        span.article-author-value
+          = @article.author
+      - if @article.tags.any?
+        .article-date.article-tags
+          span.article-date-label
+            |Теги:
+          span.article-date-value
+            - @article.tags.each do |tag|
+              .tag
+                a href=tag_url(tag)
+                  = tag.name

@@ -1,52 +1,13 @@
 - if @article
   .row
-    .article-info
-      .article-header.columns.large-8.right
-        - if  @article.name.present?
-          h1.article-title.page-title
-            = @article.name
-        .article-details
-          - if @article.release_date.present?
-            .article-date
-              span.article-date-label
-                = "Дата публікації:"
-              span.article-date-value
-                = @article.release_date.strftime("%d.%m.%Y")
-          - if @article.author.present?
-            .article-author
-              span.article-author-label
-                = "Автор:"
-              span.article-author-value
-                = @article.author
-          - if @article.tags.any?
-            .article-date.article-tags
-              span.article-date-label
-                |Теги:
-              span.article-date-value
-                - @article.tags.each do |tag|
-                  .tag
-                    a href=tag_url(tag)
-                      = tag.name
-
-        - if @article.intro.present?
-          .article-intro
-            = @article.intro
-      - if @article.image && @article.image.url.present?
-        .article-image-and-attachments.columns.large-4.left
-          .article-image
-            img src="#{@article.image.url(:avatar)}"
-          = render partial: "article_attachments", locals: { attachments: @article.attachments } if @article && @article.respond_to?(:attachments) && @article.attachments.any?
-      /.clearfix
+    = render "article_info"
     .article-content.columns.large-8.right
       = raw @article.content
     a#scroll-to-top.columns.large-8.right href="#body"
   .row
     .columns
       #disqus_thread
-        = raw disqus_thread 
+        = raw disqus_thread
 
-  .row  
-    .list.publications-list-collection.related-articles
-      - @related_articles.each do |article|
-        = render partial: "list_item", locals: { article: article }
+  = render "related_articles"
 

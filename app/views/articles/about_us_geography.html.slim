@@ -1,0 +1,15 @@
+.row
+  - if @articles.any?
+    .columns.large-3
+      = render partial: "about_menu", locals: {articles: @articles}
+      - if @article && (content = @article.content) && content.present?
+    .columns.large-9.about-article-title-and-content
+    - if (name = @article.name) && name.present?
+      .about-article-name.page-title
+        = name
+        = render partial: "article_attachments", locals: {attachments: @article.attachments} if @article && @article.respond_to?(:attachments) && @article.attachments.any?
+    .about-article-content
+      .article-content.about-article
+        .contact-map-section
+          #contact-map-wrapper.map-wrapper data-zoom="5" data-center="49.842873,24.041152" data-icon-url="/assets/logos/logo_min.png" data-markers=@markers.to_json
+            #contact-map-container.map-container
