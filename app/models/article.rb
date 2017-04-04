@@ -53,6 +53,7 @@ class Article < ActiveRecord::Base
   scope :published, proc { where(published: 't') }
   scope :unpublished, proc { where.not(published: 't') }
   scope :order_by_date_desc, -> { order('release_date desc') }
+  scope :order_by_date_asc, -> { order('release_date asc') }
   scope :featured, -> { where(featured: 't').order_by_date_desc.limit(3) }
   scope :unfeatured, -> { where.not(id: featured.map(&:id)) }
   scope :by_url, -> (url) { where(url_fragment: url ) }

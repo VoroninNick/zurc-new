@@ -42,6 +42,9 @@
         .page-title.columns.large-12
           = t("pages.publications.recent_publications_header")
         = render "tags"
+
+        = render "sorting"
+
         .list.publications-list.infinity-scroll-list
           - if @articles.count > 0
             .list.publications-list-collection

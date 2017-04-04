@@ -1,0 +1,14 @@
+- if @root_category.publications_category? || @root_category.news_category?
+  .columns.medium-2.sorting
+    - html_options = {}
+    - [:desc, :asc].each do |direction|
+      - is_active = @sort == direction
+      - tag = is_active ? :span : :a
+      - html_options[:href] = sort_url(direction) if !is_active
+      - html_options[:class] = "sorting-direction"
+      - html_options[:class] += " active" if is_active
+      - icon_key = direction == :desc ? "down" : "up"
+      - icon_path =  "svg/small_arrows/small-arrow-#{icon_key}.svg"
+
+      = content_tag(tag, html_options) do
+        = embedded_svg_from_assets(icon_path)

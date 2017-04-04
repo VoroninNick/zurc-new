@@ -93,28 +93,45 @@ module ApplicationHelper
 
   def page_url(page)
     tags_str = @selected_tags.map(&:url_fragment).join(",")
-    base_url = @root_category.url
+    base_url = @root_category.url + sort_url_fragment
     if tags_str.present?
       base_url += "/tags=" + tags_str
     end
+
     base_url + "/page=" + page.to_s
 
   end
 
+  def tags_url_fragment(tag = :all)
+    selected_tags_url_fragments = @selected_tags.map(&:url_fragment)
+    if tag
+      if !selected_tags_url_fragments.include?(tag.url_fragment)
+        selected_tags_url_fragments << tag.url_fragment
+      else
+        selected_tags_url_fragments = selected_tags_url_fragments.select{|s| s != tag.url_fragment }
+      end
+    end
+    tags_str = selected_tags_url_fragments.join(',')
+    tags_str.present? ? "/tags=" + tags_str : ""
+  end
+
   def tag_url(tag = :all)
-    base_url = @root_category.url
+    base_url = @root_category.url + sort_url_fragment
     if tag == :all
       return base_url
     end
 
-    selected_tags_url_fragments = @selected_tags.map(&:url_fragment)
-    if !selected_tags_url_fragments.include?(tag.url_fragment)
-      selected_tags_url_fragments << tag.url_fragment
-    else
-      selected_tags_url_fragments = selected_tags_url_fragments.select{|s| s != tag.url_fragment }
-    end
-    tags_str = selected_tags_url_fragments.join(',')
-    tags_part_str = tags_str.present? ? "/tags=" + tags_str : ""
+    tags_part_str = tags_url_fragment(tag)
+
     base_url + tags_part_str
+  end
+
+  def sort_url_fragment(direction = @sort)
+    "/sort=#{direction}"
+  end
+
+  def sort_url(direction)
+    base_url = @root_category.url
+    base_url + sort_url_fragment(direction) + tags_url_fragment(nil)
   end
 end

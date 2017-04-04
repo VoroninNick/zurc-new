@@ -50,6 +50,33 @@
   }
 }
 
+.sorting{
+  text-align: right;
+  .sorting-direction{
+    display: inline-block;
+    background: $blue-color;
+    width: 30px;
+    height: 30px;
+    padding: 7px;
+    margin: 0 5px 0 0;
+
+
+
+    &.active{
+      background: $orange-color;
+    }
+
+    &:last-child{
+      margin: 0;
+    }
+  }
+  svg{
+    display: block;
+    width: 16px;
+    fill: white;
+  }
+}
+
 .list-article-column{
   float: left !important;
 
