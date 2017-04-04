@@ -9,6 +9,8 @@ uk:
   time:
     formats:
       short: "%d.%m.%Y %H:%M"
+  tags:
+    all: "Всі"
   breadcrumbs:
     publications: "Публікації"
     news: "Новини"

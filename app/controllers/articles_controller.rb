@@ -1,9 +1,10 @@
 class ArticlesController < InnerPageController
+  PER_PAGE = 15
   def index(articles = nil, featured_articles = nil, breadcrumbs_title = I18n.t("breadcrumbs.publications"))
     params_category = params[:article_category]
     respond_to do |format|
 
-      @articles = articles || Article.published.send(params_category).unfeatured.order_by_date_desc.page(params[:page]).per(100)
+      @articles = articles || Article.published.send(params_category).unfeatured.order_by_date_desc.page(params[:page]).per(PER_PAGE)
       @featured_articles = featured_articles == false ? nil : featured_articles || Article.published.publications.featured 
 
       format.html do
@@ -148,6 +149,7 @@ class ArticlesController < InnerPageController
     root_category = ArticleCategory.with_translations.where(url_fragment: params[:root_category]).first
 
     if root_category
+      #@tags = root_category.available_tags
       @root_category = root_category
       template_category = root_category.seo_tags.try(:template_name)
       template_category = nil
@@ -158,6 +160,8 @@ class ArticlesController < InnerPageController
       params_url = params[:url]
 
       resource = nil
+
+
 
       if params_url.present?
         category = root_category
@@ -225,7 +229,11 @@ class ArticlesController < InnerPageController
       init_what_we_do_category if @category.try{|c| c.root.send(:what_we_do_category?)}
       init_what_we_do_item if @article.try{|a| a.article_category.root.send(:what_we_do_category?)}
 
-
+      @tags = root_category.available_tags
+      selected_tags_str = params[:tags] || ""
+      selected_tags_arr = selected_tags_str.split(",")
+      @selected_tags = @tags.select{|tag| tag.url_fragment.in?(selected_tags_arr)}
+      @selected_tag_ids = @selected_tags.map(&:id)
 
 
 
@@ -241,12 +249,15 @@ class ArticlesController < InnerPageController
     else
       render_not_found unless @render_executed
     end
+
+
   end
 
   def init_publications
     #@featured_articles = @category.available_articles.select{|a| a.featured? }.sort{|a, b| a.release_date.present? && b.release_date.present? ? a.release_date > b.release_date : (a.release_date.present? ? a : b )   }.first(3)
     @featured_articles = ArticleCategory.publications_category.articles.available.featured
-    @articles = ArticleCategory.publications_category.articles.available.unfeatured.order_by_date_desc.page(params[:page]).per(100)
+    @all_articles = ArticleCategory.publications_category.articles.available.unfeatured.order_by_date_desc
+    @articles = @all_articles.page(params[:page]).per(PER_PAGE)
   end
 
   def init_publication
@@ -258,7 +269,8 @@ class ArticlesController < InnerPageController
 
   def init_news
     #@featured_articles = @category.available_articles.select{|a| a.featured? }.sort{|a, b| a.release_date.present? && b.release_date.present? ? a.release_date > b.release_date : (a.release_date.present? ? a : b )   }.first(3)
-    @articles = ArticleCategory.news_category.articles.available.order_by_date_desc.page(params[:page]).per(100)
+    @all_articles = ArticleCategory.news_category.articles.available.order_by_date_desc
+    @articles = @all_articles.page(params[:page]).per(PER_PAGE)
   end
 
   def init_news_item

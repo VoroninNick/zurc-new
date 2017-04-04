@@ -1,7 +1,11 @@
 - if attachments.any?
   .attachment-icons
     ul.attachment-icons-ul
-      - attachments.limit(6).each do |attachment|
+      - i = 0
+      - attachments.each do |attachment|
+        - next if !attachment.data.file
+        - i += 1
         li.attachment-icon-li
           a.attachment-icon-a href=attachment.data.url
             img.attachment-icon-a-img src=attachment.icon_url
+        - break if i == 5

@@ -3,7 +3,7 @@
     .article-info
       .article-header.columns.large-8.right
         - if  @article.name.present?
-          .article-title.page-title
+          h1.article-title.page-title
             = @article.name
         .article-details
           - if @article.release_date.present?

@@ -17,7 +17,9 @@ class ArticleCategory < ActiveRecord::Base
   attr_accessible :links, :link_ids
 
   has_seo_tags
-  has_cache
+  has_cache do
+
+  end
 
   after_save :reload_routes
   def reload_routes
@@ -99,7 +101,7 @@ class ArticleCategory < ActiveRecord::Base
 
   def smart_to_param(options = {})
     options[:locale] = I18n.locale if options[:locale].blank?
-    url_routes.smart_article_path locale: options[:locale],
+    url_helpers.smart_article_path locale: options[:locale],
                                      root_category: self.try {|c| c.root.url_fragment } ,
                                      url: (self.path.select{|c| !c.root? }.map{|c| c.url_fragment }.select{|url_fragment| url_fragment.present? } ).join("/")
   end
@@ -169,6 +171,29 @@ class ArticleCategory < ActiveRecord::Base
     breadcrumbs
   end
 
+  def available_tags
+
+    if news_category? || publications_category?
+      #Cms::Tag.available_for(self.articles.available.unfeatured)
+      featured_articles_ids = Article.available.featured.pluck(:id)
+      Cms::Tag.joins(taggings: {}, articles: {}).where(articles: { article_category_id: self.id }).where.not(articles: {id: featured_articles_ids}).uniq
+    else
+      []
+    end
+  end
+
+  def entries_count_for_tag(tag = :all)
+    articles = self.articles.available.unfeatured
+    if tag == :all
+      return articles.count
+    end
+
+    articles.joins(:tags).where(cms_tags: {id: tag.id}).count
+  end
+
+  def url
+    "/" + self.url_fragment
+  end
 end
 
 

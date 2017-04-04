@@ -1,0 +1,13 @@
+- if @tags.try(:any?)
+  .columns.tags
+    /|Теги:
+    .tag-list
+      .tags-dropdown-arrow
+        = embedded_svg_from_assets "svg/arrows/arrow-left.svg"
+
+      a.tag href=tag_url class=("active" if @selected_tags.blank?) data-entries-count=@all_articles.count
+        = t("tags.all")
+      - @tags.each do |tag|
+        .tag
+          a href=tag_url(tag) data-entries-count=@root_category.entries_count_for_tag(tag)
+            = tag.name

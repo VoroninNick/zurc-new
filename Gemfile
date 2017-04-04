@@ -135,3 +135,5 @@ gem 'rack-page_caching'
 gem 'enumerize'
 
 gem 'figaro'
+
+gem 'quiet_assets'

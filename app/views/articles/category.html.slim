@@ -41,12 +41,15 @@
       .row
         .page-title.columns.large-12
           = t("pages.publications.recent_publications_header")
+        = render "tags"
         .list.publications-list.infinity-scroll-list
           - if @articles.count > 0
             .list.publications-list-collection
               - @articles.each do |article|
                 - Globalize.with_locale(I18n.locale) do
-                  = render partial: "list_item", locals: { article: article }
+                  /= render partial: "list_item", locals: { article: article }
+                  = render "article", article: article, htag: 'h2', show_date: true, show_attachments: true, show_tags: true
           - else
             = "Публікацій немає"
-        = paginate @articles
+
+        = render "kaminari/pagination", collection: @articles

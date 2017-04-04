@@ -15,7 +15,7 @@ unless RakeSettings.self_skip_initializers?
       devise_for :users
 
       if ArticleCategory.table_exists?
-        get "/:root_category/(*url)", to: "articles#smart_article", as: :smart_article, root_category: /#{ arr = ArticleCategory.roots.published.map(&:translations); translations = []; arr.each {|sub_arr| translations.concat sub_arr };   translations.map(&:url_fragment).select{|s| s.present? }.uniq.join('|')}/
+        get "/:root_category(/tags=:tags)(/sort=:sort)(/page=:page)/(*url)", to: "articles#smart_article", as: :smart_article, root_category: /#{ arr = ArticleCategory.roots.published.map(&:translations); translations = []; arr.each {|sub_arr| translations.concat sub_arr };   translations.map(&:url_fragment).select{|s| s.present? }.uniq.join('|')}/
       end
       if ContactPage.table_exists?
         contact_url_fragments = ( arr = ContactPage.all.map(&:translations); translations = []; arr.each {|sub_arr| translations.concat sub_arr };   translations.map(&:url_fragment).select{|s| s.present? }.uniq.join('|'))

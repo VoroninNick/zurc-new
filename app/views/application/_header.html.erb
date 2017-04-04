@@ -20,7 +20,7 @@
     <div id="language-bar" class="large-2 hide-for-medium-down columns">
       <% locale_labels = { uk: "UA", en: "ENG" } %>
       <ul class="right">
-        <% I18n.available_locales.each do |locale| %>
+        <% Cms.config.provided_locales.each do |locale| %>
             <li class="language" id="<%= locale %>">
               <% if I18n.locale.to_sym == locale.to_sym  %>
                   <%= content_tag(:span, class: 'image-wrapper') { image_tag("flags/#{locale}.png") } + content_tag(:span, locale_labels[locale.to_sym], class: "language-label")  %>

@@ -91,5 +91,23 @@ module ApplicationHelper
     end
   end
 
+  def page_url(page)
+    tags_str = @selected_tags.map(&:url_fragment).join(",")
+    base_url = @root_category.url
+    if tags_str.present?
+      base_url += "/tags=" + tags_str
+    end
+    base_url + "/page=" + page.to_s
 
+  end
+
+  def tag_url(tag = :all)
+    base_url = @root_category.url
+    if tag == :all
+      return base_url
+    end
+
+    tags_str = tag.url_fragment
+    base_url + "/tags=" + tags_str
+  end
 end

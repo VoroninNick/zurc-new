@@ -1,0 +1,37 @@
+- active_page = @articles.current_page
+- total_pages = @articles.total_pages
+- start_page = active_page - 3
+- start_page = 1 if start_page < 1
+- prev_pages = active_page - start_page
+- end_page = active_page + (8 - prev_pages - 1)
+- end_page = total_pages if end_page > total_pages
+
+- numeric_pages = (end_page - start_page).times.map{|i| i + start_page }
+.pagination
+  - back_page = active_page - 10
+  - if back_page < 1
+    - back_page = 1
+  - if back_page < start_page
+    - back_url =  page_url(back_page)
+
+    a.page.back href=back_url
+      = back_page
+
+  - numeric_pages.each do |page|
+    - is_active = page == active_page
+    - tag = is_active ? :span : :a
+    - css_class = "page"
+    - css_class += " active" if is_active
+    - tag_content = page
+    - content_tag_options = {class: css_class}
+    - content_tag_options[:href] = page_url(page) if !is_active
+    = content_tag(tag, tag_content, content_tag_options)
+
+  - forward_page = active_page + 10
+  - if forward_page > total_pages
+    - forward_page = total_pages
+  - if forward_page > end_page
+    - forward_url = page_url(forward_page)
+
+    a.page.forward href=forward_url
+      = forward_page

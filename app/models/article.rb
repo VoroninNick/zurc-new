@@ -44,7 +44,7 @@ class Article < ActiveRecord::Base
   # end
 
   # scopes
-  scope :publications, proc { where(article_category_id: 4 ) }
+    scope :publications, proc { where(article_category_id: 4 ) }
   #scope :publications_exclude_ads, ->(ads = ArticleAd.ads) { publications.select {|p| used = false; ads.map {|ad| used = true if ad.article_id == p.id   }; !used  } }
   #scope :publications_exclude_ads, ->(ads = ArticleAd.ads || [] ) { ads = ArticleAd.ads || [] if ads.nil?; publications.where.not(id: ads.map(&:article_id) )  }
   scope :about_us, proc { where(article_category_id: 2) }
