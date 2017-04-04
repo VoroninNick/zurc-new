@@ -8,4 +8,7 @@
         li.attachment-icon-li
           a.attachment-icon-a href=attachment.data.url
             img.attachment-icon-a-img src=attachment.icon_url
+            - if attachment.name.present?
+              .name
+                = attachment.name
         - break if i == 5

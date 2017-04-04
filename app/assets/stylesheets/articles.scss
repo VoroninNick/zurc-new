@@ -314,6 +314,13 @@
 .attachment-icon-li{
   display: inline-block;
   margin: 0 0.5rem 0 0.5rem;
+  max-width: 100px;
+  text-align: center;
+  vertical-align: top;
+
+  .name{
+    font-size: 14px;
+  }
 }
 
 
