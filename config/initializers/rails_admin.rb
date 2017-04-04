@@ -621,7 +621,7 @@ unless RakeSettings.self_skip_initializers?
     end
 
     config.model YearReport do
-      navigation_label_key(:about_us, 2)
+      navigation_label_key(:about_us, 3)
       list do
         field :published
         field :name do
@@ -648,6 +648,7 @@ unless RakeSettings.self_skip_initializers?
     end
 
     config.model AboutMapMarker do
+      navigation_label_key(:about_us, 4)
       list do
         field :published
         field :title
