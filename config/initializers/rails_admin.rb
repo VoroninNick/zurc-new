@@ -580,7 +580,7 @@ unless RakeSettings.self_skip_initializers?
     # about us
     # =====================
     #config.include_models AboutPageContent
-    config.include_models TeamMember, YearReport
+    config.include_models TeamMember
     config.include_models PublicationArticle, NewsArticle, AboutUsArticle, WhatWeDoArticle
 
     config.model TeamMember do
