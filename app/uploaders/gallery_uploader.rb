@@ -45,7 +45,7 @@ class GalleryUploader < CarrierWave::Uploader::Base
   end
 
   version :admin_thumb do
-    process resize_to_fill: [100, 100]
+    process resize_to_fill: [120, 120]
   end
 
   # Add a white list of extensions which are allowed to be uploaded.

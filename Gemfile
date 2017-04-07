@@ -137,3 +137,5 @@ gem 'enumerize'
 gem 'figaro'
 
 gem 'quiet_assets'
+
+gem 'bower-rails'

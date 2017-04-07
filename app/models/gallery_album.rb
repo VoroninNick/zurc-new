@@ -44,7 +44,7 @@ class GalleryAlbum < ActiveRecord::Base
 
   def image()
     images = try(:images).try{|images| images.select{|i| i && i.image } }
-    images.first.image
+    images.first.try(&:image)
   end
 
   def image_url(version = :thumb)

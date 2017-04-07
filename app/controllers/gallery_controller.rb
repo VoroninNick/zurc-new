@@ -1,5 +1,5 @@
 class GalleryController < ApplicationController
-  before_action :init_gallery
+  before_action :init_gallery, only: [:index, :albums, :images]
   def init_gallery
     @articles = about_articles
   end
@@ -52,6 +52,8 @@ class GalleryController < ApplicationController
   def delete_gallery_image
     image_id = params[:image_id].to_i
     GalleryImage.destroy(image_id)
+
+    render json: {}
   end
 
   private

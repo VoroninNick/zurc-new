@@ -27,32 +27,48 @@ module RailsAdmin
             album_images_attributes_field_name = "images_attributes"
             image_field_name = "data"
 
+            image = nil
 
             if request.post?
               object = album_class.find_by_id(params[underscored_album_id.to_sym])
               if object
+                puts "object found".upcase
                 #@album.update_attribute(:images_attributes, params[:album][:images_attributes])
                 params[underscored_album_class_name.to_sym][album_images_attributes_field_name.to_sym].each do |params_element|
+                  puts "params_element".upcase
                   image = object.send(album_images_association_name).build
                   #image.data = params_element[:file]
 
-                  [I18n.locale].each do |locale|
-                    image_translation = image.translations.any? ? image.translations_by_locale[locale] : nil
-                    if image_translation.nil?
-                      image_translation = image.translations.build(locale: locale)
+                  if image.class::TRANSLATE_IMAGE
+                    [I18n.locale].each do |locale|
+                      image_translation = image.translations.any? ? image.translations_by_locale[locale] : nil
+                      if image_translation.nil?
+                        image_translation = image.translations.build(locale: locale)
+                      end
+
+                      puts "save file".upcase
+
+                      image_translation.send("#{image_field_name}=", params_element[:file] ) #if I18n.locale.to_sym == locale.to_sym
+
+                      #image.save
                     end
-
-                    image_translation.send("#{image_field_name}=", params_element[:file] ) #if I18n.locale.to_sym == locale.to_sym
-
-                    #image.save
+                  else
+                    image.send("#{image_field_name}=", params_element[:file] )
                   end
                 end
 
                 object.save
+              else
+                puts "object not found".upcase
+
               end
+
+              render json: image.get_props
+            else
+              render :action => @action.template_name
             end
 
-            render :action => @action.template_name
+
           end
         end
       end
