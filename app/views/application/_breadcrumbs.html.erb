@@ -5,7 +5,7 @@
           <%# @breadcrumbs.inspect %>
           <% if @breadcrumbs %>
 			<% @breadcrumbs.each_with_index do |b, index| %>
-  				<li><% if b[:url] && index != @breadcrumbs.length - 1 %>
+  				<li <% if @articles.try(:any?) then %>class="has-child"<% end %>><% if b[:url] && index != @breadcrumbs.length - 1 %>
   						<%= link_to(b[:title], b[:url]) %>
   					<% else %>
   						<%= content_tag(:span, b[:title], class: "#{"current" if b[:current] == true  }") %>

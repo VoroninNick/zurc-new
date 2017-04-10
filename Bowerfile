@@ -1,2 +1,3 @@
+asset "jquery", "1.11.2"
 asset "jquery-form"
 asset "dropzone"

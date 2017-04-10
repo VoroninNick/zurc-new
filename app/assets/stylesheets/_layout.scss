@@ -123,6 +123,7 @@ $breadcrumbs-wrapper-height: rem-calc(70);
 		}
 
 		@media #{$small} {
+          display: none;
 			ul{
 				li{
 					&.phone{
@@ -826,22 +827,29 @@ body:before {
           cursor: pointer;
           @include transition(all 0.5s);
 
-
-          &:after{
-            @include css-triangle(7px, $gray-color, top);
-            display: inline-block;
-            top: 4px;
-            position: relative;
-            margin-left: 7px;
-            @include transition(all 0.5s);
-          }
-
-          &.active, &:hover{
-            color: white;
-            background: $gray-color;
-
+        }
+      }
+    }
+    body.has-about-menu &{
+      ul.breadcrumbs{
+        li{
+          span{
             &:after{
-              border-top-color: white;
+              @include css-triangle(7px, $gray-color, top);
+              display: inline-block;
+              top: 4px;
+              position: relative;
+              margin-left: 7px;
+              @include transition(all 0.5s);
+            }
+
+            &.active, &:hover{
+              color: white;
+              background: $gray-color;
+
+              &:after{
+                border-top-color: white;
+              }
             }
           }
         }

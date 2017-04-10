@@ -148,6 +148,8 @@ class ArticlesController < InnerPageController
 
     root_category = ArticleCategory.with_translations.where(url_fragment: params[:root_category]).first
 
+    @render_about_menu = root_category.about_us_category?
+
     if root_category
       #@tags = root_category.available_tags
       @root_category = root_category
@@ -249,6 +251,7 @@ class ArticlesController < InnerPageController
 
 
 
+      #return render inline: built_template_name
 
       if template_name.split('/').one?
         render built_template_name unless @render_executed
