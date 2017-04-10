@@ -1,0 +1,21 @@
+.row
+  - if @articles.any?
+    .columns.large-3
+      = render partial: "about_menu", locals: {articles: @articles}
+      - if @article && (content = @article.content) && content.present?
+
+    .about-article-content
+      .article-content.about-article
+        #members.row
+          - @team_members.each do |member|
+            .columns.medium-4.large-3.member.small-6.small-centered.large-uncentered
+              .member-image
+                img alt="" src=member.image.url(:medium) style=("width: 239px; height: 276px;" if false)
+              .member-description
+                span.name
+                  = member.name
+                span.role
+                  = member.position
+                - member.emails.each do |email|
+                  a.email href=email_url(email)
+                    = email

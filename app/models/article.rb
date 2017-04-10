@@ -154,5 +154,9 @@ class Article < ActiveRecord::Base
     self.id == 18
   end
 
+  def team?
+    self.id == 16
+  end
+
 
 end

@@ -787,3 +787,30 @@
     background: none;
   }
 }
+
+.member{
+  margin-top: 1rem;
+  margin-bottom: 3rem;
+  height: 380px;
+}
+
+.member .name, .member .role, .member .email{
+  display: block;
+  text-align: center;
+}
+
+.member .member-description{
+  margin-top: 0.5rem;
+}
+
+.member .name{
+  font-size: 1.5rem;
+}
+
+.member .role{
+  font-size: 0.8rem;
+}
+
+.member .email{
+  margin-top: 0.8rem;
+}

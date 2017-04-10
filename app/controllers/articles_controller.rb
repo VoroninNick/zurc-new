@@ -209,6 +209,9 @@ class ArticlesController < InnerPageController
         if resource.geography?
           template_name = "geography"
           @markers = AboutMapMarker.published.map{|m| Hash[[:title, :address, :phones, :fax_phones, :emails, :lat_lng].map{|k| [k, m.send(k)] }] }
+        elsif resource.team?
+          template_name = "team"
+          @team_members = TeamMember.published
         else
           template_name = "item"
         end
