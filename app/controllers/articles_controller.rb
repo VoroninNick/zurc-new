@@ -146,6 +146,8 @@ class ArticlesController < InnerPageController
 
     # first determine item is article or category
 
+    @per = params[:per].try(:to_i) || 15
+
     root_category = ArticleCategory.with_translations.where(url_fragment: params[:root_category]).first
 
     @render_about_menu = root_category.about_us_category?

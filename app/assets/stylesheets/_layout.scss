@@ -1275,6 +1275,23 @@ body:before {
   }
 }
 
+.per-page{
+  .dropdown{
+    a{
+      margin-right: 5px;
+      color: $blue-color;
+
+      &:last-child{
+        margin-right: 0;
+      }
+
+      &.active{
+        color: $orange-color;
+      }
+    }
+  }
+}
+
 @media #{$medium-down} {
   #menu-container {
     > ul {
@@ -1328,3 +1345,4 @@ body:before {
     font-size: 18px;
   }
 }
+

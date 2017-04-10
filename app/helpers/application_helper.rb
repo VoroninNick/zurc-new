@@ -93,7 +93,7 @@ module ApplicationHelper
 
   def page_url(page)
     tags_str = @selected_tags.map(&:url_fragment).join(",")
-    base_url = @root_category.url + sort_url_fragment
+    base_url = @root_category.url + sort_url_fragment + per_url_fragment
     if tags_str.present?
       base_url += "/tags=" + tags_str
     end
@@ -116,7 +116,7 @@ module ApplicationHelper
   end
 
   def tag_url(tag = :all)
-    base_url = @root_category.url + sort_url_fragment
+    base_url = @root_category.url + sort_url_fragment + per_url_fragment
     if tag == :all
       return base_url
     end
@@ -130,8 +130,23 @@ module ApplicationHelper
     "/sort=#{direction}"
   end
 
+  def per_url_fragment(per = @per)
+    "/per=#{per}"
+  end
+
+  def per_url(per = @per)
+    tags_str = @selected_tags.map(&:url_fragment).join(",")
+    base_url = @root_category.url + sort_url_fragment + per_url_fragment(per)
+    if tags_str.present?
+      base_url += "/tags=" + tags_str
+    end
+
+    base_url + "/page=" + page.to_s
+
+  end
+
   def sort_url(direction)
     base_url = @root_category.url
-    base_url + sort_url_fragment(direction) + tags_url_fragment(nil)
+    base_url + sort_url_fragment(direction) + per_url_fragment + tags_url_fragment(nil)
   end
 end
