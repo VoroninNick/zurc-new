@@ -1,6 +1,9 @@
 $document.on('rails_admin.dom_ready', function(){
     var $form = $(".multiple-upload-form")
     var url = $form.attr("action")
+    if(!$form.length){
+        return
+    }
     window.myDropzone = new Dropzone($form.get(0), {
         url: url,
         paramName: "gallery_album[images_attributes][][file]",

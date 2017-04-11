@@ -116,6 +116,7 @@ gem 'rails_admin-i18n'
 gem 'globalize'
 gem 'rails_admin_globalize_field'
 gem 'rails_admin_nestable'
+gem "rails_admin_map_field", :github => "pkorenev/rails_admin_map_field"
 
 gem 'fancybox2-rails'
 

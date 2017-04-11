@@ -680,7 +680,15 @@ unless RakeSettings.self_skip_initializers?
         field :phones
         field :fax_phones
         field :emails
-        field :lat_lng
+        #field :lat_lng
+        field :lat, :map do
+          longitude_field :lon
+          google_api_key ENV["GOOGLE_MAPS_API_KEY"]
+          # 49.842873,24.041152
+          default_latitude 49.842873  # Sydney, Australia
+          default_longitude 24.041152
+          default_zoom_level 13
+        end
       end
     end
 
