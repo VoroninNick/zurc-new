@@ -72,6 +72,7 @@ $document.on('ready rails_admin.dom_ready', function(){
 
     var $form = $("form.multiple-upload-form")
     $form.sortable({
+        cancel: ".form-header, .form-header *",
         change: function(event, ui){
             setTimeout(dz_upload_data, 1000)
         }
