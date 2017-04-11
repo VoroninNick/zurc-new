@@ -29,8 +29,8 @@ class GalleryAlbum < ActiveRecord::Base
 
   # scopes
   scope :published, -> { where(published: 't') }
-  scope :available, -> { published.joins(images: :translations).where(gallery_images: { published: 't' }).where.not(gallery_image_translations: {data: nil}).group("gallery_albums.id") }
-
+  #scope :available, -> { published.joins(images: :translations).where(gallery_images: { published: 't' }).where.not(gallery_image_translations: {data: nil}).group("gallery_albums.id") }
+  scope :available, -> { published }
 
   has_cache
 

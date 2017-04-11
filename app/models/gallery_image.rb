@@ -40,7 +40,8 @@ class GalleryImage < ActiveRecord::Base
 
   # scopes
   boolean_scope :published
-  scope :available, -> { published.joins(:translations).where.not(gallery_image_translations: { data: nil }) }
+  #scope :available, -> { published.joins(:translations).where.not(gallery_image_translations: { data: nil }) }
+  scope :available, -> { published }
 
   if check_tables(:gallery_albums)
     belongs_to :album, class_name: GalleryAlbum

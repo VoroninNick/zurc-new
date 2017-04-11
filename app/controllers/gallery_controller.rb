@@ -26,8 +26,10 @@ class GalleryController < ApplicationController
     if @gallery_album
       @breadcrumbs << { title: @gallery_album.name }
     end
-    @gallery_images = @gallery_album.try{|a| a.images.available}
-    @available_tags = Cms::Tag.available_for(@gallery_images)
+    @gallery_images = @gallery_album.try{|a| a.images.available.select{|image| image.image_url.present? }}
+
+
+    @available_tags = @gallery_images.try(:any?) ? Cms::Tag.available_for(@gallery_images) : []
 
     init_metadata
   end
