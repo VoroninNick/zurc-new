@@ -675,13 +675,16 @@ unless RakeSettings.self_skip_initializers?
       end
 
       edit do
+
         field :published
         field :translations, :globalize_tabs
         field :phones
         field :fax_phones
         field :emails
         #field :lat_lng
-        field :lat, :map do
+
+
+        field :lat_lng, :map do
           longitude_field :lon
           google_api_key ENV["GOOGLE_MAPS_API_KEY"]
           # 49.842873,24.041152
@@ -695,7 +698,7 @@ unless RakeSettings.self_skip_initializers?
     config.model_translation AboutMapMarker do
       field :locale, :hidden
       field :title
-      field :address
+      field :address, :string
     end
 
   end
