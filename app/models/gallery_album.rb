@@ -42,12 +42,12 @@ class GalleryAlbum < ActiveRecord::Base
     end
   end
 
-  def image()
-    images = try(:images).try{|images| images.select{|i| i && i.image } }
-    images.first.try(&:image)
+  def image(version = :thumb)
+    images = try(:images).try{|images| images.select{|i| i.image(version).file } }
+    images.first.try(:image, version)
   end
 
   def image_url(version = :thumb)
-    image.try{|img| img.data.send(version).url }
+    image(version).try{|img| img.url }
   end
 end

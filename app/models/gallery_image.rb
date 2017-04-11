@@ -26,10 +26,12 @@ class GalleryImage < ActiveRecord::Base
   def image(version = :thumb)
     upload = data.send(version)
     upload = translations.select{|t| t.data.present?  }.first if TRANSLATE_IMAGE && upload.blank?
+
+    upload
   end
 
   def image_url(version = :thumb)
-    image(version).try{|t| t.data.send(version).url }
+    image(version).try{|t| t.url }
   end
 
   # associations

@@ -399,10 +399,8 @@ unless RakeSettings.self_skip_initializers?
             @bindings[:object].name
           end
         end
-        field :image do
+        field :image, :string do
           def value
-
-
             @bindings[:object].try(:image_url)
           end
 
