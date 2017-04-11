@@ -21,7 +21,7 @@ $document.on('rails_admin.dom_ready', function(){
             }
 
             this.on('success', function(file, response) {
-                $(file.previewTemplate).find('.dz-remove').attr('id', response.fileID)
+                $(file.previewTemplate).find('.dz-remove').attr('data-image-id', response.id)
                 $(file.previewElement).addClass('dz-success')
             })
 
@@ -36,11 +36,11 @@ $document.on('rails_admin.dom_ready', function(){
             }
 
 
-            $preview_element.find("a.dz-remove").attr("id", file.id )
+            $preview_element.find("a.dz-remove").attr("data-image-id", file.id )
 
         },
         removedfile: function(file){
-            var id = $(file.previewTemplate).find('.dz-remove').attr('id')
+            var id = $(file.previewTemplate).find('.dz-remove').attr('data-image-id')
             var request_data = { image_id: id }
             $.ajax({
                 type: 'post',
@@ -56,7 +56,7 @@ $document.on('rails_admin.dom_ready', function(){
         sending: function (file, xhr, formData) {
             //formData.append('image[advert_id]', advert_id)
             this.on('success', function(file, response) {
-                $(file.previewTemplate).find('.dz-remove').attr('id', response.id)
+                $(file.previewTemplate).find('.dz-remove').attr('data-image-id', response.id)
                 $(file.previewElement).addClass('dz-success')
             })
         }
@@ -68,6 +68,13 @@ $document.on('ready rails_admin.dom_ready', function(){
     $('head').append('<link rel="stylesheet" type="text/css" href="/assets/fancybox.css">')
     $.getScript("/assets/fancybox.js", function(){
         init_fancybox_links()
+    })
+
+    var $form = $("form.multiple-upload-form")
+    $form.sortable({
+        change: function(event, ui){
+            setTimeout(dz_upload_data, 1000)
+        }
     })
 
 })
@@ -86,4 +93,39 @@ function init_fancybox_links($link){
             $link.fancybox()
         }
     })
+}
+
+last_update_time = null
+function dz_upload_data(){
+    console.log('upload data')
+    var current_time = Date.now()
+    if(last_update_time == null || current_time - last_update_time >= 1000) {
+        last_update_time = current_time
+        var order_data = []
+        var $gallery_images = $('.dz-preview')
+        $gallery_images.each(function (index) {
+            var $item = $(this)
+            var item_data = {id: $item.find("a.dz-remove").attr('data-image-id'), position: index + 1}
+            order_data.push(item_data)
+        })
+
+        if (!order_data.length){
+            return
+        }
+
+        console.log("send_sorting_data: ", order_data)
+
+        var ORDER_DATA = order_data
+        var request_data = {order_data: order_data}
+
+        $.ajax({
+            url: "/update_images_order",
+            data: request_data,
+            type: "post",
+            dataType: 'json'
+        })
+    }
+    else{
+        setTimeout(upload_data, 1000)
+    }
 }

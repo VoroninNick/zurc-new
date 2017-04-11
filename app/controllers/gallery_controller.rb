@@ -47,6 +47,8 @@ class GalleryController < ApplicationController
         image.save
       end
     end
+
+    render json: {}
   end
 
   def delete_gallery_image
