@@ -139,6 +139,18 @@ unless RakeSettings.self_skip_initializers?
         field :locale, :hidden
         field :name
         field :url_fragment
+        field :page_url do
+          read_only true
+
+          def value
+            locale = @bindings[:object].locale
+            @bindings[:object].article.try(:url, locale)
+          end
+
+          pretty_value do
+            value.present? ? "<a href='#{value}'>#{value}</a>".html_safe : "-"
+          end
+        end
         field :description
         field :intro
         field :content, :ck_editor

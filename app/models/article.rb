@@ -128,10 +128,18 @@ class Article < ActiveRecord::Base
   end
 
   def smart_to_param(options = {})
+    locale = options[:locale] || I18n.locale
+    if !locale.in?(Cms.config.provided_locales)
+      return nil
+    end
 
-    url_helpers.smart_article_path locale: I18n.locale,
-                                     root_category: article_category.try {|category| category.root.url_fragment } ,
-                                     url: (article_category.path.select{|c| !c.root? }.map{|c| c.url_fragment }.select{|url_fragment| url_fragment.present? } << self.url_fragment ).join("/")
+    url_helpers.smart_article_path locale: locale,
+                                     root_category: article_category.try {|category| category.root.url_fragment(locale) } ,
+                                     url: (article_category.path.select{|c| !c.root? }.map{|c| c.url_fragment(locale) }.select{|url_fragment| url_fragment.present? } << self.url_fragment(locale) ).join("/")
+  end
+
+  def url(locale = I18n.locale)
+    smart_to_param(locale: locale)
   end
 
   def smart_breadcrumbs
