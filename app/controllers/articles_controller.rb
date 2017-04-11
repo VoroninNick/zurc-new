@@ -4,7 +4,7 @@ class ArticlesController < InnerPageController
     params_category = params[:article_category]
     respond_to do |format|
 
-      @articles = articles || Article.published.send(params_category).unfeatured.order_by_date_desc.page(params[:page]).per(PER_PAGE)
+      @articles = articles || Article.published.send(params_category).unfeatured.order_by_date_desc.page(params[:page]).per(@per)
       @featured_articles = featured_articles == false ? nil : featured_articles || Article.published.publications.featured 
 
       format.html do
@@ -48,7 +48,7 @@ class ArticlesController < InnerPageController
   end
 
   def news_index
-    articles = Article.published.news.order_by_date_desc.page(params[:page]).per(100)
+    articles = Article.published.news.order_by_date_desc.page(@page).per(@per)
     index(articles, false, I18n.t("breadcrumbs.news"))
     respond_to do |format|
       format.html { render "index" }
@@ -251,7 +251,7 @@ class ArticlesController < InnerPageController
       @selected_tag_ids = @selected_tags.map(&:id)
 
 
-
+      #return render inline: @articles.current_page.to_s
 
       #return render inline: built_template_name
 
@@ -305,7 +305,8 @@ class ArticlesController < InnerPageController
     if params_tags_arr.any?
       @articles = @articles.joins(tags: :translations).where(cms_tag_translations: {url_fragment: params_tags_arr, locale: I18n.locale}).uniq
     end
-    @articles = @articles.page(params[:page]).per(PER_PAGE)
+    @page = params[:page] || 1
+    @articles = @articles.page(@page).per(@per)
   end
 
   def init_news_item

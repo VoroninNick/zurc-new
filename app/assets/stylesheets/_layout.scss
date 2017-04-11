@@ -1276,7 +1276,14 @@ body:before {
 }
 
 .per-page{
+  text-align: right;
+  .drop-down-control{
+    margin-top: -10px;
+  }
+
   .dropdown{
+    box-shadow: none;
+    border-radius: 0;
     a{
       margin-right: 5px;
       color: $blue-color;

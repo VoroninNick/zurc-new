@@ -6,7 +6,7 @@
 - end_page = active_page + (8 - prev_pages - 1)
 - end_page = total_pages if end_page > total_pages
 
-- numeric_pages = (end_page - start_page).times.map{|i| i + start_page }
+- numeric_pages = (end_page - start_page + 1).times.map{|i| i + start_page }
 .pagination
   - back_page = active_page - 10
   - if back_page < 1

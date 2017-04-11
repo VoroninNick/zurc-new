@@ -98,8 +98,13 @@ module ApplicationHelper
       base_url += "/tags=" + tags_str
     end
 
-    base_url + "/page=" + page.to_s
+    base_url + page_url_fragment(page)
 
+  end
+
+  def page_url_fragment(page = @page, ignore_first_page = true)
+    p = page.try(:to_i) || 1
+    p > 1 ? "/page=" + p.to_s : ""
   end
 
   def tags_url_fragment(tag = :all)
@@ -141,7 +146,7 @@ module ApplicationHelper
       base_url += "/tags=" + tags_str
     end
 
-    base_url + "/page=" + page.to_s
+    base_url
 
   end
 

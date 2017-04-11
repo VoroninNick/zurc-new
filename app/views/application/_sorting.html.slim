@@ -1,5 +1,5 @@
 - if @root_category.publications_category? || @root_category.news_category?
-  .columns.medium-2.sorting
+  .columns.medium-2.large-1.sorting
     - html_options = {}
     - [:desc, :asc].each do |direction|
       - is_active = @sort == direction
