@@ -680,6 +680,7 @@ unless RakeSettings.self_skip_initializers?
         field :phones
         field :fax_phones
         field :emails
+        field :lat_lng
       end
     end
 
