@@ -2,7 +2,7 @@ require Rails.root.join "config/initializers/rake_settings"
 
 unless RakeSettings.self_skip_initializers?
   Rails.application.routes.draw do
-    post "contact#post_message", as: :send_message
+    post "message", "contact#post_message", as: :send_message
     get '/message', to: 'contact#message', as: :message
 
     post "update_images_order", to: "gallery#order_gallery_album_images"
