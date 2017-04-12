@@ -1,6 +1,6 @@
 class MessageMailer < ApplicationMailer
   def receivers(name)
-    config_class = "FormConfigs::#{name.classify}".constantize
+    config_class = "FormConfigs::#{name.to_s.classify}".constantize
     to = config_class.first.try(&:emails) || config_class.default_emails
     to
   end
