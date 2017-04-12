@@ -62,6 +62,11 @@ unless RakeSettings.self_skip_initializers?
     config.include_models MenuItem, Cms::MetaTags
     config.include_models Message, FormConfigs::Message
 
+    config.model FormConfigs::Message do
+      field :email_receivers, :text do
+      end
+    end
+
 
 
 
