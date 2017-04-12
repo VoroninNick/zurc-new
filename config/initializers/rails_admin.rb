@@ -60,6 +60,7 @@ unless RakeSettings.self_skip_initializers?
     config.include_models PagesAbout, ContactPage, HomeSlide, HomeGalleryImage, HomeFirstAbout
     config.include_models HomeSecondAbout, User, Attachment, GalleryImage, GalleryAlbum, Cms::Tag, Cms::Tagging
     config.include_models MenuItem, Cms::MetaTags
+    config.include_models Message
 
 
 
