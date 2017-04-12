@@ -2,7 +2,8 @@ require Rails.root.join "config/initializers/rake_settings"
 
 unless RakeSettings.self_skip_initializers?
   Rails.application.routes.draw do
-    match '/message', to: 'contact#message', via: [:get, :post], as: :message
+    post "contact#post_message", as: :send_message
+    get '/message', to: 'contact#message', as: :message
 
     post "update_images_order", to: "gallery#order_gallery_album_images"
     post "delete_gallery_image", to: "gallery#delete_gallery_image"
