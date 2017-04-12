@@ -59,6 +59,9 @@ function init() {
             for(var i = 0; i < data_markers.length; i++) {
                 var data_marker = data_markers[i]
                 var m = {}
+                if (!data_marker.lat_lng){
+                  continue
+                }
                 var lat_lng_arr = data_marker.lat_lng.split(",")
                 if (!lat_lng_arr){
                   continue
@@ -83,30 +86,23 @@ function init() {
 
         var first_marker = markers[0]
 
-        var a = data_map_center_lat || first_marker.lat, b = data_map_center_lng || first_marker.lng
+        if( (data_map_center_lat && data_map_center_lng) || first_marker) {
 
-        var mapCenter = new google.maps.LatLng(a,b );
-        map = new google.maps.Map($('.map-container').get(0), {
+
+          var a = data_map_center_lat || first_marker.lat, b = data_map_center_lng || first_marker.lng
+
+          var mapCenter = new google.maps.LatLng(a, b);
+          map = new google.maps.Map($('.map-container').get(0), {
             scrollwheel: true,
             zoom: zoom,
             center: mapCenter,
             //mapTypeId: google.maps.MapTypeId.ROADMAP
             mapTypeId: HOME_MAPTYPE_ID
-        });
+          });
 
-        map.mapTypes.set(HOME_MAPTYPE_ID, customMapType);
-
-
-        //var div = document.createElement('DIV');
-        //div.innerHTML = '<div class="my-other-marker">I am flat marker!</div>';
-
-        console.log('hello')
-
-
-        if(standard_method){
+          map.mapTypes.set(HOME_MAPTYPE_ID, customMapType);
 
         }
-
 
         var info_window_contents = []
 
