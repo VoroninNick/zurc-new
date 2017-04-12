@@ -13,7 +13,7 @@ class ContactController < InnerPageController
     I18n.available_locales.select{|locale| locale.to_sym != I18n.locale.to_sym }.each do |locale|
       @locale_links[locale.to_sym] = ContactPage.first.to_param
     end
-    @map_markers = [[49.843031, 24.041205, "test-header", "test-description"] ]
+    @map_markers = [{lat_lng: "49.843031,24.041205", title: "test-header", address: "test-description"} ]
   end
 
   def post_message
