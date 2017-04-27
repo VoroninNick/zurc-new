@@ -20,7 +20,7 @@
           = tag.name
 
   div class="home-publication-image-and-description"
-    = link_to( image_tag( article.image.home_featured, alt: article.name ), article.smart_to_param, class: 'image-link' )
+    = link_to( image_tag( article.image.avatar, alt: article.name ), article.smart_to_param, class: 'image-link' )
     - if article.description.present?
       p class="home-publication-description"
         = article.description

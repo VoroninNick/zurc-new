@@ -90,10 +90,14 @@
 
     .home-publication-name{
       font-size: 16px;
+      height: 44px;
+      overflow-y: hidden;
     }
 
     .home-publication-description{
       margin-bottom: 10px;
+      height: 200px;
+      overflow-y: hidden;
     }
 
     .attachment-icons{

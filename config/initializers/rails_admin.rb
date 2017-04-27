@@ -707,5 +707,10 @@ unless RakeSettings.self_skip_initializers?
       field :address, :string
     end
 
+    config.include_models Ckeditor::Picture
+    config.model Ckeditor::Picture do
+      visible false
+    end
+
   end
 end

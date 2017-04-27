@@ -45,7 +45,7 @@ class ImageUploader < CarrierWave::Uploader::Base
   end
 
   version :avatar do
-    process :resize_to_fit => [400,300]
+    process :resize_to_fill => [400,300]
   end
 
   #with_options(if: proc { a = model.assetable; (a.is_a?(Article) && a.publication?) || ( a.is_a?(ArticleAd) && a.article.publication? )  })  do |publication_image|

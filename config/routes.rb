@@ -2,6 +2,7 @@ require Rails.root.join "config/initializers/rake_settings"
 
 unless RakeSettings.self_skip_initializers?
   Rails.application.routes.draw do
+    mount Ckeditor::Engine => '/ckeditor'
     post "message", to: "contact#post_message", as: :send_message
     get '/message', to: 'contact#message', as: :message
 
@@ -13,7 +14,7 @@ unless RakeSettings.self_skip_initializers?
       get "/gallery/:album", to: "gallery#images", as: :gallery_album
 
       mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
-      mount Ckeditor::Engine => '/ckeditor'
+
       devise_for :users
 
       if ArticleCategory.table_exists?
