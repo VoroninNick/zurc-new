@@ -63,6 +63,16 @@
     font-size: 1.3rem;
     font-weight: 700;
   }
+
+  @media (max-width: 640px) {
+    .slide-bg{
+      height: auto !important;
+      background: none !important;
+      img{
+        opacity: 1 !important;
+      }
+    }
+  }
 }
 
 #home-about{
