@@ -1,4 +1,7 @@
-
+<% content = FooterCompaniesMarkup.content %>
+<% if content.present? %>
+<%= content %>
+<% else %>
 
 <div id="sponsors">
   <div class="row">
@@ -84,3 +87,4 @@
     </div>
   </div>
 </div>
+<% end %>
