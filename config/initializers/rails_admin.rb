@@ -721,6 +721,7 @@ unless RakeSettings.self_skip_initializers?
 
     config.model_translation FooterCompaniesMarkup do
       edit do
+        field :locale, :hidden
         field :content#, :ck_editor
       end
     end
