@@ -712,5 +712,19 @@ unless RakeSettings.self_skip_initializers?
       visible false
     end
 
+    config.include_models FooterCompaniesMarkup
+    config.model FooterCompaniesMarkup do
+      edit do
+        field :translations, :globalize_tabs
+      end
+    end
+
+    config.model_translation FooterCompaniesMarkup do
+      edit do
+        field :locale, :hidden
+        field :content, :ck_editor
+      end
+    end
+
   end
 end

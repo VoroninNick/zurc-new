@@ -26,7 +26,8 @@ CKEDITOR.editorConfig = function( config )
 
     config.allowedContent = true;
 
-    config.extraPlugins = 'codemirror,maxheight'; // enable CodeMirror for HTML source
+    //config.extraPlugins = 'codemirror,maxheight'; // enable CodeMirror for HTML source
+    config.extraPlugins = 'maxheight'
 
     /* Filebrowser routes */
     // The location of an external file browser, that should be launched when "Browse Server" button is pressed.
