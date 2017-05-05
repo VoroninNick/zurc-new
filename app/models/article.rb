@@ -135,7 +135,7 @@ class Article < ActiveRecord::Base
 
     url_helpers.smart_article_path locale: locale,
                                      root_category: article_category.try {|category| category.root.url_fragment(locale) } ,
-                                     url: (article_category.path.select{|c| !c.root? }.map{|c| c.url_fragment(locale) }.select{|url_fragment| url_fragment.present? } << self.url_fragment(locale) ).join("/")
+                                     url: (article_category.try{|c| c.path.select{|c| !c.root? }.map{|c| c.url_fragment(locale) }.select{|url_fragment| url_fragment.present? } << self.url_fragment(locale)} ).join("/")
   end
 
   def url(locale = I18n.locale)
