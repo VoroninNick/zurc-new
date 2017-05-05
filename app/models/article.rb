@@ -133,10 +133,10 @@ class Article < ActiveRecord::Base
       return nil
     end
 
-    url_helpers.smart_article_path (locale: locale,
+    url_helpers.smart_article_path({locale: locale,
                                      root_category: article_category.try {|category| category.root.url_fragment(locale) } ,
                                      url: (article_category.try{|c| c.path.select{|c| !c.root? }.map{|c| c.url_fragment(locale) }.select{|url_fragment| url_fragment.present? } << self.url_fragment(locale)} ).try(:join, "/")
-    ) rescue nil
+    }) rescue nil
   end
 
   def url(locale = I18n.locale)
