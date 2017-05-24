@@ -133,7 +133,7 @@ class Article < ActiveRecord::Base
       return nil
     end
 
-    url_fragment = self.url_fragment(locale)
+    url_fragment = self.translations_by_locale[locale].try(:url_fragment)
     if url_fragment.blank?
       return nil
     end
