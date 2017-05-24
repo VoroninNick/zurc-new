@@ -4,6 +4,7 @@ class ContactController < InnerPageController
     initialize_contact_page
     init_metadata
 
+
     @message = Message.new
   end
 
@@ -11,7 +12,7 @@ class ContactController < InnerPageController
     @contact_page = true
     @breadcrumbs.push({title: I18n.t("breadcrumbs.contact"), url: false, current: true})
     I18n.available_locales.select{|locale| locale.to_sym != I18n.locale.to_sym }.each do |locale|
-      @locale_links[locale.to_sym] = ContactPage.first.to_param
+      @locale_links[locale.to_sym] = ContactPage.url(locale)
     end
     @map_markers = [{lat_lng: "49.843031,24.041205", title: "test-header", address: "test-description"} ]
   end
