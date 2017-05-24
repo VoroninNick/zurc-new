@@ -15,6 +15,9 @@ class PageController < ApplicationController
   end
 
   def contact
+    I18n.available_locales.each do |locale|
+      @locale_links[locale.to_sym] = ContactPage.url(locale)
+    end
   end
 
   def about

@@ -39,4 +39,14 @@ class ContactPage < ActiveRecord::Base
     url_helpers.contact_path locale: options[:locale],
                                url: url_fragment
   end
+
+  def self.url(locale = I18n.locale)
+    p = self.first
+    return nil if p.blank?
+
+    url_fragment = p.translations_by_locale[locale].try(:url_fragment)
+    return nil if url_fragment.blank?
+
+    "/#{locale}/" + url_fragment
+  end
 end
