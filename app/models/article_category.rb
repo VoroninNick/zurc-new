@@ -200,8 +200,13 @@ class ArticleCategory < ActiveRecord::Base
     articles.joins(:tags).where(cms_tags: {id: tag.id}).count
   end
 
-  def url
-    "/" + self.url_fragment
+  def url(locale = I18n.locale)
+    #"/" + self.url_fragment
+
+    url_helpers.smart_article_path({locale: locale,
+                                    root_category: self.try{|category| category.root.url_fragment(locale) } ,
+                                    url: (self.try{|c| c.path.select{|c| !c.root? }.map{|c| c.url_fragment(locale) }.select{|url_fragment| url_fragment.present? }} ).try(:join, "/")
+                                   })
   end
 end
 
