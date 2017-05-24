@@ -208,7 +208,7 @@ class ArticleCategory < ActiveRecord::Base
     root = self.root? ? self : self.root
 
     url_helpers.smart_article_path({locale: locale,
-                                    root_category: root.url_fragment(locale) ,
+                                    root_category: root.translations_by_locale[locale].try(:url_fragment) ,
                                     url: (self.try{|c| c.path.select{|c| !c.root? }.map{|c| c.url_fragment(locale) }.select{|url_fragment| url_fragment.present? }} ).try(:join, "/")
                                    })
   end
