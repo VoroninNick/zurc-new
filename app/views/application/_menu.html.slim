@@ -19,7 +19,6 @@
                     - if node.is_a?(Array)
                       ul
                         - node.each do |menu_item|
-                          - next if menu_item[:link].blank? || menu_item[:name].blank?
                           li
                             a href=menu_item[:link]
                               span
