@@ -50,4 +50,13 @@ class GalleryAlbum < ActiveRecord::Base
   def image_url(version = :thumb)
     image(version).try{|img| img.url }
   end
+
+  def url(locale = I18n.locale)
+    url_fragment = self.translations_by_locale[locale].try(:url_fragment)
+    if url_fragment.blank?
+      return nil
+    end
+
+    url_helpers.gallery_album_path(locale: locale, album: url_fragment)
+  end
 end

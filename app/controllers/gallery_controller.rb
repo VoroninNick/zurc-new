@@ -5,7 +5,9 @@ class GalleryController < ApplicationController
   end
 
   def index
-
+    I18n.available_locales.each do |locale|
+      @locale_links[locale.to_sym] = "/#{locale}/gallery"
+    end
   end
 
   def albums
@@ -25,6 +27,9 @@ class GalleryController < ApplicationController
     @gallery_album = GalleryAlbum.available.with_translations.where(url_fragment: params_album).first
     if @gallery_album
       @breadcrumbs << { title: @gallery_album.name }
+      I18n.available_locales.each do |locale|
+        @locale_links[locale.to_sym] = @gallery_album.url(locale)
+      end
     end
     @gallery_images = @gallery_album.try{|a| a.images.available.select{|image| image.image_url.present? }}
 
