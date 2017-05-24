@@ -5,15 +5,17 @@ class GalleryController < ApplicationController
   end
 
   def index
-    I18n.available_locales.each do |locale|
-      @locale_links[locale.to_sym] = "/#{locale}/gallery"
-    end
+
   end
 
   def albums
 
     @gallery_albums = GalleryAlbum.available
     @available_tags = Cms::Tag.available_for(@gallery_albums)
+
+    I18n.available_locales.each do |locale|
+      @locale_links[locale.to_sym] = "/#{locale}/gallery"
+    end
 
     gallery_breadcrumbs
 
