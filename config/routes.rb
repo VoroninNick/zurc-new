@@ -2,6 +2,7 @@ require Rails.root.join "config/initializers/rake_settings"
 
 unless RakeSettings.self_skip_initializers?
   Rails.application.routes.draw do
+    put "admin/gallery_album/:album_id/update_image/:image_id", to: "gallery#update_image", as: :update_image
     mount Ckeditor::Engine => '/ckeditor'
     post "message", to: "contact#post_message", as: :send_message
     get '/message', to: 'contact#message', as: :message

@@ -60,6 +60,29 @@ class GalleryController < ApplicationController
     render json: {}
   end
 
+  def update_image
+    image_id = params[:image_id].to_i
+    uk_name = params[:uk_name]
+    en_name = params[:en_name]
+    image = GalleryImage.find(image_id)
+    uk_t = image.translations_by_locale[:uk]
+    uk_t ||= image.translations.build(locale: :uk)
+    if uk_name.present?
+      uk_t.name = uk_name
+      uk_t.save
+    end
+
+    en_t = image.translations_by_locale[:en]
+    en_t ||= image.translations.build(locale: :en)
+    if en_name.present?
+      en_t.name = en_name
+      en_t.save
+    end
+
+    render json: {}
+
+  end
+
   private
 
   def gallery_breadcrumbs

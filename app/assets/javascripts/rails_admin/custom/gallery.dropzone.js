@@ -35,9 +35,32 @@ $document.on('rails_admin.dom_ready', function(){
                 $preview_element.find(".dz-image").fancybox()
             }
 
-
+            $preview_element.attr("data-image-id", file.id)
             $preview_element.find("a.dz-remove").attr("data-image-id", file.id )
+            var uk_name = file.uk_name
+            var en_name = file.en_name
 
+            if (!uk_name){
+                uk_name = file.url
+                uk_name = uk_name.split("/")
+                uk_name = uk_name[uk_name.length - 1]
+                var ext_index = uk_name.indexOf(".")
+                if (ext_index >= 0){
+                    uk_name = uk_name.substr(0, ext_index)
+                }
+            }
+
+            if (!en_name){
+                en_name = file.url
+                en_name = en_name.split("/")
+                en_name = en_name[en_name.length - 1]
+                var ext_index = en_name.indexOf(".")
+                if (ext_index >= 0){
+                    en_name = en_name.substr(0, ext_index)
+                }
+            }
+
+            $preview_element.append("<div class='custom-details'><div class='uk_name'>" + uk_name + "</div><div class='set-title' data-attr='uk_name'><a>Set uk name</a></div><div class='en_name'>" + en_name + "</div><div class='set-title' data-attr='en_name'><a>Set en name</a></div>")
         },
         removedfile: function(file){
             var id = $(file.previewTemplate).find('.dz-remove').attr('data-image-id')
@@ -130,3 +153,28 @@ function dz_upload_data(){
         setTimeout(upload_data, 1000)
     }
 }
+
+$document.on("click", ".set-title", function(){
+    var attr_name = $(this).attr("data-attr")
+    $name = $(this).prev()
+    name = $name.text()
+    new_name = prompt(attr_name + ": '" + name + "'")
+    var changed = new_name && new_name.length && new_name != name
+    if(changed){
+        var image_id = $(this).closest(".dz-preview").attr("data-image-id")
+
+        $name.text(new_name)
+        image_data = {}
+        image_data[attr_name] = new_name
+
+        $.ajax({
+            type: "put",
+            url: "update_image/"+image_id,
+            data: image_data
+        })
+
+    }
+
+
+
+})

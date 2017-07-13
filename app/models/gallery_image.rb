@@ -60,6 +60,7 @@ class GalleryImage < ActiveRecord::Base
 
   def get_props(image_field_name = "data", large_version_name = "gallery_image", thumb_version_name = "admin_thumb")
     img = self
-    image_field = img.send(image_field_name); image_version = image_field.send(thumb_version_name); {id: img.id, name: image_version.url, url: image_version.url, large_image_url: image_field.send(large_version_name).url, size: image_field.file.size}
+
+    image_field = img.send(image_field_name); image_version = image_field.send(thumb_version_name); {id: img.id, uk_name: img.translations_by_locale[:uk].try(:name), en_name: img.translations_by_locale[:en].try(:name), url: image_version.url, large_image_url: image_field.send(large_version_name).url, size: image_field.file.size}
   end
 end
