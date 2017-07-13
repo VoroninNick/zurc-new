@@ -6,11 +6,12 @@ class PageController < ApplicationController
     @home_gallery_images = HomeGalleryImage.published
     @featured_articles = Article.published.news.featured
 
+    I18n.available_locales.each do |locale|
+      @locale_links[locale.to_sym] = "/#{locale}"
+    end
+
     render layout: 'home'
     #output_map_coordinates
-  end
-
-  def contact
   end
 
   def about

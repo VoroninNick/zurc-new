@@ -55,6 +55,7 @@ uk:
   head_title_untitled: "Без назви"
 
   gallery-page: "Галерея"
+  show-on-page: "Показувати на сторінку:"
 
   activerecord:
     models:

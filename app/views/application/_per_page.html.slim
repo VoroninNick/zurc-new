@@ -3,7 +3,7 @@
     /.drop-down-header
       = @per
     div
-      |Показувати на сторінку:
+      = t("show-on-page")
     .dropdown
       - [10, 15, 20, 50, 100].each do |count|
         a href=per_url(count) class=("active" if count == @per)

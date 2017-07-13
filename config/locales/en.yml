@@ -64,6 +64,8 @@ en:
     name: "Name"
     album-images-count: "%{count} photos"
 
+  show-on-page: "Show on page:"
+
   head_title: "%{title} - WURC"
   head_title_untitled: "Untitled"
   gallery-page: "Gallery"

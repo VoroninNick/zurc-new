@@ -232,7 +232,7 @@ class ArticlesController < InnerPageController
 
       @breadcrumbs = resource.smart_breadcrumbs
       I18n.available_locales.select{|locale| locale.to_sym != I18n.locale.to_sym }.each do |locale|
-        @locale_links[locale.to_sym] = resource.smart_to_param
+        @locale_links[locale.to_sym] = resource.url(locale)
       end
 
       init_publication if  @article.try{|a| a.article_category.root.send(:publications_category?)}

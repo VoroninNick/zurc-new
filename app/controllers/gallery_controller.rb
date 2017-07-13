@@ -13,6 +13,10 @@ class GalleryController < ApplicationController
     @gallery_albums = GalleryAlbum.available
     @available_tags = Cms::Tag.available_for(@gallery_albums)
 
+    I18n.available_locales.each do |locale|
+      @locale_links[locale.to_sym] = "/#{locale}/gallery"
+    end
+
     gallery_breadcrumbs
 
     init_metadata
@@ -25,6 +29,9 @@ class GalleryController < ApplicationController
     @gallery_album = GalleryAlbum.available.with_translations.where(url_fragment: params_album).first
     if @gallery_album
       @breadcrumbs << { title: @gallery_album.name }
+      I18n.available_locales.each do |locale|
+        @locale_links[locale.to_sym] = @gallery_album.url(locale)
+      end
     end
     @gallery_images = @gallery_album.try{|a| a.images.available.select{|image| image.image_url.present? }}
 

@@ -36,7 +36,9 @@ module ApplicationHelper
     about_articles = Article.published.about_us.order_by_date_desc
     menu_items = []
     about_articles.each do |item|
-      menu_items.push({name: item.name, link: item.smart_to_param})
+      h = {name: item.name, link: item.smart_to_param}
+      next if h[:link].blank? || h[:name].blank?
+      menu_items.push(h)
     end
 
     menu_items.push({name: I18n.t("gallery-page"), link: gallery_path(locale: I18n.locale)})
@@ -49,7 +51,9 @@ module ApplicationHelper
     what_we_do_child_nodes = ArticleCategory.available_what_we_do_categories
     menu_items = []
     what_we_do_child_nodes.each do |item|
-      menu_items.push({name: item.name, link: item.smart_to_param})
+      h = {name: item.name, link: item.smart_to_param}
+      next if h[:link].blank? || h[:name].blank?
+      menu_items.push(h)
     end
 
     separate_menu_items(menu_items)

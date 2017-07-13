@@ -21,6 +21,7 @@
       <% locale_labels = { uk: "UA", en: "ENG" } %>
       <ul class="right">
         <% Cms.config.provided_locales.each do |locale| %>
+            <% next if @locale_links[locale.to_sym].blank? %>
             <li class="language" id="<%= locale %>">
               <% if I18n.locale.to_sym == locale.to_sym  %>
                   <%= content_tag(:span, class: 'image-wrapper') { image_tag("flags/#{locale}.png") } + content_tag(:span, locale_labels[locale.to_sym], class: "language-label")  %>
