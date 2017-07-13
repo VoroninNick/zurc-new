@@ -115,6 +115,8 @@ sass:
         = "Click on image to view large version"
       p
         = "Large versions available for uploaded images after page reload"
+      p
+        = "'Set name' works after reload"
       /= f.submit :submit, value: 'Upload', name: 'Upload', :class => 'btn btn-primary'
 
     /- if @object.send(album_images_association_name).try(&:any?)
