@@ -42,21 +42,25 @@ $document.on('rails_admin.dom_ready', function(){
 
             if (!uk_name){
                 uk_name = file.url
-                uk_name = uk_name.split("/")
-                uk_name = uk_name[uk_name.length - 1]
-                var ext_index = uk_name.indexOf(".")
-                if (ext_index >= 0){
-                    uk_name = uk_name.substr(0, ext_index)
+                if (uk_name && uk_name.length) {
+                    uk_name = uk_name.split("/")
+                    uk_name = uk_name[uk_name.length - 1]
+                    var ext_index = uk_name.indexOf(".")
+                    if (ext_index >= 0) {
+                        uk_name = uk_name.substr(0, ext_index)
+                    }
                 }
             }
 
             if (!en_name){
                 en_name = file.url
-                en_name = en_name.split("/")
-                en_name = en_name[en_name.length - 1]
-                var ext_index = en_name.indexOf(".")
-                if (ext_index >= 0){
-                    en_name = en_name.substr(0, ext_index)
+                if (en_name && en_name.length) {
+                    en_name = en_name.split("/")
+                    en_name = en_name[en_name.length - 1]
+                    var ext_index = en_name.indexOf(".")
+                    if (ext_index >= 0) {
+                        en_name = en_name.substr(0, ext_index)
+                    }
                 }
             }
 
