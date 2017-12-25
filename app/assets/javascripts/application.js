@@ -14,6 +14,7 @@
 //= require jquery_ujs
 // require turbolinks
 //= require variables
+//= require images.js.erb
 //= require form_messages
 //= require jquery.validate
 

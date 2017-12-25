@@ -158,4 +158,8 @@ module ApplicationHelper
     base_url = @root_category.url
     base_url + sort_url_fragment(direction) + per_url_fragment + tags_url_fragment(nil)
   end
+
+  def sponsor_asset_path(image_name)
+    asset_path("/sponsors/new/#{image_name}")
+  end
 end

@@ -1,4 +1,5 @@
 //= require rails_admin/custom/global
+//= require rails_admin/custom/stylesheets.js.erb
 //= require rails_admin/custom/fancybox.js
 // require jquery-form/dist/jquery.form.min
 //= require rails_admin/custom/gallery.sorting_and_fancybox

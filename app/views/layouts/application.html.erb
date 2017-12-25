@@ -16,7 +16,7 @@
   <!-- Set the viewport width to device width for mobile -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="<%= asset_path("favicon.ico") %>" type="image/x-icon">
 
   <%= seo_tags %>
 
@@ -28,7 +28,7 @@
   <%= csrf_meta_tags %>
 
   <!--[if lt IE 9]>
-  <script src="/assets/respond.min.js"></script>
+  <script src="<%= asset_path('respond.min.js') %>"></script>
   <![endif]-->
 
   <script type="text/javascript">

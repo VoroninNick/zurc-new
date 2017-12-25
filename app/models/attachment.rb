@@ -36,7 +36,7 @@ class Attachment < ActiveRecord::Base
       icon_file_name = extension_image_names[ext_name_without_dot.to_sym]
       icon_file_name = extension_image_names[:default] if icon_file_name.blank?
 
-      return "/assets/file_icons/#{icon_file_name}"
+      return "file_icons/#{icon_file_name}"
     else
       return nil
     end

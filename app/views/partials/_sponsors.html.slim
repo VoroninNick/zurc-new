@@ -1,0 +1,43 @@
+- content = FooterCompaniesMarkup.content
+- if content.present?
+  = raw content
+- else
+  #sponsors
+    .row
+      .large-3.medium-6.small-8.small-centered.medium-uncentered.columns style=("min-height: 95px")
+        a.bwWrapper href=""
+          img.greyScale src=sponsor_asset_path("1.jpg")
+      .large-3.medium-6.small-8.small-centered.medium-uncentered.columns style=("min-height: 95px")
+        a.bwWrapper href="http://www.dvv-international.org.ua/"
+          | Фонд сприяння демократії Посольства США в Україні
+      .large-3.medium-6.small-8.small-centered.medium-uncentered.columns
+        a.bwWrapper href="http://www.irf.ua/"
+          img.greyScale src=sponsor_asset_path("3.jpg")
+      .large-3.medium-6.small-8.small-centered.medium-uncentered.columns
+        a.bwWrapper href="http://www.un.org/democracyfund/"
+          img.greyScale src=sponsor_asset_path("4.jpg")
+      .large-6.medium-12.small-12.columns style=("clear: left")
+        .row
+          .large-3.medium-3.small-8.small-centered.medium-uncentered.columns style=("min-height: 95px")
+            a.bwWrapper href="http://www.mott.org/"
+              img.greyScale src=sponsor_asset_path("5.png")
+          .large-3.medium-3.small-8.small-centered.medium-uncentered.columns style=("min-height: 95px")
+            a.bwWrapper href=""
+              img.greyScale src=sponsor_asset_path("6.png")
+          .large-3.medium-3.small-8.small-centered.medium-uncentered.columns style=("min-height: 95px")
+            a.bwWrapper href="http://eeas.europa.eu/delegations/ukraine/index_uk.htm"
+              img.greyScale src=sponsor_asset_path("eur.jpg")
+          .large-3.medium-3.small-8.small-centered.medium-uncentered.columns style=("min-height: 95px")
+            a.bwWrapper href="http://www.ua.undp.org/content/ukraine/uk/home.html"
+              img.greyScale src=sponsor_asset_path("undp-ukraine.png")
+      .large-2.medium-4.small-8.small-centered.medium-uncentered.columns style=("min-height: 95px")
+        a.bwWrapper href="http://www.ofii.fr/defaut.php3" style=("margin-right: 1rem;margin-top: 15px;margin-bottom:15px;")
+          img.greyScale src=sponsor_asset_path("7.png")
+        a.bwWrapper href="http://www.irp-fundacja.pl/"
+          img.greyScale src=sponsor_asset_path("8.png")
+      .large-2.medium-3.small-4.small-centered.medium-uncentered.columns
+        a.bwWrapper href="http://iom.org.ua/ua"
+          img.greyScale src=sponsor_asset_path("/assets/sponsors/new/9.png")
+      .large-2.medium-3.small-4.left.small-offset-4.medium-offset-0.medium-uncentered.columns
+        a.bwWrapper href=""
+          img.greyScale src="/assets/sponsors/new/10.png"

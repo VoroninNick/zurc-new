@@ -92,8 +92,8 @@ $document.on('rails_admin.dom_ready', function(){
 })
 
 $document.on('ready rails_admin.dom_ready', function(){
-    $('head').append('<link rel="stylesheet" type="text/css" href="/assets/fancybox.css">')
-    $.getScript("/assets/fancybox.js", function(){
+    $('head').append('<link rel="stylesheet" type="text/css" href="' + stylesheets.fancybox + '">')
+    $.getScript(javascripts.fancybox, function(){
         init_fancybox_links()
     })
 
