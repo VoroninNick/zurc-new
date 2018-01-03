@@ -29,6 +29,8 @@ $large-down: "#{$screen} and (max-width: #{upper-bound($large-range)})";
 @import "partials/home_gallery";
 @import "gallery";
 
+@import "devise";
+
 .devise-view{
   max-width: 500px;
   margin: 0 auto;
